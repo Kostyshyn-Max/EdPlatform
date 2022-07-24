@@ -11,18 +11,18 @@ namespace EdPlatform.Data.EF
     public class ApplicationDbContext : DbContext
     {
 #pragma warning disable CS8618
-        public DbSet<User> Users { get; }
-        public DbSet<CourseUser> CourseUsers { get; }
-        public DbSet<Course> Courses { get; }
-        public DbSet<Module> Modules { get; }
-        public DbSet<Lesson> Lessons { get; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<CourseUser> CourseUsers { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Module> Modules { get; set; }
+        public DbSet<Lesson> Lessons { get; set; }
         public DbSet<Quiz> Quizzes { get; set; }
-        public DbSet<CodeExercise> CodeExercises { get; }
-        public DbSet<ExerciseWithAnswer> ExercisesWithAnswer { get; }
-        public DbSet<Case> Cases { get; }
-        public DbSet<IOCase> IOCases { get; }
-        public DbSet<Atempt> Atempts { get; }
-        public DbSet<Comment> Comments { get; }
+        public DbSet<CodeExercise> CodeExercises { get; set; }
+        public DbSet<ExerciseWithAnswer> ExercisesWithAnswer { get; set; }
+        public DbSet<Case> Cases { get; set; }
+        public DbSet<IOCase> IOCases { get; set; }
+        public DbSet<Atempt> Atempts { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
