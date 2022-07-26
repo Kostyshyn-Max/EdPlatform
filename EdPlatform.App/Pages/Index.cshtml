@@ -1,0 +1,5 @@
+﻿@page
+@model EdPlatform.App.Pages.IndexModel
+@{
+}
+You are @(User?.Claims?.FirstOrDefault()?.Value ?? "bad")

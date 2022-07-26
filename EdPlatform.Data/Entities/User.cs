@@ -17,5 +17,6 @@ namespace EdPlatform.Data.Entities
         public string Email { get; set; }
         [Required]
         public string HashPassword { get; set; }
+        public string PasswordSalt { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EdPlatform.Data.Interfaces
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork : IAsyncDisposable
     {
         IRepository<Atempt> AtemptRepository { get; }
         IRepository<Case> CaseRepository { get; }
@@ -21,6 +21,6 @@ namespace EdPlatform.Data.Interfaces
         IRepository<Module> ModuleRepository { get; }
         IRepository<Quiz> QuizRepository { get; }
         IRepository<User> UserRepository { get; }
-        void Save();
+        Task Save();
     }
 }

@@ -1,0 +1,23 @@
+﻿@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model EdPlatform.App.Pages.Account.LoginModel
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Input.Login"></label>
+        <input asp-for="Input.Login" class="form-control">
+        <span asp-validation-for="Input.Login" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Input.Password"></label>
+        <input asp-for="Input.Password" class="form-control">
+        <span asp-validation-for="Input.Password" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-default">Log in</button>
+    </div>
+</form>
+
+@section scripts{
+    @Html.PartialAsync("_ValidationScriptsPartial");
+}

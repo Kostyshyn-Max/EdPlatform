@@ -1,7 +1,20 @@
+using EdPlatform.Business.Service;
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+{
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+    options.SlidingExpiration = true;
+    options.AccessDeniedPath = "/";
+});
+
+builder.Services.AddSingleton<IUserService, UserService>();
 
 var app = builder.Build();
 
@@ -13,6 +26,11 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+var cookiePolicyOptions = new CookiePolicyOptions
+{
+    MinimumSameSitePolicy = SameSiteMode.Strict,
+};
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -23,5 +41,13 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapRazorPages();
+app.MapDefaultControllerRoute();
+
+app.UseCookiePolicy(cookiePolicyOptions);
 
 app.Run();

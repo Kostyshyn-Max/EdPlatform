@@ -1,6 +1,7 @@
 ﻿using EdPlatform.Data.EF;
 using EdPlatform.Data.Entities;
 using EdPlatform.Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,19 +19,19 @@ namespace EdPlatform.Data.Repositories
             _context = context;
         }
 
-        public void Create(Case entity)
+        public async Task Create(Case entity)
         {
-            _context.Cases.Add(entity);
+            await _context.Cases.AddAsync(entity);
         }
 
-        public Case Get(int id)
+        public async Task<Case> Get(int id)
         {
-            return _context.Cases.Find(id);
+            return await _context.Cases.FindAsync(id);
         }
 
-        public IEnumerable<Case> GetAll()
+        public async Task<IEnumerable<Case>> GetAll()
         {
-            return _context.Cases;
+            return await _context.Cases.ToListAsync();
         }
 
         public void Update(Case entity)

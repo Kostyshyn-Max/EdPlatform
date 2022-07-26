@@ -1,6 +1,7 @@
 ﻿using EdPlatform.Data.EF;
 using EdPlatform.Data.Entities;
 using EdPlatform.Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,19 +18,25 @@ namespace EdPlatform.Data.Repositories
             _context = context;
         }
 
-        public void Create(User entity)
+        public async Task Create(User entity)
         {
-            _context.Users.Add(entity);
+            await _context.Users.AddAsync(entity);
         }
 
-        public User Get(int id)
+        public async Task<User> Get(int id)
         {
-            return _context.Users.Find(id);
+            var user = await _context.Users.FindAsync(id);
+            return user;
         }
 
-        public IEnumerable<User> GetAll()
+        public async Task<User> Get(string login)
         {
-            return _context.Users;
+            return await _context.Users.FirstOrDefaultAsync(x => x.Login == login);
+        }
+
+        public async Task<IEnumerable<User>> GetAll()
+        {
+            return await _context.Users.ToListAsync();
         }
 
 

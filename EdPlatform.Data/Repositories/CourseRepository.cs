@@ -18,17 +18,17 @@ namespace EdPlatform.Data.Repositories
             _context = context;
         }
 
-        public void Create(Course entity)
+        public async Task Create(Course entity)
         {
-            _context.Courses.Add(entity);
+            await _context.Courses.AddAsync(entity);
         }
 
-        public Course Get(int id)
+        public async Task<Course> Get(int id)
         {
-            return _context.Courses.Find(id);
+            return await _context.Courses.FindAsync(id);
         }
 
-        public IEnumerable<Course> GetAll()
+        public async Task<IEnumerable<Course>> GetAll()
         {
             return _context.Courses;
         }

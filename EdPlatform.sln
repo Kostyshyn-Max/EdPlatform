@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdPlatform.App", "EdPlatform.App\EdPlatform.App.csproj", "{5328AB2D-7A6F-4847-A1F6-1B3319A0E080}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdPlatform.App", "EdPlatform.App\EdPlatform.App.csproj", "{5328AB2D-7A6F-4847-A1F6-1B3319A0E080}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdPlatform.Business", "EdPlatform.Business\EdPlatform.Business.csproj", "{2C8E3946-E891-4BA8-9C55-40D394009694}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdPlatform.Business", "EdPlatform.Business\EdPlatform.Business.csproj", "{2C8E3946-E891-4BA8-9C55-40D394009694}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdPlatform.Data", "EdPlatform.Data\EdPlatform.Data.csproj", "{E41A20C2-D398-4CCE-994A-68CDAF352566}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdPlatform.Data", "EdPlatform.Data\EdPlatform.Data.csproj", "{E41A20C2-D398-4CCE-994A-68CDAF352566}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

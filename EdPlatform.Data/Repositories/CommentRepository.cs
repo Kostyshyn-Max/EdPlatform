@@ -1,6 +1,7 @@
 ﻿using EdPlatform.Data.EF;
 using EdPlatform.Data.Entities;
 using EdPlatform.Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,19 +19,19 @@ namespace EdPlatform.Data.Repositories
             _context = context;
         }
 
-        public void Create(Comment entity)
+        public async Task Create(Comment entity)
         {
-            _context.Comments.Add(entity);
+            await _context.Comments.AddAsync(entity);
         }
 
-        public Comment Get(int id)
+        public async Task<Comment> Get(int id)
         {
-            return _context.Comments.Find(id);
+            return await _context.Comments.FindAsync(id);
         }
 
-        public IEnumerable<Comment> GetAll()
+        public async Task<IEnumerable<Comment>> GetAll()
         {
-            return _context.Comments;
+            return await _context.Comments.ToListAsync();
         }
 
         public void Update(Comment entity)
