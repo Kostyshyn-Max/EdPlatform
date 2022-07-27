@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace EdPlatform.Data.Entities
 {
-    public class Atempt
+    public class FillExercise : Exercise
     {
-        [Key]
-        public int UserId { get; set; }
-        public int ExerciseId { get; set; }
-        public string UserAnswer { get; set; }
-        public bool IsCompleted { get; set; }
+#pragma warning disable CS8618
+        [Required]
+        public string Condition { get; set; }
+        [Required]
+        public string Answer { get; set; }
     }
 }

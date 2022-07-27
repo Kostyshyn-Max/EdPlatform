@@ -12,153 +12,56 @@ namespace EdPlatform.Data
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private AtemptRepository _atemptRepository;
-        private CaseRepository _caseRepository;
-        private CodeExerciseRepository _codeExerciseRepository;
-        private CommentRepository _commentRepository;
-        private CourseRepository _courseRepository;
-        private ExerciseWithAnswerRepository _exerciseWithAnswerRepository;
-        private CourseUserRepository _courseUserRepository;
-        private IOCaseRepository _iOCaseRepository;
-        private LessonRepository _lessonRepository;
-        private ModuleRepository _moduleRepository;
-        private QuizRepository _quizRepository;
-        private UserRepository _userRepository;
-
         private readonly ApplicationDbContext _context;
         public UnitOfWork()
         {
             _context = new();
+            AttemptRepository = new AttemptRepository(_context);
+            CaseRepository = new CaseRepository(_context);
+            CodeExerciseRepository = new CodeExerciseRepository(_context);
+            CommentRepository = new CommentRepository(_context);
+            CourseRepository = new CourseRepository(_context);
+            CourseUserRepository = new CourseUserRepository(_context);
+            FillExerciseRepository = new FillExerciseRepository(_context);
+            IOCaseRepository = new IOCaseRepository(_context);
+            LessonRepository = new LessonRepository(_context);
+            ModuleRepository = new ModuleRepository(_context);
+            QuizRepository = new QuizRepository(_context);
+            UserRepository = new UserRepository(_context);
         }
 
-        public IRepository<Atempt> AtemptRepository
-        {
-            get
-            {
-                if (_atemptRepository == null)
-                    _atemptRepository = new(_context);
-                return _atemptRepository;
-            }
-        }
+        public IAttemptRepository AttemptRepository { get; private set; }
 
-        public IRepository<Case> CaseRepository
-        {
-            get
-            {
-                if (_caseRepository == null)
-                    _caseRepository = new(_context);
-                return _caseRepository;
-            }
-        }
+        public ICaseRepository CaseRepository { get; private set; }
 
-        public IRepository<CodeExercise> CodeExerciseRepository
-        {
-            get
-            {
-                if (_codeExerciseRepository == null)
-                    _codeExerciseRepository = new(_context);
-                return _codeExerciseRepository;
-            }
-        }
+        public ICodeExerciseRepository CodeExerciseRepository { get; private set; }
 
-        public IRepository<Comment> CommentRepository
-        {
-            get
-            {
-                if (_commentRepository == null)
-                    _commentRepository = new(_context);
-                return _commentRepository;
-            }
-        }
+        public ICommentRepository CommentRepository { get; private set; }
 
-        public IRepository<Course> CourseRepository
-        {
-            get
-            {
-                if (_courseRepository == null)
-                    _courseRepository = new(_context);
-                return _courseRepository;
-            }
-        }
+        public ICourseRepository CourseRepository { get; private set; }
 
-        public IRepository<CourseUser> CourseUserRepository
-        {
-            get
-            {
-                if (_courseUserRepository == null)
-                    _courseUserRepository = new(_context);
-                return _courseUserRepository;
-            }
-        }
+        public ICourseUserRepository CourseUserRepository { get; private set; }
 
-        public IRepository<ExerciseWithAnswer> ExerciseWithAnswerRepository
-        {
-            get
-            {
-                if (_exerciseWithAnswerRepository == null)
-                    _exerciseWithAnswerRepository = new(_context);
-                return _exerciseWithAnswerRepository;
-            }
-        }
+        public IFillExerciseRepository FillExerciseRepository { get; private set; }
 
-        public IRepository<IOCase> IOCaseRepository
-        {
-            get
-            {
-                if (_iOCaseRepository == null)
-                    _iOCaseRepository = new(_context);
-                return _iOCaseRepository;
-            }
-        }
+        public IIOCaseRepository IOCaseRepository { get; private set; }
 
-        public IRepository<Lesson> LessonRepository
-        {
-            get
-            {
-                if (_lessonRepository == null)
-                    _lessonRepository = new(_context);
-                return _lessonRepository;
-            }
-        }
+        public ILessonRepository LessonRepository { get; private set; }
 
-        public IRepository<Module> ModuleRepository
-        {
-            get
-            {
-                if (_moduleRepository == null)
-                    _moduleRepository = new(_context);
-                return _moduleRepository;
-            }
-        }
+        public IModuleRepository ModuleRepository { get; private set; }
 
-        public IRepository<Quiz> QuizRepository
-        {
-            get
-            {
-                if (_quizRepository == null)
-                    _quizRepository = new(_context);
-                return _quizRepository;
-            }
-        }
+        public IQuizRepository QuizRepository { get; private set; }
 
-        public IRepository<User> UserRepository
-        {
-            get
-            {
-                if (_userRepository == null)
-                    _userRepository = new(_context);
-                return _userRepository;
-            }
-        }
+        public IUserRepository UserRepository { get; private set; }
 
         public async Task Save()
         {
             await _context.SaveChangesAsync();
         }
 
-        public async ValueTask DisposeAsync()
+        public ValueTask DisposeAsync()
         {
-            await _context.DisposeAsync();
+            return _context.DisposeAsync();
         }
     }
 }

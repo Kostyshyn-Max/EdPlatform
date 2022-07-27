@@ -10,6 +10,6 @@ namespace EdPlatform.Business.Service
     public interface IUserService
     {
        Task Register(UserRegisterModel user);
-       Task<UserModel> Login(UserLoginModel user);
+       Task<UserModel?> Login(UserLoginModel user);
     }
 }

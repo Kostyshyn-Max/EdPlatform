@@ -9,18 +9,18 @@ namespace EdPlatform.Data.Interfaces
 {
     public interface IUnitOfWork : IAsyncDisposable
     {
-        IRepository<Atempt> AtemptRepository { get; }
-        IRepository<Case> CaseRepository { get; }
-        IRepository<CodeExercise> CodeExerciseRepository { get; }
-        IRepository<Comment> CommentRepository { get; }
-        IRepository<Course> CourseRepository { get; }
-        IRepository<CourseUser> CourseUserRepository { get; }
-        IRepository<ExerciseWithAnswer> ExerciseWithAnswerRepository { get; }
-        IRepository<IOCase> IOCaseRepository { get; }
-        IRepository<Lesson> LessonRepository { get; }
-        IRepository<Module> ModuleRepository { get; }
-        IRepository<Quiz> QuizRepository { get; }
-        IRepository<User> UserRepository { get; }
+        IAttemptRepository AttemptRepository { get; }
+        ICaseRepository CaseRepository { get; }
+        ICodeExerciseRepository CodeExerciseRepository { get; }
+        ICommentRepository CommentRepository { get; }
+        ICourseRepository CourseRepository { get; }
+        ICourseUserRepository CourseUserRepository { get; }
+        IFillExerciseRepository FillExerciseRepository { get; }
+        IIOCaseRepository IOCaseRepository { get; }
+        ILessonRepository LessonRepository { get; }
+        IModuleRepository ModuleRepository { get; }
+        IQuizRepository QuizRepository { get; }
+        IUserRepository UserRepository { get; }
         Task Save();
     }
 }

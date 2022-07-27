@@ -5,12 +5,13 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EdPlatform.Data.Repositories
 {
-    public class QuizRepository : IRepository<Quiz>
+    public class QuizRepository : IQuizRepository
     {
         private readonly ApplicationDbContext _context;
         public QuizRepository(ApplicationDbContext context)
@@ -18,12 +19,12 @@ namespace EdPlatform.Data.Repositories
             _context = context;
         }
 
-        public async Task Create(Quiz entity)
+        public async Task Add(Quiz entity)
         {
             await _context.Quizzes.AddAsync(entity);
         }
 
-        public async Task<Quiz> Get(int id)
+        public async Task<Quiz?> Get(int id)
         {
             return await _context.Quizzes.FindAsync(id);
         }
@@ -33,12 +34,17 @@ namespace EdPlatform.Data.Repositories
             return await _context.Quizzes.ToListAsync();
         }
 
+        public async Task<IEnumerable<Quiz>> Find(Expression<Func<Quiz, bool>> expression)
+        {
+            return await _context.Quizzes.Where(expression).ToListAsync();
+        }
+
         public void Update(Quiz entity)
         {
             _context.Quizzes.Update(entity);
         }
 
-        public void Delete(int id)
+        public void Remove(int id)
         {
             var entity = _context.Quizzes.Find(id);
             if (entity != null)

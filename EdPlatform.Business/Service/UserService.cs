@@ -20,9 +20,9 @@ namespace EdPlatform.Business.Service
             _unitOfWork = new();
         }
 
-        public async Task<UserModel> Login(UserLoginModel user)
+        public async Task<UserModel?> Login(UserLoginModel user)
         {
-            var dbUser = await (_unitOfWork.UserRepository as UserRepository)?.Get(user.Login);
+            var dbUser = (await _unitOfWork.UserRepository.Find(u => u.Login == user.Login)).SingleOrDefault();
             if (dbUser == null)
                 return null;
 
@@ -53,7 +53,7 @@ namespace EdPlatform.Business.Service
                 numBytesRequested: 256 / 8)
             );
 
-            await _unitOfWork.UserRepository.Create(new User { 
+            await _unitOfWork.UserRepository.Add(new User { 
                 Login = user.Login, 
                 Email = user.Email, 
                 HashPassword = hashed, 

@@ -5,12 +5,13 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EdPlatform.Data.Repositories
 {
-    public class CommentRepository : IRepository<Comment>
+    public class CommentRepository : ICommentRepository
     {
         private readonly ApplicationDbContext _context;
 
@@ -19,12 +20,12 @@ namespace EdPlatform.Data.Repositories
             _context = context;
         }
 
-        public async Task Create(Comment entity)
+        public async Task Add(Comment entity)
         {
             await _context.Comments.AddAsync(entity);
         }
 
-        public async Task<Comment> Get(int id)
+        public async Task<Comment?> Get(int id)
         {
             return await _context.Comments.FindAsync(id);
         }
@@ -34,12 +35,17 @@ namespace EdPlatform.Data.Repositories
             return await _context.Comments.ToListAsync();
         }
 
+        public async Task<IEnumerable<Comment>> Find(Expression<Func<Comment, bool>> expression)
+        {
+            return await _context.Comments.Where(expression).ToListAsync();
+        }
+
         public void Update(Comment entity)
         {
             _context.Comments.Update(entity);
         }
 
-        public void Delete(int id)
+        public void Remove(int id)
         {
             var entity = _context.Comments.Find(id);
             if (entity != null)

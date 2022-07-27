@@ -1,15 +1,17 @@
 ﻿using EdPlatform.Data.EF;
 using EdPlatform.Data.Entities;
 using EdPlatform.Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EdPlatform.Data.Repositories
 {
-    public class CourseRepository : IRepository<Course>
+    public class CourseRepository : ICourseRepository
     {
         private readonly ApplicationDbContext _context;
 
@@ -18,19 +20,24 @@ namespace EdPlatform.Data.Repositories
             _context = context;
         }
 
-        public async Task Create(Course entity)
+        public async Task Add(Course entity)
         {
             await _context.Courses.AddAsync(entity);
         }
 
-        public async Task<Course> Get(int id)
+        public async Task<Course?> Get(int id)
         {
             return await _context.Courses.FindAsync(id);
         }
 
         public async Task<IEnumerable<Course>> GetAll()
         {
-            return _context.Courses;
+            return await _context.Courses.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Course>> Find(Expression<Func<Course, bool>> expression)
+        {
+            return await _context.Courses.Where(expression).ToListAsync();
         }
 
         public void Update(Course entity)
@@ -38,7 +45,7 @@ namespace EdPlatform.Data.Repositories
             _context.Courses.Update(entity);
         }
 
-        public void Delete(int id)
+        public void Remove(int id)
         {
             var entity = _context.Courses.Find(id);
             if (entity != null)

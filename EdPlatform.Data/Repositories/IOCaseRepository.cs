@@ -5,12 +5,13 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EdPlatform.Data.Repositories
 {
-    public class IOCaseRepository : IRepository<IOCase>
+    public class IOCaseRepository : IIOCaseRepository
     {
         private readonly ApplicationDbContext _context;
         public IOCaseRepository(ApplicationDbContext context)
@@ -18,12 +19,12 @@ namespace EdPlatform.Data.Repositories
             _context = context;
         }
 
-        public async Task Create(IOCase entity)
+        public async Task Add(IOCase entity)
         {
             await _context.IOCases.AddAsync(entity);
         }
 
-        public async Task<IOCase> Get(int id)
+        public async Task<IOCase?> Get(int id)
         {
             return await _context.IOCases.FindAsync(id);
         }
@@ -33,12 +34,17 @@ namespace EdPlatform.Data.Repositories
             return await _context.IOCases.ToListAsync();
         }
 
+        public async Task<IEnumerable<IOCase>> Find(Expression<Func<IOCase, bool>> expression)
+        {
+            return await _context.IOCases.Where(expression).ToListAsync();
+        }
+
         public void Update(IOCase entity)
         {
             _context.IOCases.Update(entity);
         }
 
-        public void Delete(int id)
+        public void Remove(int id)
         {
             var entity = _context.IOCases.Find(id);
             if (entity != null)

@@ -5,45 +5,51 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EdPlatform.Data.Repositories
 {
-    public class AtemptRepository : IRepository<Atempt>
+    public class AttemptRepository : IAttemptRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public AtemptRepository(ApplicationDbContext context)
+        public AttemptRepository(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public async Task Create(Atempt entity)
+        public async Task Add(Attempt entity)
         {
-            await _context.Atempts.AddAsync(entity);
+            await _context.Attempts.AddAsync(entity);
         }
         
-        public async Task<Atempt> Get(int id)
+        public async Task<Attempt?> Get(int id)
         {
-            return await _context.Atempts.FindAsync(id);
+            return await _context.Attempts.FindAsync(id);
         }
 
-        public async Task<IEnumerable<Atempt>> GetAll()
+        public async Task<IEnumerable<Attempt>> GetAll()
         {
-            return await _context.Atempts.ToListAsync();
+            return await _context.Attempts.ToListAsync();
         }
 
-        public void Update(Atempt entity)
+        public async Task<IEnumerable<Attempt>> Find(Expression<Func<Attempt, bool>> expression)
         {
-            _context.Atempts.Update(entity);
+            return await _context.Attempts.Where(expression).ToListAsync();
         }
 
-        public void Delete(int id)
+        public void Update(Attempt entity)
         {
-            var entity = _context.Atempts.Find(id);
+            _context.Attempts.Update(entity);
+        }
+
+        public void Remove(int id)
+        {
+            var entity = _context.Attempts.Find(id);
             if (entity != null)
-                _context.Atempts.Remove(entity);
+                _context.Attempts.Remove(entity);
         }
     }
 }

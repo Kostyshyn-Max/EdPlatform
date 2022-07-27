@@ -24,18 +24,18 @@ namespace EdPlatform.App.Pages.Account
 
 
         [TempData]
-        public string ErrorMessage { get; set; }
+        public string? ErrorMessage { get; set; }
 
         [BindProperty]
-        public InputModel Input { get; set; }
+        public InputModel? Input { get; set; }
         public class InputModel
         {
             [Required]
-            public string Login { get; set; }
+            public string? Login { get; set; }
 
             [Required]
             [DataType(DataType.Password)]
-            public string Password { get; set; }
+            public string? Password { get; set; }
         }
 
         public async Task OnGetAsync()
@@ -47,9 +47,7 @@ namespace EdPlatform.App.Pages.Account
         {
             if (ModelState.IsValid)
             {
-                var user =  await _userService.Login(new UserLoginModel() { Login = Input.Login, Password = Input.Password });
-
-                //var user = await AuthenticateUser(Input.Login, Input.Password);
+                var user =  await _userService.Login(new UserLoginModel() { Login = Input?.Login, Password = Input?.Password });
 
                 if (user == null)
                 {
@@ -73,8 +71,6 @@ namespace EdPlatform.App.Pages.Account
                     new ClaimsPrincipal(claimsIdentity),
                     authProperty
                 );
-
-                _logger.LogInformation($"User {user.Email}, user login {user.Login}");
 
                 return Redirect("/");
             }

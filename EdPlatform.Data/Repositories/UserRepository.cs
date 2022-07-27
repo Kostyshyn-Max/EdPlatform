@@ -5,12 +5,13 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EdPlatform.Data.Repositories
 {
-    public class UserRepository : IRepository<User>
+    public class UserRepository : IUserRepository
     {
         private readonly ApplicationDbContext _context;
         public UserRepository(ApplicationDbContext context)
@@ -18,20 +19,14 @@ namespace EdPlatform.Data.Repositories
             _context = context;
         }
 
-        public async Task Create(User entity)
+        public async Task Add(User entity)
         {
             await _context.Users.AddAsync(entity);
         }
 
-        public async Task<User> Get(int id)
+        public async Task<User?> Get(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            return user;
-        }
-
-        public async Task<User> Get(string login)
-        {
-            return await _context.Users.FirstOrDefaultAsync(x => x.Login == login);
+            return await _context.Users.FindAsync(id);
         }
 
         public async Task<IEnumerable<User>> GetAll()
@@ -39,13 +34,17 @@ namespace EdPlatform.Data.Repositories
             return await _context.Users.ToListAsync();
         }
 
+        public async Task<IEnumerable<User>> Find(Expression<Func<User, bool>> expression)
+        {
+            return await _context.Users.Where(expression).ToListAsync();
+        }
 
         public void Update(User entity)
         {
             _context.Users.Update(entity);  
         }
 
-        public void Delete(int id)
+        public void Remove(int id)
         {
             var entity = _context.Users.Find(id);
             if (entity != null)

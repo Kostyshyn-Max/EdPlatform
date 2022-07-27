@@ -5,12 +5,13 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EdPlatform.Data.Repositories
 {
-    public class CaseRepository : IRepository<Case>
+    public class CaseRepository : ICaseRepository
     {
         private readonly ApplicationDbContext _context;
 
@@ -19,12 +20,12 @@ namespace EdPlatform.Data.Repositories
             _context = context;
         }
 
-        public async Task Create(Case entity)
+        public async Task Add(Case entity)
         {
             await _context.Cases.AddAsync(entity);
         }
 
-        public async Task<Case> Get(int id)
+        public async Task<Case?> Get(int id)
         {
             return await _context.Cases.FindAsync(id);
         }
@@ -34,12 +35,17 @@ namespace EdPlatform.Data.Repositories
             return await _context.Cases.ToListAsync();
         }
 
+        public async Task<IEnumerable<Case>> Find(Expression<Func<Case, bool>> expression)
+        {
+            return await _context.Cases.Where(expression).ToListAsync();
+        }
+
         public void Update(Case entity)
         {
             _context.Cases.Update(entity);
         }
 
-        public void Delete(int id)
+        public void Remove(int id)
         {
             var entity = _context.Cases.Find(id);
             if (entity != null)

@@ -19,20 +19,20 @@ namespace EdPlatform.App.Pages.Account
         }
 
         [BindProperty]
-        public InputModel Input { get; set; }
+        public InputModel? Input { get; set; }
         public class InputModel
         {
             [Required]
-            public string Login { get; set; }
+            public string? Login { get; set; }
             [Required]
             [EmailAddress]
-            public string Email { get; set; }
+            public string? Email { get; set; }
             [Required]
             [DataType(DataType.Password)]
             [Compare(nameof(ConfirmPassword))]
-            public string Password { get; set; }
+            public string? Password { get; set; }
             [Required]
-            public string ConfirmPassword { get; set; }
+            public string? ConfirmPassword { get; set; }
         }
 
         public async Task OnGetAsync()
@@ -44,7 +44,7 @@ namespace EdPlatform.App.Pages.Account
         {
             if (ModelState.IsValid)
             {
-                await _userService.Register(new UserRegisterModel() { Email = Input.Email, Login = Input.Login, Password = Input.Password });
+                await _userService.Register(new UserRegisterModel() { Email = Input?.Email, Login = Input?.Login, Password = Input?.Password });
 
                 return Redirect("/");
             }

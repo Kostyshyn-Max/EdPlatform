@@ -5,44 +5,50 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EdPlatform.Data.Repositories
 {
-    public class ExerciseWithAnswerRepository : IRepository<ExerciseWithAnswer>
+    public class FillExerciseRepository : IFillExerciseRepository
     {
         private readonly ApplicationDbContext _context;
-        public ExerciseWithAnswerRepository(ApplicationDbContext context)
+        public FillExerciseRepository(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public async Task Create(ExerciseWithAnswer entity)
+        public async Task Add(FillExercise entity)
         {
-            await _context.ExercisesWithAnswer.AddAsync(entity);
+            await _context.FillExercises.AddAsync(entity);
         }
 
-        public async Task<ExerciseWithAnswer> Get(int id)
+        public async Task<FillExercise?> Get(int id)
         {
-            return await _context.ExercisesWithAnswer.FindAsync(id);
+            return await _context.FillExercises.FindAsync(id);
         }
 
-        public async Task<IEnumerable<ExerciseWithAnswer>> GetAll()
+        public async Task<IEnumerable<FillExercise>> GetAll()
         {
-            return await _context.ExercisesWithAnswer.ToListAsync();
+            return await _context.FillExercises.ToListAsync();
         }
 
-        public void Update(ExerciseWithAnswer entity)
+        public async Task<IEnumerable<FillExercise>> Find(Expression<Func<FillExercise, bool>> expression)
         {
-            _context.ExercisesWithAnswer.Update(entity);
+            return await _context.FillExercises.Where(expression).ToListAsync();
         }
 
-        public void Delete(int id)
+        public void Update(FillExercise entity)
         {
-            var entity = _context.ExercisesWithAnswer.Find(id);
+            _context.FillExercises.Update(entity);
+        }
+
+        public void Remove(int id)
+        {
+            var entity = _context.FillExercises.Find(id);
             if (entity != null)
-                _context.ExercisesWithAnswer.Remove(entity);
+                _context.FillExercises.Remove(entity);
         }
     }
 }

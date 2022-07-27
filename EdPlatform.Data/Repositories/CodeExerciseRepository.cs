@@ -5,12 +5,13 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EdPlatform.Data.Repositories
 {
-    public class CodeExerciseRepository : IRepository<CodeExercise>
+    public class CodeExerciseRepository : ICodeExerciseRepository
     {
         private readonly ApplicationDbContext _context;
 
@@ -19,12 +20,12 @@ namespace EdPlatform.Data.Repositories
             _context = context;
         }
 
-        public async Task Create(CodeExercise entity)
+        public async Task Add(CodeExercise entity)
         {
             await _context.CodeExercises.AddAsync(entity);
         }
 
-        public async Task<CodeExercise> Get(int id)
+        public async Task<CodeExercise?> Get(int id)
         {
             return await _context.CodeExercises.FindAsync(id);
         }
@@ -34,12 +35,17 @@ namespace EdPlatform.Data.Repositories
             return await _context.CodeExercises.ToListAsync();
         }
 
+        public async Task<IEnumerable<CodeExercise>> Find(Expression<Func<CodeExercise, bool>> expression)
+        {
+            return await _context.CodeExercises.Where(expression).ToListAsync();
+        }
+
         public void Update(CodeExercise entity)
         {
             _context.CodeExercises.Update(entity);
         }
 
-        public void Delete(int id)
+        public void Remove(int id)
         {
             var entity = _context.CodeExercises.Find(id);
             if (entity != null)
