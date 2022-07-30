@@ -1,4 +1,5 @@
-﻿using EdPlatform.App.Models;
+﻿using EdPlatform.App.AuthorizationPolicy;
+using EdPlatform.App.Models;
 using EdPlatform.Business;
 using EdPlatform.Business.Models;
 using EdPlatform.Business.Service;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using System.Reflection.Metadata;
 
 namespace EdPlatform.App.Controllers
 {
@@ -16,12 +18,13 @@ namespace EdPlatform.App.Controllers
         private readonly ICourseService _courseService;
         private readonly CategoryBL _categoryBL;
         private readonly ILogger<CoursesController> _logger;
-        public CoursesController(ILogger<CoursesController> logger, ICourseService courseService)
+        private readonly IAuthorizationService _authorizationService;
+        public CoursesController(ILogger<CoursesController> logger, ICourseService courseService, IAuthorizationService authorizationService)
         {
             _logger = logger;
             _courseService = courseService;
-
             _categoryBL = new();
+            _authorizationService = authorizationService;
         }
 
         public async Task<IActionResult> Index()
@@ -56,6 +59,22 @@ namespace EdPlatform.App.Controllers
 
             await _courseService.CreateCourse(course);
             return RedirectToAction(nameof(Index));
+        }
+
+        //[HttpGet("Courses/Edit/{id}")]
+        public async Task<IActionResult> Edit([FromRoute]int id)
+        {
+            var course = await _courseService.Get(id);
+
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User, course, new EditCourseRequirement());
+            if (authorizationResult.Succeeded)
+            {
+                return View(course);
+            }
+            else
+            {
+                return RedirectToAction(nameof(Index));
+            }
         }
     }
 }

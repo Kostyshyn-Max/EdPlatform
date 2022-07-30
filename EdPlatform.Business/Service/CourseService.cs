@@ -37,11 +37,7 @@ namespace EdPlatform.Business.Service
 
         public async Task<IEnumerable<CourseModel>> GetAllFromAuthor(int authorId)
         {
-            var config = new MapperConfiguration(cfg => {
-                cfg.CreateMap<Course, CourseModel>();
-                cfg.CreateMap<Category, CategoryModel>();
-            });
-            var mapper = config.CreateMapper();
+            var mapper = CreateCourseModelMapper();
 
             List<CourseModel> courseModels = new List<CourseModel>();
             foreach(var course in await _unitOfWork.CourseRepository.Find(x => x.AuthorId == authorId))
@@ -53,11 +49,7 @@ namespace EdPlatform.Business.Service
         }
         public async Task<IEnumerable<CourseModel>> GetAll()
         {
-            var config = new MapperConfiguration(cfg => {
-                cfg.CreateMap<Course, CourseModel>();
-                cfg.CreateMap<Category, CategoryModel>();
-            });
-            var mapper = config.CreateMapper();
+            var mapper = CreateCourseModelMapper();
 
             List<CourseModel> courseModels = new List<CourseModel>();
             foreach(var course in await _unitOfWork.CourseRepository.GetAll())
@@ -66,6 +58,24 @@ namespace EdPlatform.Business.Service
             }
 
             return courseModels;
+        }
+
+        public async Task<CourseModel> Get(int id)
+        {
+            var mapper = CreateCourseModelMapper();
+            var course = mapper.Map<Course, CourseModel>(await _unitOfWork.CourseRepository.Get(id));
+
+            return course;
+        }
+
+        private static IMapper CreateCourseModelMapper()
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Course, CourseModel>();
+                cfg.CreateMap<Category, CategoryModel>();
+            });
+            return config.CreateMapper();
         }
     }
 }

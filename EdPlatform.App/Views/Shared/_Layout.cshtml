@@ -27,6 +27,12 @@
                         </li>
                     </ul>
                 </div>
+                @{
+                    string user = "";
+                    if (User.Claims.ToList().Count() != 0)
+                         user = User.Claims.ToList().SingleOrDefault(x => x.Type.Equals("Login")).Value;
+                }
+                <h1>@user</h1>       
             </div>
         </nav>
     </header>

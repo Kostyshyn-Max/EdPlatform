@@ -1,5 +1,7 @@
+using EdPlatform.App.AuthorizationPolicy;
 using EdPlatform.Business.Service;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,14 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     options.AccessDeniedPath = "/";
 });
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("CourseEditPolicy", policy =>
+        policy.Requirements.Add(new EditCourseRequirement()
+    ));
+});
+
+builder.Services.AddSingleton<IAuthorizationHandler, CourseAuthorizationHandler>();
 builder.Services.AddSingleton<IUserService, UserService>();
 builder.Services.AddSingleton<ICourseService, CourseService>();
 
