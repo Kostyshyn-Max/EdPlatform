@@ -15,6 +15,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 });
 
 builder.Services.AddSingleton<IUserService, UserService>();
+builder.Services.AddSingleton<ICourseService, CourseService>();
 
 var app = builder.Build();
 

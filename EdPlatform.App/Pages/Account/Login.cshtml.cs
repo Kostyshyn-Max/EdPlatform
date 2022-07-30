@@ -59,7 +59,8 @@ namespace EdPlatform.App.Pages.Account
                 {
                     new Claim(ClaimTypes.Email, user.Email),
                     new Claim("Login", user.Login),
-                    new Claim(ClaimTypes.Role, "User")
+                    new Claim(ClaimTypes.Role, "User"),
+                    new Claim("UserId", user.UserId.ToString())
                 };
 
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

@@ -23,6 +23,7 @@ namespace EdPlatform.Data.EF
         public DbSet<IOCase> IOCases { get; set; }
         public DbSet<Attempt> Attempts { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -36,7 +36,7 @@ namespace EdPlatform.Business.Service
 
             if (dbUser.HashPassword == passwordHash)
             {
-                return new UserModel { Email = dbUser.Email, Login = dbUser.Login };
+                return new UserModel { UserId = dbUser.UserId, Email = dbUser.Email, Login = dbUser.Login };
             }
 
             return null;

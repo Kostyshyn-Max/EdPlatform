@@ -21,6 +21,7 @@ namespace EdPlatform.Data.Interfaces
         IModuleRepository ModuleRepository { get; }
         IQuizRepository QuizRepository { get; }
         IUserRepository UserRepository { get; }
+        ICategoryRepository CategoryRepository { get; }
         Task Save();
     }
 }

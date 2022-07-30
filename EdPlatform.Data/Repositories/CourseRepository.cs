@@ -27,17 +27,17 @@ namespace EdPlatform.Data.Repositories
 
         public async Task<Course?> Get(int id)
         {
-            return await _context.Courses.FindAsync(id);
+            return await _context.Courses.Where(x => x.CourseId == id).Include(x => x.Category).SingleOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Course>> GetAll()
         {
-            return await _context.Courses.ToListAsync();
+            return await _context.Courses.Include(x => x.Category).ToListAsync();
         }
 
         public async Task<IEnumerable<Course>> Find(Expression<Func<Course, bool>> expression)
         {
-            return await _context.Courses.Where(expression).ToListAsync();
+            return await _context.Courses.Where(expression).Include(x => x.Category).ToListAsync();
         }
 
         public void Update(Course entity)

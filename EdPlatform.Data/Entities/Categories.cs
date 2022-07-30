@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace EdPlatform.Data.Entities
 {
-    public enum Categories
+    public class Category
     {
-        Programming,
+        public int CategoryId { get; set; }
+        public string CategoryName { get; set; }
     }
 }
