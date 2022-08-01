@@ -8,14 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EdPlatform.Business
+namespace EdPlatform.Business.Service
 {
-    public class CategoryBL
+    public class CategoryService : ICategoryService
     {
         private readonly UnitOfWork _unitOfWork;
-        public CategoryBL()
+        public CategoryService()
         {
-            _unitOfWork = new UnitOfWork();
+            _unitOfWork = new();
         }
 
         public async Task<IEnumerable<CategoryModel>> GetAllCategories()
@@ -24,7 +24,7 @@ namespace EdPlatform.Business
             var mapper = config.CreateMapper();
 
             List<CategoryModel> categories = new List<CategoryModel>();
-            foreach(var category in await _unitOfWork.CategoryRepository.GetAll())
+            foreach (var category in await _unitOfWork.CategoryRepository.GetAll())
             {
                 categories.Add(mapper.Map<Category, CategoryModel>(category));
             }

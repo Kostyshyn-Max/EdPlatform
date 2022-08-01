@@ -1,6 +1,5 @@
 ﻿using EdPlatform.App.AuthorizationPolicy;
 using EdPlatform.App.Models;
-using EdPlatform.Business;
 using EdPlatform.Business.Models;
 using EdPlatform.Business.Service;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -15,15 +14,15 @@ namespace EdPlatform.App.Controllers
     [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
     public class CoursesController : Controller
     {
-        private readonly ICourseService _courseService;
-        private readonly CategoryBL _categoryBL;
         private readonly ILogger<CoursesController> _logger;
+        private readonly ICourseService _courseService;
         private readonly IAuthorizationService _authorizationService;
-        public CoursesController(ILogger<CoursesController> logger, ICourseService courseService, IAuthorizationService authorizationService)
+        private readonly ICategoryService _categoryService;
+        public CoursesController(ILogger<CoursesController> logger, ICourseService courseService, IAuthorizationService authorizationService, ICategoryService categoryService)
         {
             _logger = logger;
             _courseService = courseService;
-            _categoryBL = new();
+            _categoryService = categoryService;
             _authorizationService = authorizationService;
         }
 
@@ -87,7 +86,7 @@ namespace EdPlatform.App.Controllers
 
         private async Task CreateSelectListFromCategories()
         {
-            var categories = await _categoryBL.GetAllCategories();
+            var categories = await _categoryService.GetAllCategories();
 
             List<SelectListItem> selectCategories = categories.Select(c => new SelectListItem() { Value = c.CategoryId.ToString(), Text = c.CategoryName }).ToList();
             ViewBag.Categories = selectCategories;

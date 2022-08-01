@@ -1,15 +1,15 @@
-﻿using EdPlatform.Business;
-using EdPlatform.Business.Models;
+﻿using EdPlatform.Business.Models;
+using EdPlatform.Business.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EdPlatform.App.Controllers
 {
     public class CategoriesController : Controller
     {
-        private readonly CategoryBL categoryBL;
-        public CategoriesController()
+        private readonly ICategoryService _categoryService;
+        public CategoriesController(ICategoryService categoryService)
         {
-            categoryBL = new CategoryBL();
+            _categoryService = categoryService;
         }
 
         public IActionResult Index()
@@ -26,7 +26,7 @@ namespace EdPlatform.App.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CategoryModel category)
         {
-            await categoryBL.AddCategory(category);
+            await _categoryService.AddCategory(category);
 
             return RedirectToAction(nameof(Index));
         }
