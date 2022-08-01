@@ -20,7 +20,7 @@ namespace EdPlatform.Business.Service
 
         public async Task CreateCourse(CourseModel course)
         {
-            Category? category = (await _unitOfWork.CategoryRepository.Find(x => x.CategoryName == course.Category.CategoryName)).SingleOrDefault();
+            Category? category = (await _unitOfWork.CategoryRepository.Get(course.Category.CategoryId));
             if (category == null)
                 return;
 
@@ -66,6 +66,26 @@ namespace EdPlatform.Business.Service
             var course = mapper.Map<Course, CourseModel>(await _unitOfWork.CourseRepository.Get(id));
 
             return course;
+        }
+
+        public async Task EditCourse(CourseModel course)
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<CourseModel, Course>();
+                cfg.CreateMap<CategoryModel, Category>();
+            });
+            var mapper = config.CreateMapper();
+
+            Category? category = (await _unitOfWork.CategoryRepository.Get(course.Category.CategoryId));
+            if (category == null)
+                return;
+
+            var courseData = mapper.Map<CourseModel, Course>(course);
+            courseData.Category = category;
+
+            _unitOfWork.CourseRepository.Update(courseData);
+            await _unitOfWork.Save();
         }
 
         private static IMapper CreateCourseModelMapper()

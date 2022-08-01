@@ -8,6 +8,7 @@ namespace EdPlatform.Business.Models
 {
     public class CourseModel
     {
+        public int CourseId { get; set; } 
         public string CourseName { get; set; }
         public string Description { get; set; }
         public CategoryModel Category { get; set; }

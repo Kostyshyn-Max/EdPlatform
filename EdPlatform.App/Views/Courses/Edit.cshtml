@@ -1,11 +1,26 @@
 ﻿@using EdPlatform.Business.Models
 @model CourseModel
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
 
-Hello from edit page!!!!!
-<p>@Model.CourseName</p>
-<p>@Model.AuthorId</p>
+<div class="text-center">
+    <h1 class="display-4">@Model.CourseName</h1>
+    <p>In this page you can edit your course, don't forget to save changes</p>
+</div>
+
+
+<form asp-controller="Courses" asp-action="Edit" method="post">
+    <div class="form-group">
+        <label asp-for="CourseName"></label>
+        <input asp-for="CourseName" type="text" class="form-control" value="@Model.CourseName"/>
+        <span asp-validation-for="CourseName" class="text-danger"></span>
+    </div>
+    <div class="from-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control">@Model.Description</textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Category"></label>
+        <select asp-for="Category.CategoryId" class="form-control" asp-items="@ViewBag.Categories"></select>
+    </div>
+    <button class="btn btn-primary" type="submit">Save changes</button>
+</form>

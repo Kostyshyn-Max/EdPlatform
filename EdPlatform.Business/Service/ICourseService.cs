@@ -13,5 +13,6 @@ namespace EdPlatform.Business.Service
         Task<IEnumerable<CourseModel>> GetAllFromAuthor(int authorId);
         Task<IEnumerable<CourseModel>> GetAll();
         Task<CourseModel> Get(int id);
+        Task EditCourse(CourseModel course);
     }
 }

@@ -28,6 +28,7 @@ namespace EdPlatform.Data.EF
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=MSI-GF65-THIN;Initial Catalog=EdPlatform;Integrated Security=True");
+            optionsBuilder.EnableSensitiveDataLogging();
         }
     }
 }

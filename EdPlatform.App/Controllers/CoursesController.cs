@@ -37,11 +37,7 @@ namespace EdPlatform.App.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var categories = await _categoryBL.GetAllCategories();
-
-            List<SelectListItem> selectCategories = categories.Select(c => new SelectListItem() { Value = c.CategoryName, Text = c.CategoryName }).ToList();
-
-            ViewBag.Categories = selectCategories;
+            await CreateSelectListFromCategories();
 
             return View(new CourseModel());
         }
@@ -68,12 +64,33 @@ namespace EdPlatform.App.Controllers
             var authorizationResult = await _authorizationService.AuthorizeAsync(User, course, new EditCourseRequirement());
             if (authorizationResult.Succeeded)
             {
+                await CreateSelectListFromCategories();
+
                 return View(course);
             }
             else
             {
                 return RedirectToAction(nameof(Index));
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit([FromRoute] int id, [FromForm] CourseModel course)
+        {
+            course.CourseId = id;
+            course.AuthorId = int.Parse(User.FindFirst("UserId")?.Value??"0");
+
+            await _courseService.EditCourse(course);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        private async Task CreateSelectListFromCategories()
+        {
+            var categories = await _categoryBL.GetAllCategories();
+
+            List<SelectListItem> selectCategories = categories.Select(c => new SelectListItem() { Value = c.CategoryId.ToString(), Text = c.CategoryName }).ToList();
+            ViewBag.Categories = selectCategories;
         }
     }
 }

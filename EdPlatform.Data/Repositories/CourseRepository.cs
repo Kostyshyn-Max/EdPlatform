@@ -43,6 +43,16 @@ namespace EdPlatform.Data.Repositories
         public void Update(Course entity)
         {
             _context.Courses.Update(entity);
+
+            //var course = _context.Courses.Find(entity.CourseId);
+            //if (course != null)
+            //{
+            //    course.CourseId = entity.CourseId;
+            //    course.CourseName = entity.CourseName;
+            //    course.Description = entity.Description;
+            //    course.Category = entity.Category;
+            //    course.AuthorId = entity.AuthorId;
+            //}
         }
 
         public void Remove(int id)

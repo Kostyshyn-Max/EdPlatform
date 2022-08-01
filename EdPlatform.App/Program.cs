@@ -24,8 +24,8 @@ builder.Services.AddAuthorization(options =>
 });
 
 builder.Services.AddSingleton<IAuthorizationHandler, CourseAuthorizationHandler>();
-builder.Services.AddSingleton<IUserService, UserService>();
-builder.Services.AddSingleton<ICourseService, CourseService>();
+builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<ICourseService, CourseService>();
 
 var app = builder.Build();
 
