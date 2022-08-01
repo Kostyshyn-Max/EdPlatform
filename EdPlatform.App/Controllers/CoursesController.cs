@@ -61,7 +61,6 @@ namespace EdPlatform.App.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //[HttpGet("Courses/Edit/{id}")]
         public async Task<IActionResult> Edit([FromRoute]int id)
         {
             var course = await _courseService.Get(id);

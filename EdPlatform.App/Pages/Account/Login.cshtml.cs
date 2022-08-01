@@ -15,7 +15,6 @@ namespace EdPlatform.App.Pages.Account
     {
         private readonly ILogger<LoginModel> _logger;
         private readonly IUserService _userService;
-
         public LoginModel(ILogger<LoginModel> logger, IUserService userService)
         {
             _logger = logger;
@@ -40,7 +39,7 @@ namespace EdPlatform.App.Pages.Account
 
         public async Task OnGetAsync()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync();
         }
 
         public async Task<IActionResult> OnPostAsync()

@@ -7,7 +7,7 @@ namespace EdPlatform.App.Pages.Account
 {
     public class LogoutModel : PageModel
     {
-        public async Task<IActionResult> OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
             await HttpContext.SignOutAsync();
             return RedirectToAction(nameof(HomeController.Index), "Home");

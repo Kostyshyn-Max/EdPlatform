@@ -37,7 +37,7 @@ namespace EdPlatform.App.Pages.Account
 
         public async Task OnGetAsync()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync();
         }
 
         public async Task<IActionResult> OnPostAsync()

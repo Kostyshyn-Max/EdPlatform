@@ -2,15 +2,19 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model EdPlatform.App.Pages.Account.RegisterModel
 
+@{
+    Layout = "_Layout";
+}
+
 <form method="post"> 
     <div class="form-group">
         <label asp-for="Input.Login"></label>
-        <input asp-for="Input.Login" type="text" placeholder="Login" />
+        <input asp-for="Input.Login" type="text" class="form-control" placeholder="Login" />
         <span asp-validation-for="Input.Login" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Input.Email"></label>
-        <input asp-for="Input.Email" class="form-control" placeholder="Email">
+        <input asp-for="Input.Email" type="email" class="form-control" placeholder="Email">
         <span asp-validation-for="Input.Email" class="text-danger"></span>
     </div>
     <div class="form-group">
@@ -24,6 +28,6 @@
         <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <button type="submit" class="btn btn-default">Register</button>
+        <button type="submit" class="btn btn-primary">Register</button>
     </div>
 </form>
