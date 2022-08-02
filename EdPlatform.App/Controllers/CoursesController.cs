@@ -18,12 +18,14 @@ namespace EdPlatform.App.Controllers
         private readonly ICourseService _courseService;
         private readonly IAuthorizationService _authorizationService;
         private readonly ICategoryService _categoryService;
-        public CoursesController(ILogger<CoursesController> logger, ICourseService courseService, IAuthorizationService authorizationService, ICategoryService categoryService)
+        private readonly IModuleService _moduleService;
+        public CoursesController(ILogger<CoursesController> logger, ICourseService courseService, IAuthorizationService authorizationService, ICategoryService categoryService, IModuleService moduleService)
         {
             _logger = logger;
             _courseService = courseService;
             _categoryService = categoryService;
             _authorizationService = authorizationService;
+            _moduleService = moduleService;
         }
 
         public async Task<IActionResult> Index()
@@ -56,14 +58,16 @@ namespace EdPlatform.App.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet]
         public async Task<IActionResult> Edit([FromRoute]int id)
         {
-            var course = await _courseService.Get(id);
+            var course = await _courseService.GetById(id);
 
             var authorizationResult = await _authorizationService.AuthorizeAsync(User, course, new EditCourseRequirement());
             if (authorizationResult.Succeeded)
             {
                 await CreateSelectListFromCategories();
+                ViewBag.Modules = course.Modules;
 
                 return View(course);
             }
@@ -74,14 +78,15 @@ namespace EdPlatform.App.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit([FromRoute] int id, [FromForm] CourseModel course)
+        public async Task<IActionResult> Edit([FromRoute]int id, [FromForm]CourseModel course)
         {
-            course.CourseId = id;
-            course.AuthorId = int.Parse(User.FindFirst("UserId")?.Value??"0");
-
+            course.AuthorId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
             await _courseService.EditCourse(course);
 
-            return RedirectToAction(nameof(Index));
+            var updatedCourse = await _courseService.GetById(id);
+            await CreateSelectListFromCategories();
+            ViewBag.Modules = updatedCourse.Modules;
+            return View(updatedCourse);
         }
 
         private async Task CreateSelectListFromCategories()

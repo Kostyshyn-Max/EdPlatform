@@ -60,7 +60,7 @@ namespace EdPlatform.Business.Service
             return courseModels;
         }
 
-        public async Task<CourseModel> Get(int id)
+        public async Task<CourseModel> GetById(int id)
         {
             var mapper = CreateCourseModelMapper();
             var course = mapper.Map<Course, CourseModel>(await _unitOfWork.CourseRepository.Get(id));
@@ -74,6 +74,7 @@ namespace EdPlatform.Business.Service
             {
                 cfg.CreateMap<CourseModel, Course>();
                 cfg.CreateMap<CategoryModel, Category>();
+                cfg.CreateMap<ModuleModel, Module>();
             });
             var mapper = config.CreateMapper();
 
@@ -94,6 +95,7 @@ namespace EdPlatform.Business.Service
             {
                 cfg.CreateMap<Course, CourseModel>();
                 cfg.CreateMap<Category, CategoryModel>();
+                cfg.CreateMap<Module, ModuleModel>();
             });
             return config.CreateMapper();
         }

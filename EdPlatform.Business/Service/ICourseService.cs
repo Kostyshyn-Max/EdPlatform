@@ -12,7 +12,7 @@ namespace EdPlatform.Business.Service
         Task CreateCourse(CourseModel course);
         Task<IEnumerable<CourseModel>> GetAllFromAuthor(int authorId);
         Task<IEnumerable<CourseModel>> GetAll();
-        Task<CourseModel> Get(int id);
+        Task<CourseModel> GetById(int id);
         Task EditCourse(CourseModel course);
     }
 }

@@ -22,5 +22,29 @@
         <label asp-for="Category"></label>
         <select asp-for="Category.CategoryId" class="form-control" asp-items="@ViewBag.Categories"></select>
     </div>
+    <input type="hidden" asp-for="CourseId" value="@Model.CourseId" />
     <button class="btn btn-primary" type="submit">Save changes</button>
 </form>
+
+<a asp-controller="Modules" asp-action="Create" asp-route-courseId="@Model.CourseId">Create module</a>
+
+@if (ViewBag.Modules != null)
+{
+<table class="table table-light">
+    <thead>
+        <tr>
+            <th scope="col">Module Name</th>
+            <th scope="col">Link</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var module in ViewBag.Modules)
+    {
+        <tr>
+            <td>@module.ModuleName</td>
+            <td><a asp-controller="Modules" asp-action="Edit" asp-route-courseId="@Model.CourseId" asp-route-moduleId="@module.ModuleId">Edit</a></td>
+        </tr>
+    }
+    </tbody>
+</table>
+}
