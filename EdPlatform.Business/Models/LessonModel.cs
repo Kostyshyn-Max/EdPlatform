@@ -12,6 +12,7 @@ namespace EdPlatform.Business.Models
         public string LessonName { get; set; }
         public string LessonContent { get; set; }
         public int ModuleId { get; set; }
+        public ModuleModel Module { get; set; }
         public string? VideoUrl { get; set; }
         public int Order { get; set; }
     }

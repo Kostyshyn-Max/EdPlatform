@@ -1,5 +1,7 @@
-﻿using EdPlatform.Business.Models;
+﻿using EdPlatform.App.AuthorizationPolicy;
+using EdPlatform.Business.Models;
 using EdPlatform.Business.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EdPlatform.App.Controllers
@@ -7,17 +9,29 @@ namespace EdPlatform.App.Controllers
     public class LessonsController : Controller
     {
         private readonly ILessonService _lessonService;
-        public LessonsController(ILessonService lessonService)
+        private readonly IAuthorizationService _authorizationService;
+        public LessonsController(ILessonService lessonService, IAuthorizationService authorizationService)
         {
             _lessonService = lessonService;
+            _authorizationService = authorizationService;
         }
 
         [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/Create")]
-        public IActionResult Create(int courseId, int moduleId)
+        public async Task<IActionResult> Create(int courseId, int moduleId)
         {
-            ViewBag.ModuleId = moduleId;
+            var course = _lessonService.GetCourseById(courseId);
+            var authrorizationResult = await _authorizationService.AuthorizeAsync(User, course, new EditCourseRequirement());
 
-            return View(new LessonModel());
+            if (authrorizationResult.Succeeded)
+            {
+                ViewBag.ModuleId = moduleId;
+
+                return View(new LessonModel());
+            }
+            else
+            {
+                return RedirectToAction("Index", "Courses");
+            }
         }
 
         [HttpPost("Courses/{courseId}/Modules/{moduleId}/Lessons/Create")]
@@ -33,7 +47,15 @@ namespace EdPlatform.App.Controllers
         {
             var lesson = await _lessonService.Get(lessonId);
 
-            return View(lesson);
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User, lesson.Module.Course, new EditCourseRequirement());
+            if (authorizationResult.Succeeded)
+            {
+                return View(lesson);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Courses");
+            }
         }
 
         [HttpPost("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Edit")]

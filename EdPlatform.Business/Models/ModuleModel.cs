@@ -11,6 +11,7 @@ namespace EdPlatform.Business.Models
         public int ModuleId { get; set; }
         public string ModuleName { get; set; }
         public int CourseId { get; set; }
+        public CourseModel Course {get; set;}
         public int Order { get; set; }
         public IEnumerable<LessonModel> Lessons { get; set; }
     }

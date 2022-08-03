@@ -13,6 +13,7 @@ namespace EdPlatform.Data.Entities
         public string LessonName { get; set; }
         public string LessonContent { get; set; }
         public int ModuleId { get; set; }
+        public Module Module { get; set; }
         public string? VideoUrl { get; set; }
         public int Order { get; set; }
         public IEnumerable<Exercise> Exercises { get; set; }

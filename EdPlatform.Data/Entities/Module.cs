@@ -12,6 +12,7 @@ namespace EdPlatform.Data.Entities
         public int ModuleId { get; set; }
         public string ModuleName { get; set; }
         public int CourseId { get; set; }
+        public Course Course { get; set; }
         public int Order { get; set; }
         public IEnumerable<Lesson> Lessons { get; set; }
     }
