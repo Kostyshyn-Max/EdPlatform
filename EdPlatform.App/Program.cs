@@ -28,6 +28,7 @@ builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<ICourseService, CourseService>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
 builder.Services.AddTransient<IModuleService, ModuleService>();
+builder.Services.AddTransient<ILessonService, LessonService>();
 
 var app = builder.Build();
 

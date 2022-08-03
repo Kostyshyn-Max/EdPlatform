@@ -1,0 +1,35 @@
+﻿@using EdPlatform.Business.Models
+@model LessonModel
+
+<form asp-controller="Lessons" asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="LessonName"></label>
+        <input asp-for="LessonName" type="text" class="form-control" placeholder="Enter lesson name" />
+        <span asp-validation-for="LessonName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LessonContent"></label>
+        <textarea asp-for="LessonContent" id="lesson-content" placeholder="Lesson content part"></textarea>
+        <span asp-validation-for="LessonContent"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="VideoUrl">(optional)</label>
+        <input asp-for="VideoUrl" type="url" class="form-control" placeholder="Paste video url which will be embedded to the lesson"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Order"></label>
+        <input asp-for="Order" type="number" class="form-control" />
+        <span asp-validation-for="Order"></span>
+    </div>
+    <input type="hidden" value="@ViewBag.ModuleId" />
+    <button class="btn btn-primary" type="submit">Create</button>
+</form>
+
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+<script>
+    tinymce.init({
+        selector: '#lesson-content',
+        height: "480"
+    });
+</script>

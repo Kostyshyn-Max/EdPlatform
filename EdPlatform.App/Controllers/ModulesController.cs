@@ -29,18 +29,18 @@ namespace EdPlatform.App.Controllers
             return RedirectToAction("Edit", "Courses", courseId);
         }
 
-        [HttpGet("Courses/{courseId}/Modules/Edit/{moduleId}")]
+        [HttpGet("Courses/{courseId}/Modules/{moduleId}/Edit")]
         public async Task<IActionResult> Edit(int courseId, int moduleId)
         {
             return View(await _moduleService.GetById(moduleId));
         }
 
-        [HttpPost("Courses/{courseId}/Modules/Edit/{moduleId}")]
+        [HttpPost("Courses/{courseId}/Modules/{moduleId}/Edit")]
         public async Task<IActionResult> Edit(int courseId, int moduleId, ModuleModel module)
         {
             await _moduleService.EditModule(module);
 
-            return RedirectToAction("Edit", "Courses", new { id = courseId });
+            return View(await _moduleService.GetById(moduleId));
         }
     }
 }

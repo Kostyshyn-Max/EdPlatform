@@ -19,7 +19,12 @@ namespace EdPlatform.App.Controllers
         private readonly IAuthorizationService _authorizationService;
         private readonly ICategoryService _categoryService;
         private readonly IModuleService _moduleService;
-        public CoursesController(ILogger<CoursesController> logger, ICourseService courseService, IAuthorizationService authorizationService, ICategoryService categoryService, IModuleService moduleService)
+        public CoursesController(
+            ILogger<CoursesController> logger, 
+            ICourseService courseService, 
+            IAuthorizationService authorizationService, 
+            ICategoryService categoryService, 
+            IModuleService moduleService)
         {
             _logger = logger;
             _courseService = courseService;
@@ -58,16 +63,15 @@ namespace EdPlatform.App.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Edit([FromRoute]int id)
+        [HttpGet("Courses/{courseId}/Edit")]
+        public async Task<IActionResult> Edit([FromRoute]int courseId)
         {
-            var course = await _courseService.GetById(id);
+            var course = await _courseService.GetById(courseId);
 
             var authorizationResult = await _authorizationService.AuthorizeAsync(User, course, new EditCourseRequirement());
             if (authorizationResult.Succeeded)
             {
                 await CreateSelectListFromCategories();
-                ViewBag.Modules = course.Modules;
 
                 return View(course);
             }
@@ -77,13 +81,13 @@ namespace EdPlatform.App.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Edit([FromRoute]int id, [FromForm]CourseModel course)
+        [HttpPost("Courses/{courseId}/Edit")]
+        public async Task<IActionResult> Edit([FromRoute]int courseId, [FromForm]CourseModel course)
         {
             course.AuthorId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
             await _courseService.EditCourse(course);
 
-            var updatedCourse = await _courseService.GetById(id);
+            var updatedCourse = await _courseService.GetById(courseId);
             await CreateSelectListFromCategories();
             ViewBag.Modules = updatedCourse.Modules;
             return View(updatedCourse);
@@ -93,7 +97,10 @@ namespace EdPlatform.App.Controllers
         {
             var categories = await _categoryService.GetAllCategories();
 
-            List<SelectListItem> selectCategories = categories.Select(c => new SelectListItem() { Value = c.CategoryId.ToString(), Text = c.CategoryName }).ToList();
+            List<SelectListItem> selectCategories = categories.Select(c => new SelectListItem() { 
+                Value = c.CategoryId.ToString(), 
+                Text = c.CategoryName 
+            }).ToList();
             ViewBag.Categories = selectCategories;
         }
     }

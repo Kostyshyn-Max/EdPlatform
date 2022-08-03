@@ -28,7 +28,7 @@
 
 <a asp-controller="Modules" asp-action="Create" asp-route-courseId="@Model.CourseId">Create module</a>
 
-@if (ViewBag.Modules != null)
+@if (Model.Modules != null)
 {
 <table class="table table-light">
     <thead>
@@ -38,7 +38,7 @@
         </tr>
     </thead>
     <tbody>
-    @foreach (var module in ViewBag.Modules)
+    @foreach (var module in Model.Modules.OrderBy(x => x.Order))
     {
         <tr>
             <td>@module.ModuleName</td>

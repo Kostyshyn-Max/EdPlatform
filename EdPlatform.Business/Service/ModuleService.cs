@@ -36,6 +36,7 @@ namespace EdPlatform.Business.Service
                 modules.Add(mapper.Map<Module, ModuleModel>(module));
             }
 
+            modules.OrderByDescending(x => x.Order);
             return modules;
         }
 
@@ -57,14 +58,19 @@ namespace EdPlatform.Business.Service
 
         private static IMapper CreateModuleModelToModuleMapper()
         {
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<ModuleModel, Module>());
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<ModuleModel, Module>();
+            });
             var mapper = config.CreateMapper();
             return mapper;
         }
 
         private static IMapper CreateModuleToModuleModelMapper()
         {
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<Module, ModuleModel>());
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<Module, ModuleModel>();
+                cfg.CreateMap<Lesson, LessonModel>();
+            });
             var mapper = config.CreateMapper();
             return mapper;
         }

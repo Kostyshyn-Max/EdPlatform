@@ -16,3 +16,21 @@
     <input asp-for="CourseId" type="hidden" value="@Model.CourseId" />
     <button class="btn btn-primary" type="submit">Save changes</button>
 </form>
+
+<a asp-controller="Lessons" asp-action="Create" asp-route-courseId="@Model.CourseId" asp-route-moduleId="@Model.ModuleId">Create</a>
+
+@if(Model.Lessons != null)
+{
+    @foreach(var lesson in Model.Lessons.OrderBy(x => x.Order))
+    {
+        <div class="card">
+            <div class="card-header">
+                @lesson.LessonName
+            </div>
+            <div class="card-body">
+                <div class="card-text">@Html.Raw(lesson.LessonContent)</div>
+                <a asp-route-courseId="@Model.CourseId" asp-route-moduleId="@Model.ModuleId" asp-route-lessonId="@lesson.LessonId" asp-controller="Lessons" asp-action="Edit">Edit</a>
+            </div>
+        </div>
+    }
+}
