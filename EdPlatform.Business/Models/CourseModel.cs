@@ -14,5 +14,6 @@ namespace EdPlatform.Business.Models
         public CategoryModel Category { get; set; }
         public int AuthorId { get; set; }
         public IEnumerable<ModuleModel> Modules { get; set; }
+        public int UsersJoined { get; set; }
     }
 }

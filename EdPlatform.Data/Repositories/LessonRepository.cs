@@ -26,17 +26,23 @@ namespace EdPlatform.Data.Repositories
 
         public async Task<Lesson?> Get(int id)
         {
-            return await _context.Lessons.Where(x => x.LessonId == id).Include(x => x.Module).SingleOrDefaultAsync();
+            return await _context.Lessons.Where(x => x.LessonId == id)
+                .Include(x => x.Module).ThenInclude(x => x.Course).ThenInclude(x => x.Modules).ThenInclude(x => x.Lessons)
+                .Include(x => x.Module).ThenInclude(x => x.Lessons).SingleOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Lesson>> GetAll()
         {
-            return await _context.Lessons.Include(x => x.Module).ToListAsync();
+            return await _context.Lessons
+                .Include(x => x.Module).ThenInclude(x => x.Course).ThenInclude(x => x.Modules).ThenInclude(x => x.Lessons)
+                .Include(x => x.Module).ThenInclude(x => x.Lessons).ToListAsync();
         }
 
         public async Task<IEnumerable<Lesson>> Find(Expression<Func<Lesson, bool>> expression)
         {
-            return await _context.Lessons.Where(expression).Include(x => x.Module).ToListAsync();
+            return await _context.Lessons.Where(expression)
+                .Include(x => x.Module).ThenInclude(x => x.Course).ThenInclude(x => x.Modules).ThenInclude(x => x.Lessons)
+                .Include(x => x.Module).ThenInclude(x => x.Lessons).ToListAsync();
         }
 
         public void Update(Lesson entity)

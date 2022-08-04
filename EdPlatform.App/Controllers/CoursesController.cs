@@ -68,6 +68,7 @@ namespace EdPlatform.App.Controllers
             var course = await _courseService.GetById(courseId);
             ViewBag.Course = course;
             ViewBag.UserId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
+            ViewBag.CourseUser = courseUser;
 
             await _courseUserService.CreateCourseUser(courseUser);
 

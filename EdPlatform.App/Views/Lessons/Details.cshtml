@@ -1,0 +1,32 @@
+﻿@using EdPlatform.Business.Models
+@model LessonModel
+
+@if (Model.Module.Course.Modules != null)
+{
+    @foreach (var module in Model.Module.Course.Modules.OrderBy(x => x.Order))
+    {
+    <label>Modules:</label>
+    <ul class="list-group">
+        <li class="list-group-item">@module.ModuleName</li>  
+
+        @if (module.Lessons != null)
+        {
+        <li class="list-group-item">
+            <ul class="list-group">
+                @foreach (var lesson in module.Lessons.OrderBy(x => x.Order))
+                {
+                    <li class="list-group-item">
+                        @lesson.LessonName 
+                        <a asp-route-courseId="@module.CourseId" asp-route-moduleId="@module.ModuleId" asp-route-lessonId="@lesson.LessonId" asp-action="Details" asp-controller="Lessons">Details</a>
+                    </li> 
+                }
+            </ul>
+        </li>
+        }
+    </ul>
+    }
+}
+
+<div>
+    @Html.Raw(Model.LessonContent)
+</div>

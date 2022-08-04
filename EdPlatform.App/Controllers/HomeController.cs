@@ -1,4 +1,5 @@
 ﻿using EdPlatform.App.Models;
+using EdPlatform.Business.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,14 +8,20 @@ namespace EdPlatform.App.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ICourseService _courseService;
+        private readonly ICategoryService _categoryService;
+        public HomeController(ILogger<HomeController> logger, ICourseService courseService, ICategoryService categoryService)
         {
             _logger = logger;
+            _courseService = courseService;
+            _categoryService = categoryService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            ViewBag.PopularCourses = (await _courseService.GetAll()).OrderByDescending(x => x.UsersJoined).Take(10).ToList();
+            ViewBag.Categories = await _categoryService.GetAllCategories();
+
             return View();
         }
 

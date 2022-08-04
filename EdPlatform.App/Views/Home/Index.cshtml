@@ -1,8 +1,31 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    ViewData["Categories"] = ViewBag.Categories;
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>View all <a asp-controller="Courses" asp-action="Index">courses</a></p>
 </div>
+
+<h2>Popular courses</h2>
+
+@if (ViewBag.PopularCourses != null)
+{
+<div class="container">
+    <div class="row">
+        @foreach (var course in ViewBag.PopularCourses)
+        {
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">@course.CourseName</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@course.Category.CategoryName</h6>
+                    <p class="card-text">@course.Description</p>
+                    <p>@course.UsersJoined - Users joined to this course</p>
+                    <a asp-controller="Courses" asp-action="Details" asp-route-courseId="@course.CourseId">Details</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+}

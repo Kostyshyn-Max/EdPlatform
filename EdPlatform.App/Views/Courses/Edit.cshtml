@@ -23,6 +23,7 @@
         <select asp-for="Category.CategoryId" class="form-control" asp-items="@ViewBag.Categories"></select>
     </div>
     <input type="hidden" asp-for="CourseId" value="@Model.CourseId" />
+    <input type="hidden" asp-for="UsersJoined" value="@Model.UsersJoined" />
     <button class="btn btn-primary" type="submit">Save changes</button>
 </form>
 

@@ -19,7 +19,7 @@ namespace EdPlatform.App.Controllers
         [HttpGet("Courses/{courseId}/Modules/Create")]
         public async Task<IActionResult> Create(int courseId)
         {
-            var course = _moduleService.GetCourseById(courseId);
+            var course = await _moduleService.GetCourseById(courseId);
             var authorizationResult = await _authorizationService.AuthorizeAsync(User, course, new EditCourseRequirement());
 
             if (authorizationResult.Succeeded)
@@ -37,7 +37,7 @@ namespace EdPlatform.App.Controllers
         {
             await _moduleService.CreateModule(module);
 
-            return RedirectToAction("Edit", "Courses", courseId);
+            return RedirectToAction("Edit", "Courses", new {courseId = courseId});
         }
 
         [HttpGet("Courses/{courseId}/Modules/{moduleId}/Edit")]

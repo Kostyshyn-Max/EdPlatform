@@ -23,6 +23,10 @@ namespace EdPlatform.Business.Services
             var config = new MapperConfiguration(cfg => cfg.CreateMap<CourseUserModel, CourseUser>());
             var mapper = config.CreateMapper();
 
+            var course = await _unitOfWork.CourseRepository.Get(courseUser.CourseId);
+            course.UsersJoined++;
+            _unitOfWork.CourseRepository.Update(course);
+
             await _unitOfWork.CourseUserRepository.Add(mapper.Map<CourseUserModel, CourseUser>(courseUser));
             await _unitOfWork.Save();
         }

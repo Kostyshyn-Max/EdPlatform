@@ -10,16 +10,18 @@ namespace EdPlatform.App.Controllers
     {
         private readonly ILessonService _lessonService;
         private readonly IAuthorizationService _authorizationService;
-        public LessonsController(ILessonService lessonService, IAuthorizationService authorizationService)
+        private readonly ICourseUserService _courseUserService;
+        public LessonsController(ILessonService lessonService, IAuthorizationService authorizationService, ICourseUserService courseUserService)
         {
             _lessonService = lessonService;
             _authorizationService = authorizationService;
+            _courseUserService = courseUserService;
         }
 
         [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/Create")]
         public async Task<IActionResult> Create(int courseId, int moduleId)
         {
-            var course = _lessonService.GetCourseById(courseId);
+            var course = await _lessonService.GetCourseById(courseId);
             var authrorizationResult = await _authorizationService.AuthorizeAsync(User, course, new EditCourseRequirement());
 
             if (authrorizationResult.Succeeded)
@@ -39,7 +41,7 @@ namespace EdPlatform.App.Controllers
         {
             await _lessonService.CreateLesson(lesson);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Edit", "Modules", new {courseId = courseId, moduleId = moduleId});
         }
 
         [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Edit")]
@@ -64,6 +66,18 @@ namespace EdPlatform.App.Controllers
             await _lessonService.EditLesson(lesson); 
             
             return View(await _lessonService.Get(lessonId));
+        }
+
+        [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Details")]
+        public async Task<IActionResult> Details(int courseId, int moduleId, int lessonId)
+        {
+            var lesson = await _lessonService.Get(lessonId);
+            var courseUser = await _courseUserService.Get(new CourseUserModel() { CourseId = courseId, UserId = int.Parse(User.FindFirst("UserId")?.Value ?? "0") });
+
+            if (courseUser != null)
+                return View(lesson);
+            else
+                return RedirectToAction("Details", "Courses", new { courseId = courseId });
         }
     }
 }

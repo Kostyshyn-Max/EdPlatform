@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using EdPlatform.Business.Models
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -13,6 +14,22 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EdPlatform.App</a>
+        
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        Catalogue
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        @if (ViewData["Categories"] != null)
+                        {
+                            foreach(var category in ViewData["Categories"] as IEnumerable<CategoryModel>)
+                            {
+                                <li><a class="dropdown-item" href="#">@category.CategoryName</a></li>
+                            }
+                        }
+                    </ul>
+                </div>
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>

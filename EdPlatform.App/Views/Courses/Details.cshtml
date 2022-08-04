@@ -20,9 +20,9 @@
     <div class="card-body">
         <p class="card-text">@ViewBag.Course.Description</p>
 
-        @if (@ViewBag.Course.Modules != null)
+        @if (ViewBag.Course.Modules != null)
         {
-            @foreach (var module in ViewBag.Course.Modules)
+            @foreach (var module in (ViewBag.Course as CourseModel).Modules.OrderBy(x => x.Order))
             {
             <label>Modules:</label>
             <ul class="list-group">
@@ -32,9 +32,19 @@
                 {
                 <li class="list-group-item">
                     <ul class="list-group">
-                        @foreach (var lesson in module.Lessons)
+                        @foreach (var lesson in module.Lessons.OrderBy(x => x.Order))
                         {
-                            <li class="list-group-item">@lesson.LessonName</li> 
+                            @if (ViewBag.CourseUser != null)
+                            {
+                                <li class="list-group-item">
+                                    @lesson.LessonName 
+                                    <a asp-route-courseId="@ViewBag.Course.CourseId" asp-route-moduleId="@module.ModuleId" asp-route-lessonId="@lesson.LessonId" asp-action="Details" asp-controller="Lessons">Details</a>
+                                </li> 
+                            }
+                            else
+                            {
+                                <li class="list-group-item">@lesson.LessonName</li>
+                            }
                         }
                     </ul>
                 </li>

@@ -23,5 +23,7 @@ namespace EdPlatform.Data.Entities
         public Category Category { get; set; }
         public IEnumerable<Module> Modules { get; set; }
         public int AuthorId { get; set; }
+
+        public int UsersJoined { get; set; }
     }
 }
