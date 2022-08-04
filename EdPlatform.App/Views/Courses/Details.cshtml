@@ -1,0 +1,46 @@
+﻿@using EdPlatform.Business.Models
+@model CourseUserModel
+
+<div class="card">
+    <div class="card-header">
+        <h2>@ViewBag.Course.CourseName</h2>
+        @if (ViewBag.CourseUser == null)
+        {
+            <form asp-controller="Courses" asp-action="Details" method="post">
+                <input asp-for="UserId" type="hidden" value="@ViewBag.UserId" />
+                <input asp-for="CourseId" type="hidden" value="@ViewBag.Course.CourseId"/>
+                <button class="btn btn-primary" type="submit">Join</button>
+            </form>
+        }
+        else
+        {
+            <span>You already joined in</span>
+        }
+    </div>
+    <div class="card-body">
+        <p class="card-text">@ViewBag.Course.Description</p>
+
+        @if (@ViewBag.Course.Modules != null)
+        {
+            @foreach (var module in ViewBag.Course.Modules)
+            {
+            <label>Modules:</label>
+            <ul class="list-group">
+                <li class="list-group-item">@module.ModuleName</li>  
+
+                @if (module.Lessons != null)
+                {
+                <li class="list-group-item">
+                    <ul class="list-group">
+                        @foreach (var lesson in module.Lessons)
+                        {
+                            <li class="list-group-item">@lesson.LessonName</li> 
+                        }
+                    </ul>
+                </li>
+                }
+            </ul>
+            }
+        }
+    </div>
+</div>

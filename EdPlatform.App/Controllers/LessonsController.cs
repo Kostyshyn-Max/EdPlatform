@@ -1,6 +1,6 @@
 ﻿using EdPlatform.App.AuthorizationPolicy;
 using EdPlatform.Business.Models;
-using EdPlatform.Business.Service;
+using EdPlatform.Business.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

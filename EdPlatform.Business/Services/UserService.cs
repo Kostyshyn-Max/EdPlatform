@@ -10,7 +10,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EdPlatform.Business.Service
+namespace EdPlatform.Business.Services
 {
     public class UserService : IUserService
     {

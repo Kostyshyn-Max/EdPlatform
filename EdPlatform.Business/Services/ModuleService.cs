@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EdPlatform.Business.Service
+namespace EdPlatform.Business.Services
 {
     public class ModuleService : IModuleService
     {

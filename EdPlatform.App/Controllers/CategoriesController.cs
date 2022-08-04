@@ -1,5 +1,5 @@
 ﻿using EdPlatform.Business.Models;
-using EdPlatform.Business.Service;
+using EdPlatform.Business.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EdPlatform.App.Controllers

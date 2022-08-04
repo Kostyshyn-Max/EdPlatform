@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EdPlatform.Business.Service
+namespace EdPlatform.Business.Services
 {
     public class CourseService : ICourseService
     {
@@ -96,6 +96,7 @@ namespace EdPlatform.Business.Service
                 cfg.CreateMap<Course, CourseModel>();
                 cfg.CreateMap<Category, CategoryModel>();
                 cfg.CreateMap<Module, ModuleModel>();
+                cfg.CreateMap<Lesson, LessonModel>();
             });
             return config.CreateMapper();
         }

@@ -1,7 +1,7 @@
 ﻿using EdPlatform.App.AuthorizationPolicy;
 using EdPlatform.App.Models;
 using EdPlatform.Business.Models;
-using EdPlatform.Business.Service;
+using EdPlatform.Business.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,25 +19,59 @@ namespace EdPlatform.App.Controllers
         private readonly IAuthorizationService _authorizationService;
         private readonly ICategoryService _categoryService;
         private readonly IModuleService _moduleService;
+        private readonly ICourseUserService _courseUserService;
         public CoursesController(
             ILogger<CoursesController> logger, 
-            ICourseService courseService, 
-            IAuthorizationService authorizationService, 
-            ICategoryService categoryService, 
-            IModuleService moduleService)
+            ICourseService courseService,
+            IAuthorizationService authorizationService,
+            ICategoryService categoryService,
+            IModuleService moduleService,
+            ICourseUserService courseUserService)
         {
             _logger = logger;
             _courseService = courseService;
             _categoryService = categoryService;
             _authorizationService = authorizationService;
             _moduleService = moduleService;
+            _courseUserService = courseUserService;
         }
 
         public async Task<IActionResult> Index()
         {
+            int userId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
+            var courseUsers = await _courseUserService.GetAllFromUser(userId);
+
             ViewBag.Courses = await _courseService.GetAll();
+            ViewBag.CourseUsers = courseUsers;
 
             return View();
+        }
+
+        [HttpGet("Courses/{courseId}/Details")]
+        public async Task<IActionResult> Details([FromRoute] int courseId)
+        {
+            int userId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
+
+            var courseUser = await _courseUserService.Get(new CourseUserModel() { UserId = userId, CourseId = courseId});
+            var course = await _courseService.GetById(courseId);
+            
+            ViewBag.Course = course;
+            ViewBag.UserId = userId;
+            ViewBag.CourseUser = courseUser;
+
+            return View(new CourseUserModel());
+        }
+
+        [HttpPost("Courses/{courseId}/Details")]
+        public async Task<IActionResult> Details([FromRoute] int courseId, CourseUserModel courseUser)
+        {
+            var course = await _courseService.GetById(courseId);
+            ViewBag.Course = course;
+            ViewBag.UserId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
+
+            await _courseUserService.CreateCourseUser(courseUser);
+
+            return View(new CourseUserModel());
         }
 
         [HttpGet]

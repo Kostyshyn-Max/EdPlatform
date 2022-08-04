@@ -146,16 +146,19 @@ namespace EdPlatform.Data.Migrations
 
             modelBuilder.Entity("EdPlatform.Data.Entities.CourseUser", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("CourseUserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseUserId"), 1L, 1);
 
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
-                    b.HasKey("UserId");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CourseUserId");
 
                     b.ToTable("CourseUsers");
                 });

@@ -27,32 +27,31 @@ namespace EdPlatform.Data.Repositories
 
         public async Task<Course?> Get(int id)
         {
-            return await _context.Courses.Where(x => x.CourseId == id).Include(x => x.Category).Include(x => x.Modules).SingleOrDefaultAsync();
+            return await _context.Courses.Where(x => x.CourseId == id)
+                .Include(x => x.Category)
+                .Include(x => x.Modules).ThenInclude(x => x.Lessons)
+                .SingleOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Course>> GetAll()
         {
-            return await _context.Courses.Include(x => x.Category).Include(x => x.Modules).ToListAsync();
+            return await _context.Courses
+                .Include(x => x.Category)
+                .Include(x => x.Modules).ThenInclude(x => x.Lessons)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Course>> Find(Expression<Func<Course, bool>> expression)
         {
-            return await _context.Courses.Where(expression).Include(x => x.Category).Include(x => x.Modules).ToListAsync();
+            return await _context.Courses.Where(expression)
+                .Include(x => x.Category)
+                .Include(x => x.Modules).ThenInclude(x => x.Lessons)
+                .ToListAsync();
         }
 
         public void Update(Course entity)
         {
             _context.Courses.Update(entity);
-
-            //var course = _context.Courses.Find(entity.CourseId);
-            //if (course != null)
-            //{
-            //    course.CourseId = entity.CourseId;
-            //    course.CourseName = entity.CourseName;
-            //    course.Description = entity.Description;
-            //    course.Category = entity.Category;
-            //    course.AuthorId = entity.AuthorId;
-            //}
         }
 
         public void Remove(int id)

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EdPlatform.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220801155152_AddCourseIdToModuleModel")]
-    partial class AddCourseIdToModuleModel
+    [Migration("20220803152647_AddIdToCourseUser")]
+    partial class AddIdToCourseUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -148,16 +148,19 @@ namespace EdPlatform.Data.Migrations
 
             modelBuilder.Entity("EdPlatform.Data.Entities.CourseUser", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("CourseUserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseUserId"), 1L, 1);
 
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
-                    b.HasKey("UserId");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CourseUserId");
 
                     b.ToTable("CourseUsers");
                 });
@@ -231,10 +234,12 @@ namespace EdPlatform.Data.Migrations
 
                     b.Property<string>("LessonName")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ModuleId")
+                    b.Property<int>("ModuleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Order")
                         .HasColumnType("int");
 
                     b.Property<string>("VideoUrl")
@@ -260,8 +265,7 @@ namespace EdPlatform.Data.Migrations
 
                     b.Property<string>("ModuleName")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Order")
                         .HasColumnType("int");
@@ -375,18 +379,24 @@ namespace EdPlatform.Data.Migrations
 
             modelBuilder.Entity("EdPlatform.Data.Entities.Lesson", b =>
                 {
-                    b.HasOne("EdPlatform.Data.Entities.Module", null)
+                    b.HasOne("EdPlatform.Data.Entities.Module", "Module")
                         .WithMany("Lessons")
-                        .HasForeignKey("ModuleId");
+                        .HasForeignKey("ModuleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Module");
                 });
 
             modelBuilder.Entity("EdPlatform.Data.Entities.Module", b =>
                 {
-                    b.HasOne("EdPlatform.Data.Entities.Course", null)
+                    b.HasOne("EdPlatform.Data.Entities.Course", "Course")
                         .WithMany("Modules")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("EdPlatform.Data.Entities.Course", b =>

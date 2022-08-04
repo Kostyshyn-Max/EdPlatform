@@ -1,5 +1,5 @@
 using EdPlatform.App.AuthorizationPolicy;
-using EdPlatform.Business.Service;
+using EdPlatform.Business.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 
@@ -29,6 +29,7 @@ builder.Services.AddTransient<ICourseService, CourseService>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
 builder.Services.AddTransient<IModuleService, ModuleService>();
 builder.Services.AddTransient<ILessonService, LessonService>();
+builder.Services.AddTransient<ICourseUserService, CourseUserService>();
 
 var app = builder.Build();
 
