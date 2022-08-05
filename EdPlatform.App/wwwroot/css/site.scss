@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz@8..144&display=swap');
+
+$background-color: #18324A;
+$text-color: #FFFFFF;
+$navbar-color: #2E3C49;
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    background-color: $background-color;
+    font-family: 'Roboto Serif', serif;
+    color: $text-color;
+    background-image: url('../img/background.svg');
+}
+
+h1, h2, h3 {
+    font-weight: 400;
+    margin: 0;
+}
+
+header nav {
+    background-color: $navbar-color;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    padding: 0px 24px;
+
+    .logo {
+        height: 40px;
+
+        img {
+            height: 40px;
+        }
+    }
+
+    .dropdown {
+        .title {
+            color: $text-color;
+            text-decoration: none;
+            font-size: 20px;
+            display: flex;
+            padding: 0px 12px;
+            align-items: center;
+            margin: 0 0.5rem;
+            height: 48px;
+
+            img {
+                margin: 0 0.3rem;
+                content: url('../img/arrow-down.svg');
+            }
+
+            &:hover {
+                background-color: #232F3A;
+            }
+        }
+
+        ul {
+            background-color: #1e2831;
+            clear: both;
+            overflow: hidden;
+            transition: height .4s ease;
+            display: none;
+            position: absolute;
+            list-style: none;
+            padding: 8px;
+            margin: 0 8px;
+
+            li {
+                padding: 8px 0;
+
+                a {
+                    color: $text-color;
+                    text-decoration: none;
+                    padding: 8px;
+
+                    &:hover {
+                        background-color: #293744;
+                    }
+                }
+            }
+        }
+
+        &:hover {
+            ul {
+                display: block;
+            }
+        }
+    }
+}
+
+.content {
+    margin: 0px 180px;
+    min-height: calc(100% - 48px);
+    margin-bottom: -169px;
+
+    .hero {
+        background-color: #415262;
+        text-align: center;
+
+        h1 {
+            font-size: 64px;
+            padding: 25px 0;
+        }
+
+        h2 {
+            padding-bottom: 15px;
+        }
+    }
+
+    .course-carousel {
+        background-color: #2E3C49;
+
+        h2 {
+            padding: 12px;
+        }
+
+        .carousel-popular {
+            display: flex;
+            background-color: #232F3A;
+            padding: 10px;
+            overflow-x: auto;
+            gap: 10px;
+
+            .course-plate {
+                padding: 10px;
+                width: 20%;
+                background: #415262;
+                border-radius: 4px;
+                flex-grow: 0;
+                flex-shrink: 0;
+                flex-basis: 20%;
+
+                h2 {
+                    font-size: 20px;
+                }
+
+                img {
+                    width: 100%;
+                }
+            }
+
+            &::-webkit-scrollbar {
+                background-color: #16212B;
+                margin: 0 10px;
+                height: 10px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: #415262;
+                height: 10px;
+                border-radius: 4px;
+            }
+        }
+    }
+}
+
+.push{
+    height: 169px;
+}
+
+footer {
+    background-color: #16212B;
+    display: flex;
+    flex-direction: column;
+    bottom: 0;
+    width: 100%;
+
+    .icons {
+        height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        gap: 50px;
+
+        img {
+            &:hover {
+                filter: brightness(1.5);
+            }
+        }
+    }
+
+    .links {
+        height: 43px;
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+
+        a {
+            font-size: 20px;
+            color: $text-color;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 10px;
+
+            &:hover {
+                background-color: #232F3A;
+            }
+        }
+    }
+
+    .trademark {
+        height: 46px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        h2 {
+            color: #415262;
+            font-size: 20px;
+        }
+    }
+}
