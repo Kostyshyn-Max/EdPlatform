@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EdPlatform.Business.Models
 {
-    public class CourseModel
+    public class CourseViewModel
     {
         public int CourseId { get; set; } 
         public string CourseName { get; set; }
@@ -15,8 +15,7 @@ namespace EdPlatform.Business.Models
         public int AuthorId { get; set; }
         public IEnumerable<ModuleModel> Modules { get; set; }
         public int UsersJoined { get; set; }
-        public byte[]? Image { get; set; }
+        public IFormFile Image { get; set; }
         public string ImageName { get; set; }
-        public string ContentType { get; set; }
     }
 }

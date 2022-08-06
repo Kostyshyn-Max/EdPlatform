@@ -25,5 +25,7 @@ namespace EdPlatform.Data.Entities
         public int AuthorId { get; set; }
 
         public int UsersJoined { get; set; }
+
+        public string ImageName { get; set; }
     }
 }

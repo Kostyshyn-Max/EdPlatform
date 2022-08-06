@@ -13,26 +13,36 @@ namespace EdPlatform.Business.Services
     public class CourseService : ICourseService
     {
         private readonly UnitOfWork _unitOfWork;
-        public CourseService()
+        private readonly IImageService _imageService;
+        public CourseService(IImageService imageService)
         {
             _unitOfWork = new();
+            _imageService = imageService;
         }
 
-        public async Task CreateCourse(CourseModel course)
+        public async Task<bool> CreateCourse(CourseModel course)
         {
             Category? category = (await _unitOfWork.CategoryRepository.Get(course.Category.CategoryId));
             if (category == null)
-                return;
+                return false;
 
-            await _unitOfWork.CourseRepository.Add(new Course() 
-                { 
-                    AuthorId = course.AuthorId,
-                    CourseName = course.CourseName,
-                    Description = course.Description,
-                    Category = category,
-                }
+            string fileName = $"course_{Guid.NewGuid()}";
+            bool imageUploadSuccess = await _imageService.UploadFileAsync(course.Image, fileName, course.ContentType);
+
+            if (!imageUploadSuccess)
+                return false;
+
+            await _unitOfWork.CourseRepository.Add(new()
+            {
+                AuthorId = course.AuthorId,
+                CourseName = course.CourseName,
+                Description = course.Description,
+                Category = category,
+                ImageName = fileName
+            }
             );
             await _unitOfWork.Save();
+            return true;
         }
 
         public async Task<IEnumerable<CourseModel>> GetAllFromAuthor(int authorId)
@@ -40,7 +50,7 @@ namespace EdPlatform.Business.Services
             var mapper = CreateCourseModelMapper();
 
             List<CourseModel> courseModels = new List<CourseModel>();
-            foreach(var course in await _unitOfWork.CourseRepository.Find(x => x.AuthorId == authorId))
+            foreach (var course in await _unitOfWork.CourseRepository.Find(x => x.AuthorId == authorId))
             {
                 courseModels.Add(mapper.Map<Course, CourseModel>(course));
             }
@@ -52,7 +62,7 @@ namespace EdPlatform.Business.Services
             var mapper = CreateCourseModelMapper();
 
             List<CourseModel> courseModels = new List<CourseModel>();
-            foreach(var course in await _unitOfWork.CourseRepository.GetAll())
+            foreach (var course in await _unitOfWork.CourseRepository.GetAll())
             {
                 courseModels.Add(mapper.Map<Course, CourseModel>(course));
             }
@@ -68,7 +78,7 @@ namespace EdPlatform.Business.Services
             return course;
         }
 
-        public async Task EditCourse(CourseModel course)
+        public async Task<bool> EditCourse(CourseModel course)
         {
             var config = new MapperConfiguration(cfg =>
             {
@@ -80,13 +90,30 @@ namespace EdPlatform.Business.Services
 
             Category? category = (await _unitOfWork.CategoryRepository.Get(course.Category.CategoryId));
             if (category == null)
-                return;
+                return false;
 
+            if (course.Image != null)
+            {
+                (byte[]? oldImage, string? oldContentType) = await _imageService.DownloadFileAsync(course.ImageName);
+                if (oldImage == null)
+                    return false;
+
+                if (!await _imageService.DeleteFileAsync(course.ImageName))
+                    return false;
+
+                if (!await _imageService.UploadFileAsync(course.Image, course.ImageName, course.ContentType))
+                {
+                    await _imageService.UploadFileAsync(oldImage, course.ImageName, oldContentType);
+                    return false;
+                }
+            }
+            
             var courseData = mapper.Map<CourseModel, Course>(course);
             courseData.Category = category;
 
             _unitOfWork.CourseRepository.Update(courseData);
             await _unitOfWork.Save();
+            return true;
         }
 
         private static IMapper CreateCourseModelMapper()

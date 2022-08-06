@@ -1,5 +1,5 @@
 ﻿@using EdPlatform.Business.Models
-@model CourseModel
+@model CourseViewModel
 
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -7,11 +7,16 @@
 @{
 }
 
-<form asp-controller="Courses" asp-action="Create" method="post">
+<form asp-controller="Courses" asp-action="Create" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="CourseName"></label>
         <input asp-for="CourseName" type="text" class="form-control" placeholder="Course name" />
         <span asp-validation-for="CourseName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Image"></label>
+        <input asp-for="Image" class="form-control" placeholder="Course main image" />
+        <span asp-validation-for="Image" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Description"></label>
@@ -20,7 +25,7 @@
     </div>
     <div class="form-group">
         <label asp-for="Category.CategoryName"></label>
-        <select asp-for="Category.CategoryId" class="form-control" asp-items="@ViewBag.Categories"></select>
+        <select asp-for="Category.CategoryId" class="form-control" asp-items="@ViewBag.SelectCategories"></select>
     </div>
     <button type="submit" class="btn btn-primary">Create</button>
 </form>

@@ -30,6 +30,7 @@ builder.Services.AddTransient<ICategoryService, CategoryService>();
 builder.Services.AddTransient<IModuleService, ModuleService>();
 builder.Services.AddTransient<ILessonService, LessonService>();
 builder.Services.AddTransient<ICourseUserService, CourseUserService>();
+builder.Services.AddTransient<IImageService, S3ImageService>();
 
 var app = builder.Build();
 

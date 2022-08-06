@@ -20,6 +20,7 @@ namespace EdPlatform.App.Controllers
         private readonly ICategoryService _categoryService;
         private readonly IModuleService _moduleService;
         private readonly ICourseUserService _courseUserService;
+        private readonly IImageService _imageService;
         public CoursesController(
             ILogger<CoursesController> logger, 
             ICourseService courseService,
@@ -52,7 +53,7 @@ namespace EdPlatform.App.Controllers
         {
             int userId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
 
-            var courseUser = await _courseUserService.Get(new CourseUserModel() { UserId = userId, CourseId = courseId});
+            var courseUser = await _courseUserService.Get(new() { UserId = userId, CourseId = courseId});
             var course = await _courseService.GetById(courseId);
             
             ViewBag.Course = course;
@@ -80,22 +81,38 @@ namespace EdPlatform.App.Controllers
         {
             await CreateSelectListFromCategories();
 
-            return View(new CourseModel());
+            return View(new CourseViewModel());
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CourseModel course)
+        public async Task<IActionResult> Create(CourseViewModel course)
         {
-            var claims = User.Claims.ToList();
-            if (claims != null)
-            {
-                string s = claims.SingleOrDefault(x => x.Type.Equals("UserId")).Value;
-                var userId = int.Parse(s);
-                course.AuthorId = userId;
-            }
+            string? sid = User.FindFirst("UserId")?.Value;
+            if (sid == null || !int.TryParse(sid, out int id))
+                return Redirect("/");
 
-            await _courseService.CreateCourse(course);
+            course.AuthorId = id;
+
+            await _courseService.CreateCourse(new()
+            {
+                AuthorId = course.AuthorId,
+                Category = course.Category,
+                ContentType = course.Image.ContentType,
+                CourseId = course.CourseId,
+                CourseName = course.CourseName,
+                Description = course.Description,
+                Image = await GetBytes(course.Image),
+                ImageName = course.ImageName,
+                Modules = course.Modules,
+                UsersJoined = course.UsersJoined
+            });
             return RedirectToAction(nameof(Index));
+        }
+        public static async Task<byte[]> GetBytes(IFormFile formFile)
+        {
+            await using var memoryStream = new MemoryStream();
+            await formFile.CopyToAsync(memoryStream);
+            return memoryStream.ToArray();
         }
 
         [HttpGet("Courses/{courseId}/Edit")]
@@ -108,7 +125,17 @@ namespace EdPlatform.App.Controllers
             {
                 await CreateSelectListFromCategories();
 
-                return View(course);
+                return View(new CourseViewModel()
+                {
+                    AuthorId = course.AuthorId,
+                    Category = course.Category,
+                    CourseId = course.CourseId,
+                    CourseName = course.CourseName,
+                    Description = course.Description,
+                    ImageName = course.ImageName,
+                    Modules = course.Modules,
+                    UsersJoined = course.UsersJoined
+                });
             }
             else
             {
@@ -117,15 +144,28 @@ namespace EdPlatform.App.Controllers
         }
 
         [HttpPost("Courses/{courseId}/Edit")]
-        public async Task<IActionResult> Edit([FromRoute]int courseId, [FromForm]CourseModel course)
+        public async Task<IActionResult> Edit([FromRoute]int courseId, [FromForm]CourseViewModel course)
         {
             course.AuthorId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
-            await _courseService.EditCourse(course);
 
+            await _courseService.EditCourse(new()
+            {
+                AuthorId = course.AuthorId,
+                Category = course.Category,
+                ContentType = course.Image?.ContentType,
+                CourseId = course.CourseId,
+                CourseName = course.CourseName,
+                Description = course.Description,
+                Image = (course.Image!=null)?await GetBytes(course.Image):null,
+                ImageName = course.ImageName,
+                Modules = course.Modules,
+                UsersJoined = course.UsersJoined
+            });
+            
             var updatedCourse = await _courseService.GetById(courseId);
             await CreateSelectListFromCategories();
             ViewBag.Modules = updatedCourse.Modules;
-            return View(updatedCourse);
+            return RedirectToAction(nameof(Details), new{ courseId });
         }
 
         private async Task CreateSelectListFromCategories()
@@ -136,7 +176,7 @@ namespace EdPlatform.App.Controllers
                 Value = c.CategoryId.ToString(), 
                 Text = c.CategoryName 
             }).ToList();
-            ViewBag.Categories = selectCategories;
+            ViewBag.SelectCategories = selectCategories;
         }
     }
 }

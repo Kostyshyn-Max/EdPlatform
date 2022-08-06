@@ -9,10 +9,10 @@ namespace EdPlatform.Business.Services
 {
     public interface ICourseService
     {
-        Task CreateCourse(CourseModel course);
+        Task<bool> CreateCourse(CourseModel course);
         Task<IEnumerable<CourseModel>> GetAllFromAuthor(int authorId);
         Task<IEnumerable<CourseModel>> GetAll();
         Task<CourseModel> GetById(int id);
-        Task EditCourse(CourseModel course);
+        Task<bool> EditCourse(CourseModel course);
     }
 }

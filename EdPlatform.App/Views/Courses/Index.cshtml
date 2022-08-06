@@ -1,13 +1,15 @@
-﻿@if (ViewBag.Courses != null)
+﻿@using EdPlatform.Business.Models
+@if (ViewBag.Courses != null)
 {
 <div class="container">
     <div class="row">
-        @foreach (var course in ViewBag.Courses)
+        @foreach (CourseModel course in ViewBag.Courses)
         {
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">@course.CourseName</h5>
                     <h6 class="card-subtitle mb-2 text-muted">@course.Category.CategoryName</h6>
+                    <img src="@("https://ed-platform.s3.amazonaws.com/"+course.ImageName)"/>
                     <p class="card-text">@course.Description</p>
                     <a asp-controller="Courses" asp-action="Details" asp-route-courseId="@course.CourseId">Details</a>
                 </div>
