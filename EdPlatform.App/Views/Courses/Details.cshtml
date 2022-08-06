@@ -1,7 +1,73 @@
 ﻿@using EdPlatform.Business.Models
 @model CourseUserModel
 
-<div class="card">
+<div class="title">
+    <div class="course">
+        <img src="~/img//picture.png" alt="test image" />
+        <h2>Базовий курс програмування мовою Python</h2>
+
+        <div class="info">
+            <div class="tag"><a href="#">Python</a></div>
+            <h2>1237 підписників</h2>
+        </div>
+
+        <div class="status">створено 05.08.2020 </div>
+        <div class="status">оновлено 05.08.2022 </div>
+
+        <a href="#" class="join-button">Підписатися</a>
+    </div>
+    <div class="description">
+        <h2>Python — інтерпретована мова програмування. Ти пишеш програму як текст, запускаєш її та бачиш результат. Ми навчимо тебе основ програмування, розповімо, як 
+            користуватись фреймворками. Ти працюватимеш зі стандартними й популярними сторонніми бібліотеками; з основними алгоритмами та структурами даних. Дізнаєшся 
+            основи роботи в мережі й веб, об’єктно-орієнтовані концепції програмування. Розберешся в життєвому циклі розробки програмного забезпечення. Зрозумієш, як 
+            користуватися pip, virtualenv, git. 
+            <br />
+            <br />
+            Після завершення курсу ти писатимеш прості застосунки на Python, проєктуватимеш з нуля або ж розширюватимеш існуючу базу коду, тестуватимеш застосунки, 
+            виконуватимеш рефакторинг й оптимізацію. Python, це як медичний вуз — ми дамо тобі базову освіту, а інтернатуру ти обереш собі до смаку.</h2>
+    </div>
+</div>
+
+<div class="content-title">
+    <h2>Зміст курсу</h2>
+</div>
+
+<div class="module">
+    <div class="title">
+        <h2>Введення в Python</h2>
+    </div>
+    <div class="lessons-list">
+        <ul>
+            @for(int i = 0; i < 10; i++)
+            {
+                if (i == 0)
+                {
+                    <li>
+                        <img src="~/img/strat-timeline.svg"/>
+                        <a>Перший урок</a>
+                    </li>
+                }
+                else if(i == 9)
+                {
+                    <li>
+                        <img src="~/img/end-timeline.svg"/>
+                        <a>Перший урок</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <img src="~/img/middle-timeline.svg"/>
+                        <a>Перший урок</a>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</div>
+
+
+@*<div class="card">
     <div class="card-header">
         <h2>@ViewBag.Course.CourseName</h2>
         @if (ViewBag.CourseUser == null)
@@ -53,4 +119,4 @@
             }
         }
     </div>
-</div>
+</div>*@

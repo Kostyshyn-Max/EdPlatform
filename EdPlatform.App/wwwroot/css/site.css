@@ -23,6 +23,7 @@ header nav {
   align-items: center;
   position: sticky;
   padding: 0px 24px;
+  filter: drop-shadow(0.167rem 0px 0.167rem rgba(0, 0, 0, 0.25));
 }
 header nav .logo {
   height: 40px;
@@ -77,6 +78,7 @@ header nav .dropdown:hover ul {
   margin: 0px 180px;
   min-height: calc(100% - 48px);
   margin-bottom: -169px;
+  background-color: #16212b;
 }
 .content .hero {
   background-color: #415262;
@@ -152,6 +154,7 @@ footer .icons {
   gap: 50px;
 }
 footer .icons img:hover {
+  cursor: pointer;
   filter: brightness(1.5);
 }
 footer .links {
@@ -181,4 +184,101 @@ footer .trademark {
 footer .trademark h2 {
   color: #415262;
   font-size: 20px;
+}
+
+.title {
+  display: flex;
+}
+.title .course {
+  background-color: #2E3C49;
+  flex: 0 0 36%;
+  display: flex;
+  flex-direction: column;
+  padding: 13px;
+}
+.title .course .info {
+  display: flex;
+  align-items: center;
+  height: auto;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+.title .course .info .tag {
+  background-color: #415262;
+  border-radius: 12px;
+  padding: 3px 16px;
+}
+.title .course .info .tag a {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+.title .course .info h2 {
+  font-size: 20px;
+  margin: 0 10px;
+}
+.title .course .status {
+  color: #96A3AF;
+  margin: 10px 0;
+}
+.title .course .join-button {
+  background-color: #758899;
+  align-self: center;
+  border-radius: 6px;
+  color: #FFFFFF;
+  padding: 3px 16px;
+  font-size: 20px;
+  margin: 0 91px;
+  text-decoration: none;
+}
+.title .course .join-button:hover {
+  background-color: #617281;
+}
+.title .course img {
+  width: 100%;
+}
+.title .course h2 {
+  font-size: 24px;
+  margin: 20px 0;
+}
+.title .description {
+  background-color: #232F3A;
+}
+.title .description h2 {
+  padding: 40px 26px 26px 26px;
+  font-size: 20px;
+  text-align: justify;
+}
+
+.content-title {
+  height: 48px;
+  text-align: center;
+  line-height: 48px;
+}
+.content-title h2 {
+  font-weight: bold;
+}
+
+.module {
+  display: flex;
+  flex-direction: column;
+}
+.module .title {
+  line-height: 48px;
+  padding: 0 13px;
+  background-color: #2E3C49;
+  height: 48px;
+}
+.module .lessons-list {
+  background-color: #232F3A;
+}
+.module .lessons-list ul {
+  list-style: none;
+}
+.module .lessons-list ul li {
+  display: flex;
+  align-items: center;
+  height: 67px;
+}
+.module .lessons-list ul li a {
+  padding: 0 13px;
 }
