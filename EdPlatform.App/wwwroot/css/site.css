@@ -104,18 +104,22 @@ header nav .dropdown:hover ul {
 }
 .content .course-carousel .carousel-popular .course-plate {
   padding: 10px;
-  width: 20%;
   background: #415262;
   border-radius: 4px;
   flex-grow: 0;
-  flex-shrink: 0;
-  flex-basis: 20%;
 }
 .content .course-carousel .carousel-popular .course-plate h2 {
   font-size: 20px;
 }
-.content .course-carousel .carousel-popular .course-plate img {
+.content .course-carousel .carousel-popular .course-plate .image-cover {
+  width: 274px;
+  height: 166px;
+  overflow: hidden;
+}
+.content .course-carousel .carousel-popular .course-plate .image-cover img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .content .course-carousel .carousel-popular::-webkit-scrollbar {
   background-color: #16212B;

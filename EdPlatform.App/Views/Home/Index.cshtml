@@ -9,36 +9,64 @@
 </div>
 <div class="course-carousel">
     <h2>Популярні курси: </h2>
-    <div class="carousel-popular">
-        <div class="course-plate">
-            <img src="~/img/picture.png" />
-            <h2>Базовий курс програмування мовою Python</h2>
+    @if (ViewBag.PopularCourses != null)
+    {
+        <div class="carousel-popular">
+            @foreach (var course in ViewBag.PopularCourses)
+            {
+                <div class="course-plate">
+                    <div class="image-cover">
+                        <img src="@("https://ed-platform.s3.amazonaws.com/"+course.ImageName)" />
+                    </div>
+                    <h2>@course.CourseName</h2>
+                </div>
+            }
+
+            <div class="course-plate">
+                <div class="image-cover">
+                    <img src="~/img/picture.png" />
+                </div>
+                <h2>Базовий курс програмування мовою Python</h2>
+            </div>
+            <div class="course-plate">
+                <div class="image-cover">
+                    <img src="~/img/picture.png" />
+                </div>
+                <h2>Базовий курс програмування мовою Python</h2>
+            </div>
+            <div class="course-plate">
+                <div class="image-cover">
+                    <img src="~/img/picture.png" />
+                </div>
+                <h2>Базовий курс програмування мовою Python</h2>
+            </div>
+            <div class="course-plate">
+                <div class="image-cover">
+                    <img src="~/img/picture.png" />
+                </div>
+                <h2>Базовий курс програмування мовою Python</h2>
+            </div>
+            <div class="course-plate">
+                <div class="image-cover">
+                    <img src="~/img/picture.png" />
+                </div>
+                <h2>Базовий курс програмування мовою Python</h2>
+            </div>
+            <div class="course-plate">
+                <div class="image-cover">
+                    <img src="~/img/picture.png" />
+                </div>
+                <h2>Базовий курс програмування мовою Python</h2>
+            </div>
+            <div class="course-plate">
+                <div class="image-cover">
+                    <img src="~/img/picture.png" />
+                </div>
+                <h2>Базовий курс програмування мовою Python</h2>
+            </div>
+
         </div>
-        <div class="course-plate">
-            <img src="~/img/picture.png" />
-            <h2>Базовий курс програмування мовою Python</h2>
-        </div>
-        <div class="course-plate">
-            <img src="~/img/picture.png" />
-            <h2>Базовий курс програмування мовою Python</h2>
-        </div>
-        <div class="course-plate">
-            <img src="~/img/picture.png" />
-            <h2>Базовий курс програмування мовою Python</h2>
-        </div>
-        <div class="course-plate">
-            <img src="~/img/picture.png" />
-            <h2>Базовий курс програмування мовою Python</h2>
-        </div>
-        <div class="course-plate">
-            <img src="~/img/picture.png" />
-            <h2>Базовий курс програмування мовою Python</h2>
-        </div>
-        <div class="course-plate">
-            <img src="~/img/picture.png" />
-            <h2>Базовий курс програмування мовою Python</h2>
-        </div>
-    </div>
+    }
 </div>
 <div class="course-carousel">
     <h2>Популярні курси: </h2>

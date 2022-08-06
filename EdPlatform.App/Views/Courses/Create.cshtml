@@ -14,8 +14,8 @@
         <span asp-validation-for="CourseName" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Image"></label>
-        <input asp-for="Image" class="form-control" placeholder="Course main image" />
+        <label asp-for="Image"> (Jpeg only)</label>
+        <input asp-for="Image" class="form-control" accept="image/jpeg" placeholder="Course main image" />
         <span asp-validation-for="Image" class="text-danger"></span>
     </div>
     <div class="form-group">

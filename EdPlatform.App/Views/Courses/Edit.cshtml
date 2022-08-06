@@ -23,8 +23,8 @@
         <select asp-for="Category.CategoryId" class="form-control" asp-items="@ViewBag.SelectCategories"></select>
     </div>
     <div class="form-group">
-        <label asp-for="Image"></label>
-        <input asp-for="Image" class="form-control" value="@Model.Image"/>
+        <label asp-for="Image"> (Jpeg only)</label>
+        <input asp-for="Image" class="form-control" accept="image/jpeg" value="@Model.Image"/>
         <span asp-validation-for="Image" class="text-danger"></span>
     </div>
     <input type="hidden" asp-for="CourseId" value="@Model.CourseId" />

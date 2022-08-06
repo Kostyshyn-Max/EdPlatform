@@ -87,6 +87,13 @@ namespace EdPlatform.App.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CourseViewModel course)
         {
+            if (!ModelState.IsValid)
+            {
+                await CreateSelectListFromCategories();
+
+                return View(course);
+            }
+
             string? sid = User.FindFirst("UserId")?.Value;
             if (sid == null || !int.TryParse(sid, out int id))
                 return Redirect("/");
@@ -146,6 +153,13 @@ namespace EdPlatform.App.Controllers
         [HttpPost("Courses/{courseId}/Edit")]
         public async Task<IActionResult> Edit([FromRoute]int courseId, [FromForm]CourseViewModel course)
         {
+            if (!ModelState.IsValid)
+            {
+                await CreateSelectListFromCategories();
+
+                return View(course);
+            }
+
             course.AuthorId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
 
             await _courseService.EditCourse(new()

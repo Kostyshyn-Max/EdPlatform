@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EdPlatform.App.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace EdPlatform.Business.Models
         public int AuthorId { get; set; }
         public IEnumerable<ModuleModel> Modules { get; set; }
         public int UsersJoined { get; set; }
+        [AllowedExtensions(new string[] {".jpeg", ".jfif", ".pjpeg", ".pjp", ".jpg"})]
         public IFormFile Image { get; set; }
         public string ImageName { get; set; }
     }
