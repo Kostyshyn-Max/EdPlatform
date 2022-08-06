@@ -28,6 +28,7 @@ header nav {
     align-items: center;
     position: sticky;
     padding: 0px 24px;
+    filter: drop-shadow(0.167rem 0px 0.167rem rgba(0, 0, 0, 0.25));
 
     .logo {
         height: 40px;
@@ -96,6 +97,7 @@ header nav {
     margin: 0px 180px;
     min-height: calc(100% - 48px);
     margin-bottom: -169px;
+    background-color: #16212b;
 
     .hero {
         background-color: #415262;
@@ -163,7 +165,7 @@ header nav {
     }
 }
 
-.push{
+.push {
     height: 169px;
 }
 
@@ -184,6 +186,7 @@ footer {
 
         img {
             &:hover {
+                cursor: pointer;
                 filter: brightness(1.5);
             }
         }
@@ -219,6 +222,122 @@ footer {
         h2 {
             color: #415262;
             font-size: 20px;
+        }
+    }
+}
+
+.title {
+    display: flex;
+
+    .course {
+        background-color: #2E3C49;
+        flex: 0 0 36%;
+        display: flex;
+        flex-direction: column;
+        padding: 13px;
+
+        .info {
+            display: flex;
+            align-items: center;
+            height: auto;
+            justify-content: flex-start;
+            margin-bottom: 10px;
+
+            .tag {
+                background-color: #415262;
+                border-radius: 12px;
+                padding: 3px 16px;
+
+                a {
+                    color: $text-color;
+                    text-decoration: none;
+                }
+            }
+
+            h2 {
+                font-size: 20px;
+                margin: 0 10px;
+            }
+        }
+
+        .status {
+            color: #96A3AF;
+            margin: 10px 0;
+        }
+
+        .join-button {
+            background-color: #758899;
+            align-self: center;
+            border-radius: 6px;
+            color: #FFFFFF;
+            padding: 3px 16px;
+            font-size: 20px;
+            margin: 0 91px;
+            text-decoration: none;
+
+            &:hover {
+                background-color: #617281;
+            }
+        }
+
+        img {
+            width: 100%;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+    }
+
+    .description {
+        background-color: #232F3A;
+
+        h2 {
+            padding: 40px 26px 26px 26px;
+            font-size: 20px;
+            text-align: justify;
+        }
+    }
+}
+
+.content-title {
+    height: 48px;
+    text-align: center;
+    line-height: 48px;
+
+    h2{
+        font-weight: bold;
+    }
+}
+
+.module {
+    display: flex;
+    flex-direction: column;
+
+    .title {
+        line-height: 48px;
+        padding: 0 13px;
+        background-color: #2E3C49;
+        height: 48px;
+    }
+
+    .lessons-list {
+        background-color: #232F3A;
+
+        ul {
+            list-style: none;
+
+            li {
+                display: flex;
+                align-items: center;
+                height: 67px;
+
+
+                a {
+                    padding: 0 13px;
+                }
+            }
         }
     }
 }
