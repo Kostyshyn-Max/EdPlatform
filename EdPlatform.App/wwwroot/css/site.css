@@ -6,7 +6,6 @@ html, body {
 
 body {
   font-family: "Roboto Serif", serif;
-  background-image: url("../img/background.svg");
 }
 
 h1, h2, h3 {
@@ -17,6 +16,7 @@ h1, h2, h3 {
 html.dark body {
   background-color: #18324A;
   color: #FFFFFF;
+  background-image: url("../img/background.svg");
 }
 html.dark header nav {
   background-color: #2E3C49;
@@ -33,6 +33,9 @@ html.dark header nav .dropdown ul {
 html.dark header nav .dropdown ul li a {
   color: #FFFFFF;
 }
+html.dark header nav .dropdown ul li a:hover {
+  background-color: #293744;
+}
 html.dark header nav .searchbar-cover .searchbar input {
   background-color: #232F3A;
   color: #758899;
@@ -42,6 +45,9 @@ html.dark header nav .searchbar-cover .searchbar input::placeholder {
 }
 html.dark header nav .searchbar-cover .searchbar a {
   background-color: #232F3A;
+}
+html.dark header nav .theme .theme-switcher img {
+  content: url("../img/dark-mode-switch.svg");
 }
 html.dark header nav .login-button a {
   color: #FFFFFF;
@@ -91,6 +97,9 @@ html.dark .title .course .info .tag a {
 html.dark .title .course .join-button {
   background-color: #758899;
 }
+html.dark .title .course .join-button:hover {
+  background-color: #617281;
+}
 html.dark .title .description {
   background-color: #232F3A;
 }
@@ -102,6 +111,106 @@ html.dark .module .title {
 }
 html.dark .module .lessons-list {
   background-color: #232F3A;
+}
+
+html.light body {
+  background-color: #FFFFFF;
+  color: #FFFFFF;
+  background-image: none;
+}
+html.light header nav {
+  background-color: #4E7DA8;
+}
+html.light header nav .dropdown .title {
+  color: #FFFFFF;
+}
+html.light header nav .dropdown .title:hover {
+  background-color: #3f668a;
+}
+html.light header nav .dropdown ul {
+  background: #365775;
+}
+html.light header nav .dropdown ul li a {
+  color: #FFFFFF;
+}
+html.light header nav .dropdown ul li a:hover {
+  background-color: #2d4860;
+}
+html.light header nav .searchbar-cover .searchbar input {
+  background-color: #3f668a;
+  color: #89b4dd;
+}
+html.light header nav .searchbar-cover .searchbar input::placeholder {
+  color: #89b4dd;
+}
+html.light header nav .searchbar-cover .searchbar a {
+  background-color: #3f668a;
+}
+html.light header nav .theme .theme-switcher img {
+  content: url("../img/light-mode-switch.svg");
+}
+html.light header nav .login-button a {
+  color: #FFFFFF;
+}
+html.light .content {
+  background-color: #2f4c67;
+}
+html.light .content .hero {
+  background-color: #7AA1C6;
+}
+html.light .content .course-carousel {
+  background-color: #4E7DA8;
+}
+html.light .content .course-carousel .carousel-popular {
+  background-color: #3f668a;
+}
+html.light .content .course-carousel .carousel-popular .course-plate {
+  background: #7AA1C6;
+}
+html.light .content .course-carousel .carousel-popular::-webkit-scrollbar {
+  background-color: #2f4c67;
+}
+html.light .content .course-carousel .carousel-popular::-webkit-scrollbar-thumb {
+  background-color: #7AA1C6;
+}
+html.light footer {
+  background-color: #2f4c67;
+}
+html.light footer .links a {
+  color: #FFFFFF;
+}
+html.light footer .links a:hover {
+  background-color: #3f668a;
+}
+html.light footer .trademark h2 {
+  color: #7AA1C6;
+}
+html.light .title .course {
+  background-color: #4E7DA8;
+}
+html.light .title .course .info .tag {
+  background-color: #7AA1C6;
+}
+html.light .title .course .info .tag a {
+  color: #FFFFFF;
+}
+html.light .title .course .join-button {
+  background-color: #89b4dd;
+}
+html.light .title .course .join-button:hover {
+  background-color: #7ca2c6;
+}
+html.light .title .description {
+  background-color: #3f668a;
+}
+html.light .content-title {
+  background-color: #7AA1C6;
+}
+html.light .module .title {
+  background-color: #4E7DA8;
+}
+html.light .module .lessons-list {
+  background-color: #3f668a;
 }
 
 header nav {
@@ -147,9 +256,6 @@ header nav .dropdown ul li a {
   text-decoration: none;
   padding: 8px;
 }
-header nav .dropdown ul li a:hover {
-  background-color: #293744;
-}
 header nav .dropdown:hover ul {
   display: block;
 }
@@ -191,9 +297,6 @@ header nav .theme .theme-switcher {
   border: none;
   background: none;
   cursor: pointer;
-}
-header nav .theme .theme-switcher img {
-  content: url("../img/dark-mode-switch.svg");
 }
 header nav .language {
   font-size: 16px;
@@ -346,9 +449,6 @@ footer .trademark h2 {
   font-size: 20px;
   margin: 0 91px;
   text-decoration: none;
-}
-.title .course .join-button:hover {
-  background-color: #617281;
 }
 .title .course img {
   width: 100%;

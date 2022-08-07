@@ -9,6 +9,12 @@ $blue-3: #2E3C49;
 $blue-4: #415262;
 $blue-5: #758899;
 
+$light-blue-1: #2f4c67;
+$light-blue-2: #3f668a;
+$light-blue-3: #4E7DA8;
+$light-blue-4: #7AA1C6;
+$light-blue-5: #89b4dd;
+
 html, body {
     height: 100%;
     margin: 0;
@@ -16,7 +22,6 @@ html, body {
 
 body {
     font-family: 'Roboto Serif', serif;
-    background-image: url('../img/background.svg');
 }
 
 h1, h2, h3 {
@@ -28,6 +33,7 @@ html.dark {
     body {
         background-color: $background-color-dark;
         color: $text-color-dark;
+        background-image: url('../img/background.svg');
     }
 
     header nav {
@@ -48,6 +54,10 @@ html.dark {
                 li {
                     a {
                         color: $text-color-dark;
+
+                        &:hover {
+                            background-color: #293744;
+                        }
                     }
                 }
             }
@@ -66,6 +76,14 @@ html.dark {
 
                 a {
                     background-color: $blue-2;
+                }
+            }
+        }
+
+        .theme {
+            .theme-switcher {
+                img {
+                    content: url('../img/dark-mode-switch.svg');
                 }
             }
         }
@@ -141,6 +159,10 @@ html.dark {
 
             .join-button {
                 background-color: $blue-5;
+
+                &:hover {
+                    background-color: #617281;
+                }
             }
         }
 
@@ -164,6 +186,162 @@ html.dark {
     }
 }
 
+html.light {
+    body {
+        background-color: #FFFFFF;
+        color: $text-color-dark;
+        background-image: none;
+    }
+
+    header nav {
+        background-color: $light-blue-3;
+
+        .dropdown {
+            .title {
+                color: $text-color-dark;
+
+                &:hover {
+                    background-color: $light-blue-2;
+                }
+            }
+
+            ul {
+                background: #365775;
+
+                li {
+                    a {
+                        color: $text-color-dark;
+
+                        &:hover {
+                            background-color: #2d4860;
+                        }
+                    }
+                }
+            }
+        }
+
+        .searchbar-cover {
+            .searchbar {
+                input {
+                    background-color: $light-blue-2;
+                    color: $light-blue-5;
+
+                    &::placeholder {
+                        color: $light-blue-5;
+                    }
+                }
+
+                a {
+                    background-color: $light-blue-2;
+                }
+            }
+        }
+
+        .theme {
+            .theme-switcher {
+                img {
+                    content: url('../img/light-mode-switch.svg');
+                }
+            }
+        }
+
+        .login-button {
+            a {
+                color: $text-color-dark;
+            }
+        }
+    }
+
+    .content {
+        background-color: $light-blue-1;
+
+        .hero {
+            background-color: $light-blue-4;
+        }
+
+        .course-carousel {
+            background-color: $light-blue-3;
+
+            .carousel-popular {
+                background-color: $light-blue-2;
+
+                .course-plate {
+                    background: $light-blue-4;
+                }
+
+                &::-webkit-scrollbar {
+                    background-color: $light-blue-1;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background-color: $light-blue-4;
+                }
+            }
+        }
+    }
+
+    footer {
+        background-color: $light-blue-1;
+
+        .links {
+            a {
+                color: $text-color-dark;
+
+                &:hover {
+                    background-color: $light-blue-2;
+                }
+            }
+        }
+
+        .trademark {
+            h2 {
+                color: $light-blue-4;
+            }
+        }
+    }
+
+    .title {
+        .course {
+            background-color: $light-blue-3;
+
+            .info {
+                .tag {
+                    background-color: $light-blue-4;
+
+                    a {
+                        color: $text-color-dark;
+                    }
+                }
+            }
+
+            .join-button {
+                background-color: $light-blue-5;
+
+                &:hover {
+                    background-color: #7ca2c6;
+                }
+            }
+        }
+
+        .description {
+            background-color: $light-blue-2;
+        }
+    }
+
+    .content-title {
+        background-color: $light-blue-4;
+    }
+
+    .module {
+        .title {
+            background-color: $light-blue-3;
+        }
+
+        .lessons-list {
+            background-color: $light-blue-2;
+        }
+    }
+}
 
 header nav {
     height: 48px;
@@ -213,9 +391,7 @@ header nav {
                     text-decoration: none;
                     padding: 8px;
 
-                    &:hover {
-                        background-color: #293744;
-                    }
+                    
                 }
             }
         }
@@ -272,10 +448,6 @@ header nav {
             border: none;
             background: none;
             cursor: pointer;
-
-            img {
-                content: url('../img/dark-mode-switch.svg');
-            }
         }
     }
 
@@ -459,10 +631,6 @@ footer {
             font-size: 20px;
             margin: 0 91px;
             text-decoration: none;
-
-            &:hover {
-                background-color: #617281;
-            }
         }
 
         img {
