@@ -20,7 +20,7 @@
     </div>
     <div class="form-group">
         <label asp-for="Description"></label>
-        <textarea asp-for="Description" type="text" class="form-control" placeholder="Course description"></textarea>
+        <textarea asp-for="Description" type="text" class="form-control" id="course-description" placeholder="Course description"></textarea>
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
     <div class="form-group">
@@ -29,3 +29,12 @@
     </div>
     <button type="submit" class="btn btn-primary">Create</button>
 </form>
+
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+<script>
+    tinymce.init({
+        selector: '#course-description',
+        height: "480"
+    });
+</script>
