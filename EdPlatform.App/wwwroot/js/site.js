@@ -1,4 +1,50 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿window.addEventListener("load", windowLoad);
 
-// Write your JavaScript code.
+function windowLoad() {
+    const htmlBlock = document.documentElement;
+    const saveUserTheme = localStorage.getItem("user-theme");
+
+    let userTheme;
+    if (window.matchMedia) {
+        userTheme = window.matchMedia("(prefers-color-theme: dark)").matches ? "dark" : "light";
+    }
+
+    window.matchMedia("(prefers-color-theme: dark)").addEventListener("change", e => {
+        !saveUserTheme ? changeTheme() : null;
+    });
+
+    const themeButton = document.getElementById("theme-switcher");
+    if (themeButton) {
+        themeButton.addEventListener("click", function (e) {
+            themeButton.classList.add("active");
+            changeTheme(true);
+        })
+    }
+
+    function setThemeClass() {
+        if (saveUserTheme) {
+            htmlBlock.classList.add(saveUserTheme);
+        } else {
+            htmlBlock.classList.add(userTheme);
+        }
+    }
+
+    setThemeClass();
+
+    function changeTheme(saveTheme = false) {
+        let currentTheme = htmlBlock.classList.contains("light") ? "light" : "dark";
+        let newTheme;
+
+        if (currentTheme == "light") {
+            newTheme = "dark";
+        } else if (currentTheme == "dark") {
+            newTheme = "light";
+        }
+
+        console.log(currentTheme);
+
+        htmlBlock.classList.remove(currentTheme);
+        htmlBlock.classList.add(newTheme);
+        saveTheme ? localStorage.setItem("user-theme", newTheme) : null;
+    }
+}

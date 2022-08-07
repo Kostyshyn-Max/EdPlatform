@@ -5,10 +5,7 @@ html, body {
 }
 
 body {
-  background-color: #18324A;
   font-family: "Roboto Serif", serif;
-  color: #FFFFFF;
-  background-image: url("../img/background.svg");
 }
 
 h1, h2, h3 {
@@ -16,13 +13,211 @@ h1, h2, h3 {
   margin: 0;
 }
 
-header nav {
+html.dark body {
+  background-color: #18324A;
+  color: #FFFFFF;
+  background-image: url("../img/background.svg");
+}
+html.dark header nav {
   background-color: #2E3C49;
+}
+html.dark header nav .dropdown .title {
+  color: #FFFFFF;
+}
+html.dark header nav .dropdown .title:hover {
+  background-color: #232F3A;
+}
+html.dark header nav .dropdown ul {
+  background-color: #1e2831;
+}
+html.dark header nav .dropdown ul li a {
+  color: #FFFFFF;
+}
+html.dark header nav .dropdown ul li a:hover {
+  background-color: #293744;
+}
+html.dark header nav .searchbar-cover .searchbar input {
+  background-color: #232F3A;
+  color: #758899;
+}
+html.dark header nav .searchbar-cover .searchbar input::placeholder {
+  color: #758899;
+}
+html.dark header nav .searchbar-cover .searchbar a {
+  background-color: #232F3A;
+}
+html.dark header nav .theme .theme-switcher img {
+  content: url("../img/dark-mode-switch.svg");
+}
+html.dark header nav .login-button a {
+  color: #FFFFFF;
+}
+html.dark .content {
+  background-color: #16212B;
+}
+html.dark .content .hero {
+  background-color: #415262;
+}
+html.dark .content .course-carousel {
+  background-color: #2E3C49;
+}
+html.dark .content .course-carousel .carousel-popular {
+  background-color: #232F3A;
+}
+html.dark .content .course-carousel .carousel-popular .course-plate {
+  background: #415262;
+}
+html.dark .content .course-carousel .carousel-popular::-webkit-scrollbar {
+  background-color: #16212B;
+}
+html.dark .content .course-carousel .carousel-popular::-webkit-scrollbar-thumb {
+  background-color: #415262;
+}
+html.dark footer {
+  background-color: #16212B;
+}
+html.dark footer .links a {
+  color: #FFFFFF;
+}
+html.dark footer .links a:hover {
+  background-color: #232F3A;
+}
+html.dark footer .trademark h2 {
+  color: #415262;
+}
+html.dark .title .course {
+  background-color: #2E3C49;
+}
+html.dark .title .course .info .tag {
+  background-color: #415262;
+}
+html.dark .title .course .info .tag a {
+  color: #FFFFFF;
+}
+html.dark .title .course .join-button {
+  background-color: #758899;
+}
+html.dark .title .course .join-button:hover {
+  background-color: #617281;
+}
+html.dark .title .description {
+  background-color: #232F3A;
+}
+html.dark .content-title {
+  background-color: #415262;
+}
+html.dark .module .title {
+  background-color: #2E3C49;
+}
+html.dark .module .lessons-list {
+  background-color: #232F3A;
+}
+
+html.light body {
+  background-color: #FFFFFF;
+  color: #FFFFFF;
+  background-image: none;
+}
+html.light header nav {
+  background-color: #4E7DA8;
+}
+html.light header nav .dropdown .title {
+  color: #FFFFFF;
+}
+html.light header nav .dropdown .title:hover {
+  background-color: #3f668a;
+}
+html.light header nav .dropdown ul {
+  background: #365775;
+}
+html.light header nav .dropdown ul li a {
+  color: #FFFFFF;
+}
+html.light header nav .dropdown ul li a:hover {
+  background-color: #2d4860;
+}
+html.light header nav .searchbar-cover .searchbar input {
+  background-color: #3f668a;
+  color: #89b4dd;
+}
+html.light header nav .searchbar-cover .searchbar input::placeholder {
+  color: #89b4dd;
+}
+html.light header nav .searchbar-cover .searchbar a {
+  background-color: #3f668a;
+}
+html.light header nav .theme .theme-switcher img {
+  content: url("../img/light-mode-switch.svg");
+}
+html.light header nav .login-button a {
+  color: #FFFFFF;
+}
+html.light .content {
+  background-color: #2f4c67;
+}
+html.light .content .hero {
+  background-color: #7AA1C6;
+}
+html.light .content .course-carousel {
+  background-color: #4E7DA8;
+}
+html.light .content .course-carousel .carousel-popular {
+  background-color: #3f668a;
+}
+html.light .content .course-carousel .carousel-popular .course-plate {
+  background: #7AA1C6;
+}
+html.light .content .course-carousel .carousel-popular::-webkit-scrollbar {
+  background-color: #2f4c67;
+}
+html.light .content .course-carousel .carousel-popular::-webkit-scrollbar-thumb {
+  background-color: #7AA1C6;
+}
+html.light footer {
+  background-color: #2f4c67;
+}
+html.light footer .links a {
+  color: #FFFFFF;
+}
+html.light footer .links a:hover {
+  background-color: #3f668a;
+}
+html.light footer .trademark h2 {
+  color: #7AA1C6;
+}
+html.light .title .course {
+  background-color: #4E7DA8;
+}
+html.light .title .course .info .tag {
+  background-color: #7AA1C6;
+}
+html.light .title .course .info .tag a {
+  color: #FFFFFF;
+}
+html.light .title .course .join-button {
+  background-color: #89b4dd;
+}
+html.light .title .course .join-button:hover {
+  background-color: #7ca2c6;
+}
+html.light .title .description {
+  background-color: #3f668a;
+}
+html.light .content-title {
+  background-color: #7AA1C6;
+}
+html.light .module .title {
+  background-color: #4E7DA8;
+}
+html.light .module .lessons-list {
+  background-color: #3f668a;
+}
+
+header nav {
   height: 48px;
   display: flex;
   align-items: center;
   position: sticky;
-  padding: 0px 24px;
   filter: drop-shadow(0.167rem 0px 0.167rem rgba(0, 0, 0, 0.25));
 }
 header nav .logo {
@@ -32,7 +227,6 @@ header nav .logo img {
   height: 40px;
 }
 header nav .dropdown .title {
-  color: #FFFFFF;
   text-decoration: none;
   font-size: 20px;
   display: flex;
@@ -45,11 +239,7 @@ header nav .dropdown .title img {
   margin: 0 0.3rem;
   content: url("../img/arrow-down.svg");
 }
-header nav .dropdown .title:hover {
-  background-color: #232F3A;
-}
 header nav .dropdown ul {
-  background-color: #1e2831;
   clear: both;
   overflow: hidden;
   transition: height 0.4s ease;
@@ -63,25 +253,72 @@ header nav .dropdown ul li {
   padding: 8px 0;
 }
 header nav .dropdown ul li a {
-  color: #FFFFFF;
   text-decoration: none;
   padding: 8px;
 }
-header nav .dropdown ul li a:hover {
-  background-color: #293744;
-}
 header nav .dropdown:hover ul {
   display: block;
+}
+header nav .searchbar-cover {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+header nav .searchbar-cover .searchbar {
+  width: 30%;
+  display: flex;
+}
+header nav .searchbar-cover .searchbar input {
+  border: none;
+  width: 100%;
+  border-radius: 26px 0 0 26px;
+  height: 30px;
+  padding-left: 15px;
+}
+header nav .searchbar-cover .searchbar input:focus {
+  border: none;
+  outline: none;
+}
+header nav .searchbar-cover .searchbar a {
+  border-radius: 0 26px 26px 0;
+  padding-right: 8px;
+  display: flex;
+  align-content: center;
+  align-items: center;
+}
+header nav .theme {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  padding: 0 9px;
+}
+header nav .theme .theme-switcher {
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+header nav .language {
+  font-size: 16px;
+  cursor: pointer;
+}
+header nav .login-button {
+  display: flex;
+  padding: 0 10px;
+  width: 160px;
+  justify-content: center;
+}
+header nav .login-button a {
+  text-decoration: none;
+  font-size: 20px;
 }
 
 .content {
   margin: 0px 180px;
   min-height: calc(100% - 48px);
   margin-bottom: -169px;
-  background-color: #16212b;
 }
 .content .hero {
-  background-color: #415262;
   text-align: center;
 }
 .content .hero h1 {
@@ -91,22 +328,17 @@ header nav .dropdown:hover ul {
 .content .hero h2 {
   padding-bottom: 15px;
 }
-.content .course-carousel {
-  background-color: #2E3C49;
-}
 .content .course-carousel h2 {
   padding: 12px;
 }
 .content .course-carousel .carousel-popular {
   display: flex;
-  background-color: #232F3A;
   padding: 10px;
   overflow-x: auto;
   gap: 10px;
 }
 .content .course-carousel .carousel-popular .course-plate {
   padding: 10px;
-  background: #415262;
   border-radius: 4px;
   flex-grow: 0;
 }
@@ -124,12 +356,10 @@ header nav .dropdown:hover ul {
   object-fit: cover;
 }
 .content .course-carousel .carousel-popular::-webkit-scrollbar {
-  background-color: #16212B;
   margin: 0 10px;
   height: 10px;
 }
 .content .course-carousel .carousel-popular::-webkit-scrollbar-thumb {
-  background-color: #415262;
   height: 10px;
   border-radius: 4px;
 }
@@ -139,7 +369,6 @@ header nav .dropdown:hover ul {
 }
 
 footer {
-  background-color: #16212B;
   display: flex;
   flex-direction: column;
   bottom: 0;
@@ -167,13 +396,9 @@ footer .links {
 }
 footer .links a {
   font-size: 20px;
-  color: #FFFFFF;
   text-decoration: none;
   padding: 10px;
   border-radius: 10px;
-}
-footer .links a:hover {
-  background-color: #232F3A;
 }
 footer .trademark {
   height: 46px;
@@ -182,7 +407,6 @@ footer .trademark {
   align-items: center;
 }
 footer .trademark h2 {
-  color: #415262;
   font-size: 20px;
 }
 
@@ -190,7 +414,6 @@ footer .trademark h2 {
   display: flex;
 }
 .title .course {
-  background-color: #2E3C49;
   flex: 0 0 36%;
   display: flex;
   flex-direction: column;
@@ -204,12 +427,10 @@ footer .trademark h2 {
   margin-bottom: 10px;
 }
 .title .course .info .tag {
-  background-color: #415262;
   border-radius: 12px;
   padding: 3px 16px;
 }
 .title .course .info .tag a {
-  color: #FFFFFF;
   text-decoration: none;
 }
 .title .course .info h2 {
@@ -221,7 +442,6 @@ footer .trademark h2 {
   margin: 10px 0;
 }
 .title .course .join-button {
-  background-color: #758899;
   align-self: center;
   border-radius: 6px;
   color: #FFFFFF;
@@ -230,18 +450,12 @@ footer .trademark h2 {
   margin: 0 91px;
   text-decoration: none;
 }
-.title .course .join-button:hover {
-  background-color: #617281;
-}
 .title .course img {
   width: 100%;
 }
 .title .course h2 {
   font-size: 24px;
   margin: 20px 0;
-}
-.title .description {
-  background-color: #232F3A;
 }
 .title .description h2 {
   padding: 40px 26px 26px 26px;
@@ -265,11 +479,7 @@ footer .trademark h2 {
 .module .title {
   line-height: 48px;
   padding: 0 13px;
-  background-color: #2E3C49;
   height: 48px;
-}
-.module .lessons-list {
-  background-color: #232F3A;
 }
 .module .lessons-list ul {
   list-style: none;
