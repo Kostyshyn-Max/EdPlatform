@@ -1,8 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz@8..144&display=swap');
 
-$background-color: #18324A;
-$text-color: #FFFFFF;
-$navbar-color: #2E3C49;
+$background-color-dark: #18324A;
+$text-color-dark: #FFFFFF;
+
+$blue-1: #16212B;
+$blue-2: #232F3A;
+$blue-3: #2E3C49;
+$blue-4: #415262;
+$blue-5: #758899;
 
 html, body {
     height: 100%;
@@ -10,9 +15,7 @@ html, body {
 }
 
 body {
-    background-color: $background-color;
     font-family: 'Roboto Serif', serif;
-    color: $text-color;
     background-image: url('../img/background.svg');
 }
 
@@ -21,13 +24,152 @@ h1, h2, h3 {
     margin: 0;
 }
 
+html.dark {
+    body {
+        background-color: $background-color-dark;
+        color: $text-color-dark;
+    }
+
+    header nav {
+        background-color: $blue-3;
+
+        .dropdown {
+            .title {
+                color: $text-color-dark;
+
+                &:hover {
+                    background-color: $blue-2;
+                }
+            }
+
+            ul {
+                background-color: #1e2831;
+
+                li {
+                    a {
+                        color: $text-color-dark;
+                    }
+                }
+            }
+        }
+
+        .searchbar-cover {
+            .searchbar {
+                input {
+                    background-color: $blue-2;
+                    color: $blue-5;
+
+                    &::placeholder {
+                        color: $blue-5;
+                    }
+                }
+
+                a {
+                    background-color: $blue-2;
+                }
+            }
+        }
+
+        .login-button {
+            a {
+                color: $text-color-dark;
+            }
+        }
+    }
+
+    .content {
+        background-color: $blue-1;
+
+        .hero {
+            background-color: $blue-4;
+        }
+
+        .course-carousel {
+            background-color: $blue-3;
+
+            .carousel-popular {
+                background-color: $blue-2;
+
+                .course-plate {
+                    background: $blue-4;
+                }
+
+                &::-webkit-scrollbar {
+                    background-color: $blue-1;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background-color: $blue-4;
+                }
+            }
+        }
+    }
+
+    footer {
+        background-color: $blue-1;
+
+        .links {
+            a {
+                color: $text-color-dark;
+
+                &:hover {
+                    background-color: $blue-2;
+                }
+            }
+        }
+
+        .trademark {
+            h2 {
+                color: $blue-4;
+            }
+        }
+    }
+
+    .title {
+        .course {
+            background-color: $blue-3;
+
+            .info {
+                .tag {
+                    background-color: $blue-4;
+
+                    a {
+                        color: $text-color-dark;
+                    }
+                }
+            }
+
+            .join-button {
+                background-color: $blue-5;
+            }
+        }
+
+        .description {
+            background-color: $blue-2;
+        }
+    }
+
+    .content-title {
+        background-color: $blue-4;
+    }
+
+    .module {
+        .title {
+            background-color: $blue-3;
+        }
+
+        .lessons-list {
+            background-color: $blue-2;
+        }
+    }
+}
+
+
 header nav {
-    background-color: $navbar-color;
     height: 48px;
     display: flex;
     align-items: center;
     position: sticky;
-    padding: 0px 24px;
     filter: drop-shadow(0.167rem 0px 0.167rem rgba(0, 0, 0, 0.25));
 
     .logo {
@@ -40,7 +182,6 @@ header nav {
 
     .dropdown {
         .title {
-            color: $text-color;
             text-decoration: none;
             font-size: 20px;
             display: flex;
@@ -53,14 +194,9 @@ header nav {
                 margin: 0 0.3rem;
                 content: url('../img/arrow-down.svg');
             }
-
-            &:hover {
-                background-color: #232F3A;
-            }
         }
 
         ul {
-            background-color: #1e2831;
             clear: both;
             overflow: hidden;
             transition: height .4s ease;
@@ -74,7 +210,6 @@ header nav {
                 padding: 8px 0;
 
                 a {
-                    color: $text-color;
                     text-decoration: none;
                     padding: 8px;
 
@@ -91,16 +226,83 @@ header nav {
             }
         }
     }
+
+    .searchbar-cover {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
+        .searchbar {
+            width: 30%;
+            display: flex;
+
+            input {
+                border: none;
+                width: 100%;
+                border-radius: 26px 0 0 26px;
+                height: 30px;
+                padding-left: 15px;
+
+
+                &:focus {
+                    border: none;
+                    outline: none;
+                }
+            }
+
+            a {
+                border-radius: 0 26px 26px 0;
+                padding-right: 8px;
+                display: flex;
+                align-content: center;
+                align-items: center;
+            }
+        }
+    }
+
+    .theme {
+        display: flex;
+        align-items: center;
+        align-content: center;
+        padding: 0 9px;
+
+
+        .theme-switcher {
+            padding: 0;
+            border: none;
+            background: none;
+            cursor: pointer;
+
+            img {
+                content: url('../img/dark-mode-switch.svg');
+            }
+        }
+    }
+
+    .language {
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .login-button {
+        display: flex;
+        padding: 0 10px;
+        width: 160px;
+        justify-content: center;
+
+        a {
+            text-decoration: none;
+            font-size: 20px;
+        }
+    }
 }
 
 .content {
     margin: 0px 180px;
     min-height: calc(100% - 48px);
     margin-bottom: -169px;
-    background-color: #16212b;
 
     .hero {
-        background-color: #415262;
         text-align: center;
 
         h1 {
@@ -114,22 +316,18 @@ header nav {
     }
 
     .course-carousel {
-        background-color: #2E3C49;
-
         h2 {
             padding: 12px;
         }
 
         .carousel-popular {
             display: flex;
-            background-color: #232F3A;
             padding: 10px;
             overflow-x: auto;
             gap: 10px;
 
             .course-plate {
                 padding: 10px;
-                background: #415262;
                 border-radius: 4px;
                 flex-grow: 0;
 
@@ -151,13 +349,11 @@ header nav {
             }
 
             &::-webkit-scrollbar {
-                background-color: #16212B;
                 margin: 0 10px;
                 height: 10px;
             }
 
             &::-webkit-scrollbar-thumb {
-                background-color: #415262;
                 height: 10px;
                 border-radius: 4px;
             }
@@ -170,7 +366,6 @@ header nav {
 }
 
 footer {
-    background-color: #16212B;
     display: flex;
     flex-direction: column;
     bottom: 0;
@@ -202,14 +397,9 @@ footer {
 
         a {
             font-size: 20px;
-            color: $text-color;
             text-decoration: none;
             padding: 10px;
             border-radius: 10px;
-
-            &:hover {
-                background-color: #232F3A;
-            }
         }
     }
 
@@ -220,7 +410,6 @@ footer {
         align-items: center;
 
         h2 {
-            color: #415262;
             font-size: 20px;
         }
     }
@@ -230,7 +419,6 @@ footer {
     display: flex;
 
     .course {
-        background-color: #2E3C49;
         flex: 0 0 36%;
         display: flex;
         flex-direction: column;
@@ -244,12 +432,10 @@ footer {
             margin-bottom: 10px;
 
             .tag {
-                background-color: #415262;
                 border-radius: 12px;
                 padding: 3px 16px;
 
                 a {
-                    color: $text-color;
                     text-decoration: none;
                 }
             }
@@ -266,7 +452,6 @@ footer {
         }
 
         .join-button {
-            background-color: #758899;
             align-self: center;
             border-radius: 6px;
             color: #FFFFFF;
@@ -291,8 +476,6 @@ footer {
     }
 
     .description {
-        background-color: #232F3A;
-
         h2 {
             padding: 40px 26px 26px 26px;
             font-size: 20px;
@@ -306,7 +489,7 @@ footer {
     text-align: center;
     line-height: 48px;
 
-    h2{
+    h2 {
         font-weight: bold;
     }
 }
@@ -318,13 +501,10 @@ footer {
     .title {
         line-height: 48px;
         padding: 0 13px;
-        background-color: #2E3C49;
         height: 48px;
     }
 
     .lessons-list {
-        background-color: #232F3A;
-
         ul {
             list-style: none;
 

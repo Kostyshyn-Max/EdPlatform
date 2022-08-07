@@ -1,6 +1,6 @@
 ﻿@using EdPlatform.Business.Models
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -27,6 +27,27 @@
                         }
                     }
                 </ul>
+            </div>
+
+            <div class="searchbar-cover">
+                <div class="searchbar">
+                    <input type="search" placeholder="Знайти курс... "/>
+                    <a href="#">
+                        <img src="~/img/find-icon.svg" />
+                    </a>
+                </div>
+            </div>
+
+            <div class="theme">
+                <button class="theme-switcher">
+                    <img />
+                </button>
+            </div>
+
+            <h2 class="language">UA</h2>
+
+            <div class="login-button">
+                <a asp-page="/Account/Login">Увійти</a>
             </div>
         </nav>
     </header>
