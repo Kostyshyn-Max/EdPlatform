@@ -110,6 +110,12 @@ html.dark {
 
                 .course-plate {
                     background: $blue-4;
+
+                    h2 {
+                        a {
+                            color: $text-color-dark;
+                        }
+                    }
                 }
 
                 &::-webkit-scrollbar {
@@ -267,6 +273,12 @@ html.light {
 
                 .course-plate {
                     background: $light-blue-4;
+
+                    h2 {
+                        a {
+                            color: $text-color-dark;
+                        }
+                    }
                 }
 
                 &::-webkit-scrollbar {
@@ -465,6 +477,18 @@ header nav {
             font-size: 20px;
         }
     }
+
+    .user-login {
+        display: flex;
+        padding: 0 10px;
+        width: 160px;
+        justify-content: center;
+
+        a {
+            text-decoration: none;
+            font-size: 20px;
+        }
+    }
 }
 
 .content {
@@ -503,6 +527,10 @@ header nav {
 
                 h2 {
                     font-size: 20px;
+
+                    a {
+                        text-decoration: none;
+                    }
                 }
 
                 .image-cover {

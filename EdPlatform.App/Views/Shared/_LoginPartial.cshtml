@@ -1,17 +1,17 @@
 ﻿@if (User.Identity.IsAuthenticated)
 {
-    string user = "";
+    string? login = "";
     if (User.Claims.ToList().Count() != 0)
-        user = User.Claims.ToList().SingleOrDefault(x => x.Type.Equals("Login")).Value;
+        login = User.FindFirst("Login").Value;
     
-    <a asp-controller="Courses" asp-action="Create" style="margin-right: 0.5rem;">Create your course</a>
-
-    <span style="margin-right: 0.5rem;">@user</span> 
-    <a asp-page="/Account/Logout">Logout</a>
+    @*<a asp-controller="Courses" asp-action="Create" style="margin-right: 0.5rem;">Create your course</a>*@
+    <div class="user-login">
+        <a>@login</a>
+    </div>
 }
 else
 {
-    <a asp-page="/Account/Login" style="margin-right: 0.5rem;">Login</a>
-    
-    <a asp-page="/Account/Register">Register</a>
+    <div class="login-button">
+        <a asp-page="/Account/Login">Увійти</a>
+    </div>
 }
