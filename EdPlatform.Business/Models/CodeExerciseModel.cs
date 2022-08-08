@@ -9,5 +9,6 @@ namespace EdPlatform.Business.Models
     public class CodeExerciseModel : ExerciseModel
     {
         public string Condition { get; set; }
+        public IEnumerable<IOCaseModel> IOCases { get; set; }
     }
 }

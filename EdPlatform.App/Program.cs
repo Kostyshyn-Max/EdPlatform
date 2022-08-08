@@ -32,6 +32,7 @@ builder.Services.AddTransient<ILessonService, LessonService>();
 builder.Services.AddTransient<ICourseUserService, CourseUserService>();
 builder.Services.AddTransient<IImageService, S3ImageService>();
 builder.Services.AddTransient<ICodeExerciseService, CodeExerciseService>();
+builder.Services.AddTransient<IIOCaseService, IOCaseService>();
 
 var app = builder.Build();
 

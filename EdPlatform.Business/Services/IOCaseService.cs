@@ -4,54 +4,45 @@ using EdPlatform.Data;
 using EdPlatform.Data.Entities;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EdPlatform.Business.Services
 {
-    public class CodeExerciseService : ICodeExerciseService
+    public class IOCaseService : IIOCaseService
     {
         private readonly UnitOfWork _unitOfWork;
-        public CodeExerciseService()
+        public IOCaseService()
         {
             _unitOfWork = new UnitOfWork();
         }
 
-        public async Task Create(CodeExerciseModel codeExercise)
+        public async Task Create(IOCaseModel iOCase)
         {
-            IMapper mapper = CreateCodeExerciseModelToCodeExerciseMapper();
+            IMapper mapper = CreateIOCaseModelToIOCaseMapper();
 
-            await _unitOfWork.CodeExerciseRepository.Add(mapper.Map<CodeExerciseModel, CodeExercise>(codeExercise));
+            await _unitOfWork.IOCaseRepository.Add(mapper.Map<IOCaseModel, IOCase>(iOCase));
             await _unitOfWork.Save();
         }
 
-        public async Task Edit(CodeExerciseModel codeExercise)
+        public async Task Edit(IOCaseModel iOCase)
         {
-            IMapper mapper = CreateCodeExerciseModelToCodeExerciseMapper();
+            IMapper mapper = CreateIOCaseModelToIOCaseMapper();
 
-            _unitOfWork.CodeExerciseRepository.Update(mapper.Map<CodeExerciseModel, CodeExercise>(codeExercise));
+            _unitOfWork.IOCaseRepository.Update(mapper.Map<IOCaseModel, IOCase>(iOCase));
             await _unitOfWork.Save();
         }
 
-        public async Task<CodeExerciseModel> GetById(int id)
+        public async Task<IOCaseModel> GetById(int id)
         {
-            var codeExercise = await _unitOfWork.CodeExerciseRepository.Get(id);
-            
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<CodeExercise, CodeExerciseModel>();
-                cfg.CreateMap<Exercise, ExerciseModel>();
-                cfg.CreateMap<Lesson, LessonModel>();
-                cfg.CreateMap<Module, ModuleModel>();
-                cfg.CreateMap<Course, CourseModel>();
-                cfg.CreateMap<Category, CategoryModel>();
                 cfg.CreateMap<IOCase, IOCaseModel>();
             });
             var mapper = config.CreateMapper();
 
-            return mapper.Map<CodeExercise, CodeExerciseModel>(codeExercise);
+            return mapper.Map<IOCase, IOCaseModel>(await _unitOfWork.IOCaseRepository.Get(id));
         }
 
         public async Task<CourseModel> GetCourseById(int courseId)
@@ -68,12 +59,11 @@ namespace EdPlatform.Business.Services
             return mapper.Map<Course, CourseModel>(await _unitOfWork.CourseRepository.Get(courseId));
         }
 
-        private static IMapper CreateCodeExerciseModelToCodeExerciseMapper()
+        private static IMapper CreateIOCaseModelToIOCaseMapper()
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<CodeExerciseModel, CodeExercise>();
-                cfg.CreateMap<ExerciseModel, Exercise>();
+                cfg.CreateMap<IOCaseModel, IOCase>();
             });
             var mapper = config.CreateMapper();
             return mapper;

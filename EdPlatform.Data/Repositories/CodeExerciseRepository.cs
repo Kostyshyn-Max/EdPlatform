@@ -27,17 +27,26 @@ namespace EdPlatform.Data.Repositories
 
         public async Task<CodeExercise?> Get(int id)
         {
-            return await _context.CodeExercises.FindAsync(id);
+            return await _context.CodeExercises.Where(x => x.ExerciseId == id)
+                .Include(x => x.Lesson)
+                .Include(x => x.IOCases)
+                .SingleOrDefaultAsync();
         }
 
         public async Task<IEnumerable<CodeExercise>> GetAll()
         {
-            return await _context.CodeExercises.ToListAsync();
+            return await _context.CodeExercises
+                .Include(x => x.Lesson)
+                .Include(x => x.IOCases)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<CodeExercise>> Find(Expression<Func<CodeExercise, bool>> expression)
         {
-            return await _context.CodeExercises.Where(expression).ToListAsync();
+            return await _context.CodeExercises.Where(expression)
+                .Include(x => x.Lesson)
+                .Include(x => x.IOCases)
+                .ToListAsync();
         }
 
         public void Update(CodeExercise entity)

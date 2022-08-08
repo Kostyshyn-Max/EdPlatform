@@ -17,5 +17,6 @@ namespace EdPlatform.Data.Entities
         [StringLength(100, ErrorMessage = "Exercise name is too long")]
         public string ExerciseName { get; set; }
         public int LessonId { get; set; }
+        public Lesson Lesson { get; set; }
     }
 }

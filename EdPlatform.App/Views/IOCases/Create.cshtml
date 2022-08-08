@@ -1,0 +1,18 @@
+﻿@using EdPlatform.Business.Models
+@model IOCaseModel
+
+<form asp-controller="IOCases" asp-action="Create" method="post">
+    <div>
+        <label asp-for="InputData"></label>
+        <input asp-for="InputData" type="text" placeholder="Input data"/>
+        <span asp-validation-for="InputData"></span>
+    </div>
+    <div>
+        <label asp-for="OutputData"></label>
+        <input asp-for="OutputData" type="text" placeholder="Output data"/>
+        <span asp-validation-for="OutputData"></span>
+    </div>
+    <input asp-for="CodeExerciseExerciseId" type="hidden" value="@ViewBag.ExerciseId"/>
+
+    <button type="submit">Create</button>
+</form>

@@ -11,5 +11,6 @@ namespace EdPlatform.Business.Models
         public int ExerciseId { get; set; }
         public string ExerciseName { get; set; }
         public int LessonId { get; set; }
+        public LessonModel Lesson { get; set; }
     }
 }
