@@ -15,5 +15,6 @@ namespace EdPlatform.Business.Models
         public ModuleModel Module { get; set; }
         public string? VideoUrl { get; set; }
         public int Order { get; set; }
+        public IEnumerable<ExerciseModel> Exercises { get; set; }
     }
 }

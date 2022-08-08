@@ -32,6 +32,7 @@ namespace EdPlatform.Business.Services
                 cfg.CreateMap<Lesson, LessonModel>();
                 cfg.CreateMap<Module, ModuleModel>();
                 cfg.CreateMap<Course, CourseModel>();
+                cfg.CreateMap<Exercise, ExerciseModel>();
             });
             var mapper = config.CreateMapper();
 
@@ -48,7 +49,9 @@ namespace EdPlatform.Business.Services
 
         private static IMapper CreateLessonModelToLessonMapper()
         {
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<LessonModel, Lesson>());
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<LessonModel, Lesson>();
+            });
             var mapper = config.CreateMapper();
             return mapper;
         }
