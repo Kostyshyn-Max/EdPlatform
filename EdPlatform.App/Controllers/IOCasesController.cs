@@ -16,7 +16,7 @@ namespace EdPlatform.App.Controllers
             _authorizationService = authorizationService;
         }
 
-        [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonsId}/Exercises/Code/{codeExerciseId}/IOCases/Create")]
+        [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Code/{codeExerciseId}/IOCases/Create")]
         public async Task<IActionResult> Create(int courseId, int moduleId, int lessonId, int codeExerciseId)
         {
             var course = await _iocaseService.GetCourseById(courseId);
@@ -32,12 +32,12 @@ namespace EdPlatform.App.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpPost("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonsId}/Exercises/Code/{codeExerciseId}/IOCases/Create")]
+        [HttpPost("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Code/{codeExerciseId}/IOCases/Create")]
         public async Task<IActionResult> Create(int courseId, int moduleId, int lessonId, int codeExerciseId, IOCaseModel iOCase)
         {
             await _iocaseService.Create(iOCase);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("CodeExerciseEdit", "Exercises", new { courseId = courseId, moduleId = moduleId, lessonId = lessonId, codeExerciseId = codeExerciseId });
         }
 
         [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Code/{codeExerciseId}/IOCases/{iOCaseId}/Edit")]

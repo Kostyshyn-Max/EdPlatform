@@ -18,12 +18,18 @@
     <button type="submit">Save changes</button>
 </form>
 
+<a asp-controller="IOCases" asp-action="Create" 
+    asp-route-courseId="@Model.Lesson.Module.CourseId" 
+    asp-route-moduleId="@Model.Lesson.ModuleId"
+    asp-route-lessonId="@Model.LessonId"
+    asp-route-codeExerciseId="@Model.ExerciseId">Create IO Case</a>
+
 @if (Model.IOCases != null)
 {
 <table class="table table-light">
     <thead>
         <tr>
-            <th scope="col">Exercise Name</th>
+            <th scope="col">Input Output datas</th>
             <th scope="col">Link</th>
         </tr>
     </thead>

@@ -25,6 +25,11 @@
     <button class="btn btn-primary" type="submit">Save changes</button>
 </form>
 
+<a asp-controller="Exercises" asp-action="CodeExerciseCreate" 
+    asp-route-courseId="@Model.Module.CourseId" 
+    asp-route-moduleId="@Model.ModuleId"
+    asp-route-lessonId="@Model.LessonId">Create exercise</a>
+
 @if (Model.Exercises != null)
 {
 <table class="table table-light">

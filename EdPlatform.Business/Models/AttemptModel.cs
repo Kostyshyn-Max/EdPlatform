@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EdPlatform.Data.Entities
+namespace EdPlatform.Business.Models
 {
-    public class Attempt
+    public class AttemptModel
     {
         public int AttemptId { get; set; }
         public int UserId { get; set; }

@@ -10,10 +10,12 @@ namespace EdPlatform.App.Controllers
     {
         private readonly ICodeExerciseService _codeExerciseService;
         private readonly IAuthorizationService _authorizationService;
-        public ExercisesController(ICodeExerciseService codeExerciseService, IAuthorizationService authorizationService)
+        private readonly ILogger<ExercisesController> _logger;
+        public ExercisesController(ICodeExerciseService codeExerciseService, IAuthorizationService authorizationService, ILogger<ExercisesController> logger)
         {
             _codeExerciseService = codeExerciseService;
             _authorizationService = authorizationService;
+            _logger = logger;
         }
 
         [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Create/Code")]
@@ -39,7 +41,7 @@ namespace EdPlatform.App.Controllers
 
             await _codeExerciseService.Create(codeExercise);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Edit", "Lessons", new { courseId = courseId, moduleId = moduleId, lessonId = lessonId });
         }
 
         [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Code/{codeExerciseId}/Edit")]
@@ -63,6 +65,20 @@ namespace EdPlatform.App.Controllers
             await _codeExerciseService.Edit(codeExercise);
 
             return View(codeExercise);
+        }
+
+        [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Code/{codeExerciseId}/Details")]
+        public async Task<IActionResult> CodeExerciseDetails(int courseId, int moduleId, int lessonId, int codeExerciseId)
+        {
+            return View(new AttemptModel());
+        }
+
+        [HttpPost("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Code/{codeExerciseId}/Details")]
+        public async Task<IActionResult> CodeExerciseDetails(int courseId, int moduleId, int lessonId, int codeExerciseId, AttemptModel attempt)
+        {
+            _logger.LogInformation(attempt.UserAnswer);
+
+            return View();
         }
     }
 }
