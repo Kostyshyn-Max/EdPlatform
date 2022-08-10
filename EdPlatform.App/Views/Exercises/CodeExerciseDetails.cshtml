@@ -1,9 +1,9 @@
 ﻿@using EdPlatform.Business.Models
-@model AttemptModel
+@model CodeModel
 
 <form asp-controller="Exercises" asp-action="CodeExerciseDetails" method="post">  
     <div>
-        <textarea asp-for="UserAnswer" data-editor="python" id="editor">print("hello world")</textarea>
+        <textarea asp-for="Code" data-editor="python" id="editor">print("hello world")</textarea>
     </div>
     <button type="submit">Send code!</button>
 </form>

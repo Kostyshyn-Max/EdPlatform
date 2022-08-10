@@ -5,6 +5,7 @@ using EdPlatform.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -36,11 +37,7 @@ namespace EdPlatform.Business.Services
 
         public async Task<IOCaseModel> GetById(int id)
         {
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<IOCase, IOCaseModel>();
-            });
-            var mapper = config.CreateMapper();
+            IMapper mapper = CreateIOCaseToIOCaseModelMapper();
 
             return mapper.Map<IOCase, IOCaseModel>(await _unitOfWork.IOCaseRepository.Get(id));
         }
@@ -57,6 +54,24 @@ namespace EdPlatform.Business.Services
             var mapper = config.CreateMapper();
 
             return mapper.Map<Course, CourseModel>(await _unitOfWork.CourseRepository.Get(courseId));
+        }
+
+        public async Task<IEnumerable<IOCaseModel>> GetFromExercise(int exerciseId)
+        {
+            IMapper mapper = CreateIOCaseToIOCaseModelMapper();
+
+            var results = await _unitOfWork.IOCaseRepository.Find(x => x.CodeExerciseExerciseId == exerciseId);
+            return results.Select(x => mapper.Map<IOCase, IOCaseModel>(x));
+        }
+
+        private static IMapper CreateIOCaseToIOCaseModelMapper()
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<IOCase, IOCaseModel>();
+            });
+            var mapper = config.CreateMapper();
+            return mapper;
         }
 
         private static IMapper CreateIOCaseModelToIOCaseMapper()

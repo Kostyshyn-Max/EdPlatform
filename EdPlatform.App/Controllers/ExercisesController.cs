@@ -10,12 +10,21 @@ namespace EdPlatform.App.Controllers
     {
         private readonly ICodeExerciseService _codeExerciseService;
         private readonly IAuthorizationService _authorizationService;
+        private readonly ICodeExecutingService _codeExecutingService;
+        private readonly IIOCaseService _iOCaseService;
         private readonly ILogger<ExercisesController> _logger;
-        public ExercisesController(ICodeExerciseService codeExerciseService, IAuthorizationService authorizationService, ILogger<ExercisesController> logger)
+        public ExercisesController(
+            ICodeExerciseService codeExerciseService, 
+            IAuthorizationService authorizationService,
+            ILogger<ExercisesController> logger,
+            ICodeExecutingService codeExecutingService,
+            IIOCaseService iOCaseService)
         {
             _codeExerciseService = codeExerciseService;
             _authorizationService = authorizationService;
             _logger = logger;
+            _codeExecutingService = codeExecutingService;
+            _iOCaseService = iOCaseService;
         }
 
         [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Create/Code")]
@@ -70,13 +79,21 @@ namespace EdPlatform.App.Controllers
         [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Code/{codeExerciseId}/Details")]
         public async Task<IActionResult> CodeExerciseDetails(int courseId, int moduleId, int lessonId, int codeExerciseId)
         {
-            return View(new AttemptModel());
+            return View(new CodeModel());
         }
 
         [HttpPost("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Code/{codeExerciseId}/Details")]
-        public async Task<IActionResult> CodeExerciseDetails(int courseId, int moduleId, int lessonId, int codeExerciseId, AttemptModel attempt)
+        public async Task<IActionResult> CodeExerciseDetails(int courseId, int moduleId, int lessonId, int codeExerciseId, CodeModel codeModel)
         {
-            _logger.LogInformation(attempt.UserAnswer);
+            var iOCases = await _iOCaseService.GetFromExercise(codeExerciseId);
+            codeModel.InputDatas = iOCases.Select(x => x.InputData).ToList();
+            codeModel.OutputDatas = iOCases.Select(x => x.OutputData).ToList();
+
+            var output = await _codeExecutingService.ExecuteCode(codeModel);
+            foreach (var o in output)
+            {
+                _logger.LogInformation(o.ToString());
+            }
 
             return View();
         }

@@ -34,6 +34,8 @@ builder.Services.AddTransient<IImageService, S3ImageService>();
 builder.Services.AddTransient<ICodeExerciseService, CodeExerciseService>();
 builder.Services.AddTransient<IIOCaseService, IOCaseService>();
 
+builder.Services.AddHttpClient<ICodeExecutingService, CodeExecutingService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
