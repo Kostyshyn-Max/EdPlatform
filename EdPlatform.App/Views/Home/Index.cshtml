@@ -18,7 +18,9 @@
                     <div class="image-cover">
                         <img src="@("https://ed-platform.s3.amazonaws.com/"+course.ImageName)" />
                     </div>
-                    <h2>@course.CourseName</h2>
+                    <h2>
+                        <a asp-controller="Courses" asp-action="Details" asp-route-courseId="@course.CourseId">@course.CourseName</a>
+                    </h2>
                 </div>
             }
 
@@ -67,72 +69,6 @@
 
         </div>
     }
-</div>
-<div class="course-carousel">
-    <h2>Популярні курси: </h2>
-    <div class="carousel-popular">
-        <div class="course-plate">
-            <img src="~/img/picture.png" />
-            <h2>Базовий курс програмування мовою Python</h2>
-        </div>
-        <div class="course-plate">
-            <img src="~/img/picture.png" />
-            <h2>Базовий курс програмування мовою Python</h2>
-        </div>
-        <div class="course-plate">
-            <img src="~/img/picture.png" />
-            <h2>Базовий курс програмування мовою Python</h2>
-        </div>
-        <div class="course-plate">
-            <img src="~/img/picture.png" />
-            <h2>Базовий курс програмування мовою Python</h2>
-        </div>
-        <div class="course-plate">
-            <img src="~/img/picture.png" />
-            <h2>Базовий курс програмування мовою Python</h2>
-        </div>
-        <div class="course-plate">
-            <img src="~/img/picture.png" />
-            <h2>Базовий курс програмування мовою Python</h2>
-        </div>
-        <div class="course-plate">
-            <img src="~/img/picture.png" />
-            <h2>Базовий курс програмування мовою Python</h2>
-        </div>
-    </div>
-</div>
-<div class="course-carousel">
-    <h2>Популярні курси: </h2>
-    <div class="carousel-popular">
-        <div class="course-plate">
-            <img src="~/img/picture.png" />
-            <h2>Базовий курс програмування мовою Python</h2>
-        </div>
-        <div class="course-plate">
-            <img src="~/img/picture.png" />
-            <h2>Базовий курс програмування мовою Python</h2>
-        </div>
-        <div class="course-plate">
-            <img src="~/img/picture.png" />
-            <h2>Базовий курс програмування мовою Python</h2>
-        </div>
-        <div class="course-plate">
-            <img src="~/img/picture.png" />
-            <h2>Базовий курс програмування мовою Python</h2>
-        </div>
-        <div class="course-plate">
-            <img src="~/img/picture.png" />
-            <h2>Базовий курс програмування мовою Python</h2>
-        </div>
-        <div class="course-plate">
-            <img src="~/img/picture.png" />
-            <h2>Базовий курс програмування мовою Python</h2>
-        </div>
-        <div class="course-plate">
-            <img src="~/img/picture.png" />
-            <h2>Базовий курс програмування мовою Python</h2>
-        </div>
-    </div>
 </div>
 
 @*

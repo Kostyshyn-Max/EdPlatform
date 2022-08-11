@@ -1,0 +1,17 @@
+﻿@using EdPlatform.Business.Models
+@model CodeExerciseModel
+
+<form asp-controller="Exercises" asp-action="CodeExerciseCreate" method="post">
+    <div>
+        <label asp-for="ExerciseName"></label>
+        <input asp-for="ExerciseName" type="text" placeholder="Exercise name"/>
+        <span asp-validation-for="ExerciseName"></span>
+    </div>
+    <div>
+        <label asp-for="Problem"></label>
+        <textarea asp-for="Problem"></textarea>
+        <span asp-validation-for="Problem"></span>
+    </div>
+    <input asp-for="LessonId" type="hidden" value="@ViewBag.LessonId"/>
+    <button type="submit">Create</button>
+</form>

@@ -1,0 +1,53 @@
+﻿@using EdPlatform.Business.Models
+@model CodeModel
+
+<div>
+    @if (ViewBag.Attempt != null)
+    {
+        <p>@ViewBag.Attempt.IsCompleted</p>
+    }
+</div>
+
+<form asp-controller="Exercises" asp-action="CodeExerciseDetails" method="post">  
+    <div>
+        <textarea asp-for="Code" data-editor="python" id="editor"></textarea>
+    </div>
+    <button type="submit">Send code!</button>
+</form>
+
+@{
+    var userAnswer = (ViewBag.Attempt != null) ? ViewBag.Attempt.UserAnswer : "";
+}
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="~/js/CodeEditor/ace.js"></script>
+<script type="text/javascript"> 
+    $('textarea[data-editor]').each(function() {
+        var textarea = $(this);
+        var mode = textarea.data('editor');
+
+        var div = $('<div>', {
+            'width': '100%',
+            'height': '600px',
+            'class': textarea.attr('class'),
+        }).insertBefore(textarea);
+
+        textarea.hide();
+
+        var editor = ace.edit(div[0], {
+            value: textarea.val().replace("textarea", "ace!"),
+            theme: "ace/theme/monokai",
+            mode: 'ace/mode/python',
+            newLineMode: 'unix',
+            tabSize: 4,
+            useSoftTabs: true,
+            wrap: true,
+        }); 
+
+        editor.setValue('@userAnswer');
+
+        textarea[0].form.addEventListener("submit", function() {
+            textarea.val(editor.getSession().getValue());
+        });
+    });
+</script>

@@ -18,8 +18,8 @@
         {
             <form asp-controller="Courses" asp-action="Details" method="post">
                 <input asp-for="UserId" type="hidden" value="@ViewBag.UserId" />
-                <input asp-for="CourseId" type="hidden" value="@ViewBag.Course.CourseId"/>
-                
+                <input asp-for="CourseId" type="hidden" value="@ViewBag.Course.CourseId" />
+
                 <button type="submit" class="join-button">Підписатися</button>
             </form>
         }
@@ -37,39 +37,35 @@
 
 @foreach (var module in (ViewBag.Course as CourseModel).Modules.OrderBy(x => x.Order))
 {
-<div class="module">
-    <div class="title">
-        <h2>@module.Order. @module.ModuleName</h2>
+    <div class="module">
+        <div class="title">
+            <h2>@module.Order. @module.ModuleName</h2>
+        </div>
+        <div class="lessons-list">
+            <ul>
+                @for (int i = 0; i < module.Lessons.OrderBy(x => x.Order).Count(); i++)
+                {
+                    <li>
+                        @if (i == 0)
+                        {
+                            <img src="~/img/strat-timeline.svg" />
+                        }
+                        else if (i == module.Lessons.OrderBy(x => x.Order).Count() - 1)
+                        {
+                            <img src="~/img/end-timeline.svg" />
+                        }
+                        else
+                        {
+                            <img src="~/img/middle-timeline.svg" />
+                        }
+
+                        <a>@module.Lessons.ElementAt(i).LessonName</a>
+                        <a asp-route-courseId="@ViewBag.Course.CourseId" asp-route-moduleId="@module.ModuleId" asp-route-lessonId="@module.Lessons.ElementAt(i).LessonId" asp-action="Details" asp-controller="Lessons">Переглянути вміст уроку</a>
+                    </li>
+                }
+            </ul>
+        </div>
     </div>
-    <div class="lessons-list">
-        <ul>
-            @for(int i = 0; i < module.Lessons.OrderBy(x => x.Order).Count(); i++)
-            {
-                if (i == 0)
-                {
-                    <li>
-                        <img src="~/img/strat-timeline.svg"/>
-                        <a>@module.Lessons.ElementAt(i).LessonName</a>
-                    </li>
-                }
-                else if(i == module.Lessons.OrderBy(x => x.Order).Count() - 1)
-                {
-                    <li>
-                        <img src="~/img/end-timeline.svg"/>
-                        <a>@module.Lessons.ElementAt(i).LessonName</a>
-                    </li>
-                }
-                else
-                {
-                    <li>
-                        <img src="~/img/middle-timeline.svg"/>
-                        <a>@module.Lessons.ElementAt(i).LessonName</a>
-                    </li>
-                }
-            }
-        </ul>
-    </div>
-</div>
 }
 
 @*<div class="card">
@@ -97,7 +93,7 @@
             {
             <label>Modules:</label>
             <ul class="list-group">
-                <li class="list-group-item">@module.ModuleName</li>  
+                <li class="list-group-item">@module.ModuleName</li>
 
                 @if (module.Lessons != null)
                 {
@@ -108,9 +104,9 @@
                             @if (ViewBag.CourseUser != null)
                             {
                                 <li class="list-group-item">
-                                    @lesson.LessonName 
+                                    @lesson.LessonName
                                     <a asp-route-courseId="@ViewBag.Course.CourseId" asp-route-moduleId="@module.ModuleId" asp-route-lessonId="@lesson.LessonId" asp-action="Details" asp-controller="Lessons">Details</a>
-                                </li> 
+                                </li>
                             }
                             else
                             {
