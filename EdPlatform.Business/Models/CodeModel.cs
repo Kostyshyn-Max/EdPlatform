@@ -8,7 +8,7 @@ namespace EdPlatform.Business.Models
 {
     public class CodeModel
     {
-        public List<string> InputDatas { get; set; }
+        public List<string>? InputDatas { get; set; }
         public List<string> OutputDatas { get; set; } 
         public string Code { get; set; }
         public string Language { get; set; }

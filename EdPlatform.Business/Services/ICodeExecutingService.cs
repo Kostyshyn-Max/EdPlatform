@@ -9,6 +9,6 @@ namespace EdPlatform.Business.Services
 {
     public interface ICodeExecutingService
     {
-        Task<bool[]> ExecuteCode(CodeModel codeModel);
+        Task<List<bool>> ExecuteCode(CodeModel codeModel);
     }
 }

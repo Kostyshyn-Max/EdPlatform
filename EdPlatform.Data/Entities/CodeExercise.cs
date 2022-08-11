@@ -11,7 +11,7 @@ namespace EdPlatform.Data.Entities
     {
 #pragma warning disable CS8618
         [Required(ErrorMessage = "Condition must be not empty")]
-        public string Condition { get; set; }
+        public string Problem { get; set; }
         public IEnumerable<IOCase> IOCases { get; set; }
     }
 }

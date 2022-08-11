@@ -12,6 +12,7 @@ namespace EdPlatform.Data.Entities
         public int AttemptId { get; set; }
         public int UserId { get; set; }
         public int ExerciseId { get; set; }
+        public Exercise Exercise { get; set; }
         public string UserAnswer { get; set; }
         public bool IsCompleted { get; set; }
     }

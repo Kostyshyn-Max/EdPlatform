@@ -21,7 +21,7 @@ namespace EdPlatform.Business.Services
             _logger = logger;
         }
 
-        public async Task<bool[]> ExecuteCode(CodeModel codeModel)
+        public async Task<List<bool>> ExecuteCode(CodeModel codeModel)
         {
             List<string> responses = new List<string>();
 
@@ -32,14 +32,14 @@ namespace EdPlatform.Business.Services
                 responses.Add(responseString);
             }
 
-            bool[] results = new bool[responses.Count];
+            List<bool> results = new List<bool>();
             for (int i = 0; i < responses.Count(); i++)
             {
                 JObject? jObject = JObject.Parse(responses[i]);
-                Regex pattern = new Regex("[\a\b\t\r\v\f\n\nnn]");
+                Regex pattern = new Regex("[\a\b\t\r\v\f\n]");
                 string output = pattern.Replace(jObject["output"]?.Value<string>(), "");
 
-                results[i] = codeModel.OutputDatas[i].Equals(output);
+                results.Add(codeModel.OutputDatas[i].Equals(output));
             }
 
             return results;
