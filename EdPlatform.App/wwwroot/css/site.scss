@@ -190,6 +190,60 @@ html.dark {
             background-color: $blue-2;
         }
     }
+
+    .auth-cover {
+        .auth {
+            background-color: $blue-2;
+
+            .logo-control {
+                background-color: $blue-3;
+            }
+
+            .auth-form {
+                form {
+                    .form-group {
+                        input {
+                            background-color: $blue-3;
+                            color: $blue-5;
+
+                            &::placeholder {
+                                color: $blue-5;
+                            }
+
+                            &:focus {
+                                color: $blue-5;
+                            }
+
+                            &:-webkit-autofill {
+                                background-color: $blue-3;
+                            }
+                        }
+
+                        a {
+                            color: $blue-5;
+                        }
+                    }
+
+                    .auth-button {
+                        button {
+                            background-color: $blue-5;
+                            color: $text-color-dark;
+
+                            &:hover {
+                                background-color: $blue-4;
+                            }
+                        }
+                    }
+                }
+
+                .auth-links {
+                    a {
+                        color: $blue-5;
+                    }
+                }
+            }
+        }
+    }
 }
 
 html.light {
@@ -351,6 +405,60 @@ html.light {
 
         .lessons-list {
             background-color: $light-blue-2;
+        }
+    }
+
+    .auth-cover {
+        .auth {
+            background-color: $light-blue-2;
+
+            .logo-control {
+                background-color: $light-blue-3;
+            }
+
+            .auth-form {
+                form {
+                    .form-group {
+                        input {
+                            background-color: $light-blue-3;
+                            color: $light-blue-5;
+
+                            &::placeholder {
+                                color: $light-blue-5;
+                            }
+
+                            &:focus {
+                                color: $light-blue-5;
+                            }
+
+                            &:-webkit-autofill {
+                                background-color: $light-blue-3;
+                            }
+                        }
+
+                        a {
+                            color: $light-blue-5;
+                        }
+                    }
+
+                    .auth-button {
+                        button {
+                            background-color: $light-blue-5;
+                            color: $text-color-dark;
+
+                            &:hover {
+                                background-color: $light-blue-4;
+                            }
+                        }
+                    }
+                }
+
+                .auth-links {
+                    a {
+                        color: $light-blue-5;
+                    }
+                }
+            }
         }
     }
 }
@@ -719,6 +827,108 @@ footer {
 
                 a {
                     padding: 0 13px;
+                }
+            }
+        }
+    }
+}
+
+.auth-cover {
+    display: flex;
+    justify-content: center;
+
+    .auth {
+        margin-top: 64px;
+        width: 460px;
+
+        .logo-control {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+
+            img {
+                height: 26px;
+            }
+
+            h2 {
+                font-size: 16px;
+            }
+        }
+
+        .auth-form {
+            padding: 12px 16px;
+
+            .auth-title {
+                text-align: center;
+
+                h2 {
+                    font-weight: bold;
+                    font-size: 20px;
+                }
+            }
+
+            form {
+
+                .form-group {
+                    display: flex;
+                    flex-direction: column;
+                    padding-top: 16px;
+
+                    label {
+                        font-size: 16px;
+                        font-weight: bold;
+                    }
+
+                    input {
+                        border: none;
+                        border-radius: 26px;
+                        height: 30px;
+                        padding-left: 15px;
+                        font-size: 16px;
+
+                        &:focus {
+                            outline: none;
+                        }
+                    }
+
+                    span {
+                        font-size: 14px;
+                        color: crimson;
+                        padding: 6px 0px 0px 15px;
+                    }
+
+                    a {
+                        font-size: 14px;
+                        padding: 6px 0px 0px 15px;
+                        text-decoration: none;
+                    }
+                }
+
+                .auth-button {
+                    padding-top: 16px;
+                    display: flex;
+                    justify-content: center;
+
+                    button {
+                        width: 40%;
+                        border: none;
+                        font-size: 20px;
+                        border-radius: 6px;
+                        padding: 4px 8px;
+
+                        &:hover {
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+
+            .auth-links {
+                text-align: center;
+
+                a {
+                    font-size: 14px;
+                    text-decoration: none;
                 }
             }
         }
