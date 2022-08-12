@@ -6,28 +6,54 @@
     Layout = "_Layout";
 }
 
-<form method="post"> 
-    <div class="form-group">
-        <label asp-for="Input.Login"></label>
-        <input asp-for="Input.Login" type="text" class="form-control" placeholder="Login" />
-        <span asp-validation-for="Input.Login" class="text-danger"></span>
+<div class="auth-cover">
+    <div class="auth">
+        <div class="logo-control">
+            <img src="~/img/logo.svg" />
+            <h2>EdPlatform</h2>
+        </div>
+
+        <div class="auth-form">
+            <div class="auth-title">
+                <h2>Створіть аккаунт</h2>
+            </div>
+
+            <form method="post">
+                <div class="form-group">
+                    <label>Введіть логін</label>
+                    <input asp-for="Input.Login" placeholder="Логін" autocomplete="username"/>
+                    <span asp-validation-for="Input.Login"></span>
+                </div>
+                <div class="form-group">
+                    <label>Введіть електронну адресу</label>
+                    <input asp-for="Input.Email" type="email" placeholder="Електронна адреса" autocomplete="email"/>
+                    <span asp-validation-for="Input.Email"></span>
+                </div>
+                <div class="form-group">
+                    <label>Введіть пароль</label>
+                    <input asp-for="Input.Password" type="password" placeholder="Пароль" autocomplete="current-password"/>
+                    <span asp-validation-for="Input.Password"></span>
+                </div>
+                <div class="form-group">
+                    <label>Підтвердіть пароль</label>
+                    <input asp-for="Input.ConfirmPassword" type="password" placeholder="Підтвердіть пароль" autocomplete="off"/>
+                    <span asp-validation-for="Input.ConfirmPassword"></span>
+                </div>
+
+                <div class="auth-button">
+                    <button type="submit">Зареєструватися</button>
+                </div>
+            </form>
+
+            <div class="auth-links">
+                <a asp-page="/Account/Login">Уже маєте аккаунт? Увійдіть в нього.</a>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="Input.Email"></label>
-        <input asp-for="Input.Email" type="email" class="form-control" placeholder="Email">
-        <span asp-validation-for="Input.Email" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Input.Password"></label>
-        <input asp-for="Input.Password" type="password" class="form-control" placeholder="Password">
-        <span asp-validation-for="Input.Password" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Input.ConfirmPassword"></label>
-        <input asp-for="Input.ConfirmPassword" type="password" class="form-control" placeholder="Password again">
-        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Register</button>
-    </div>
-</form>
+</div>
+
+<style>
+    .content{
+        background:none!important;
+    }
+</style>

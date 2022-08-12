@@ -6,25 +6,52 @@
     Layout = "_Layout";
 }
 
-<form method="post">
-    <div class="form-group">
-        <label asp-for="Input.Login"></label>
-        <input asp-for="Input.Login" class="form-control">
-        <span asp-validation-for="Input.Login" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Input.Password"></label>
-        <input asp-for="Input.Password" class="form-control" autocomplete="on">
-        <span asp-validation-for="Input.Password" class="text-danger"></span>
-    </div>
+<div class="auth-cover">
+    <div class="auth">
+        <div class="logo-control">
+            <img src="~/img/logo.svg" />
+            <h2>EdPlatform</h2>
+        </div>
 
-    <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="auth-form">
+            <div class="auth-title">
+                <h2>Увійдіть в аккаунт</h2>
+            </div>
 
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Log in</button>
+            <form method="post">
+                <div class="form-group">
+                    <label>Введіть логін</label>
+                    <input asp-for="Input.Login" placeholder="Логін" autocomplete="username"/>
+                    <span asp-validation-for="Input.Login"></span>
+                </div>
+                <div class="form-group">
+                    <label>Введіть пароль</label>
+                    <input asp-for="Input.Password" type="password" placeholder="Пароль" autocomplete="current-password"/>
+                    <span asp-validation-for="Input.Password"></span>
+
+                    <a href="#">Забули пароль?</a>
+                </div>
+
+                @*<div asp-validation-summary="All" class="text-danger"></div>*@
+
+                <div class="auth-button">
+                    <button type="submit">Увійти</button>
+                </div>
+            </form>
+
+            <div class="auth-links">
+                <a asp-page="/Account/Register">Немаєте аккаунту? Створіть його.</a>
+            </div>
+        </div>
     </div>
-</form>
+</div>
 
-@section scripts{
+<style>
+    .content{
+        background:none!important;
+    }
+</style>
+
+@*@section scripts{
     @await Html.PartialAsync("_ValidationScriptsPartial");
-}
+}*@
