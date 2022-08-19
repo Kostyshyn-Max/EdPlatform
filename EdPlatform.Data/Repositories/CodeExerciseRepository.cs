@@ -28,7 +28,7 @@ namespace EdPlatform.Data.Repositories
         public async Task<CodeExercise?> Get(int id)
         {
             return await _context.CodeExercises.Where(x => x.ExerciseId == id)
-                .Include(x => x.Lesson)
+                .Include(x => x.Lesson).ThenInclude(x => x.Module).ThenInclude(x => x.Course)
                 .Include(x => x.IOCases)
                 .SingleOrDefaultAsync();
         }
@@ -36,7 +36,7 @@ namespace EdPlatform.Data.Repositories
         public async Task<IEnumerable<CodeExercise>> GetAll()
         {
             return await _context.CodeExercises
-                .Include(x => x.Lesson)
+                .Include(x => x.Lesson).ThenInclude(x => x.Module).ThenInclude(x => x.Course)
                 .Include(x => x.IOCases)
                 .ToListAsync();
         }
@@ -44,7 +44,7 @@ namespace EdPlatform.Data.Repositories
         public async Task<IEnumerable<CodeExercise>> Find(Expression<Func<CodeExercise, bool>> expression)
         {
             return await _context.CodeExercises.Where(expression)
-                .Include(x => x.Lesson)
+                .Include(x => x.Lesson).ThenInclude(x => x.Module).ThenInclude(x => x.Course)
                 .Include(x => x.IOCases)
                 .ToListAsync();
         }

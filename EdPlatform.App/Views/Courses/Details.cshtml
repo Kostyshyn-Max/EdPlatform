@@ -43,14 +43,18 @@
         </div>
         <div class="lessons-list">
             <ul>
-                @for (int i = 0; i < module.Lessons.OrderBy(x => x.Order).Count(); i++)
+                @{
+                    var lessons = module.Lessons.OrderBy(x => x.Order);
+                }
+
+                @for (int i = 0; i < lessons.Count(); i++)
                 {
                     <li>
                         @if (i == 0)
                         {
-                            <img src="~/img/strat-timeline.svg" />
+                            <img src="~/img/start-timeline.svg" />
                         }
-                        else if (i == module.Lessons.OrderBy(x => x.Order).Count() - 1)
+                        else if (i == lessons.Count() - 1)
                         {
                             <img src="~/img/end-timeline.svg" />
                         }
@@ -59,8 +63,8 @@
                             <img src="~/img/middle-timeline.svg" />
                         }
 
-                        <a>@module.Lessons.ElementAt(i).LessonName</a>
-                        <a asp-route-courseId="@ViewBag.Course.CourseId" asp-route-moduleId="@module.ModuleId" asp-route-lessonId="@module.Lessons.ElementAt(i).LessonId" asp-action="Details" asp-controller="Lessons">Переглянути вміст уроку</a>
+                        <a>@lessons.ElementAt(i).LessonName</a>
+                        <a asp-route-courseId="@ViewBag.Course.CourseId" asp-route-moduleId="@module.ModuleId" asp-route-lessonId="@lessons.ElementAt(i).LessonId" asp-action="Details" asp-controller="Lessons">Переглянути вміст уроку</a>
                     </li>
                 }
             </ul>

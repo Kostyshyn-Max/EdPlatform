@@ -8,7 +8,6 @@ function windowLoad() {
     if (window.matchMedia) {
         userTheme = window.matchMedia("(prefers-color-theme: dark)").matches ? "dark" : "light";
     }
-
     window.matchMedia("(prefers-color-theme: dark)").addEventListener("change", e => {
         !saveUserTheme ? changeTheme() : null;
     });
@@ -40,8 +39,6 @@ function windowLoad() {
         } else if (currentTheme == "dark") {
             newTheme = "light";
         }
-
-        console.log(currentTheme);
 
         htmlBlock.classList.remove(currentTheme);
         htmlBlock.classList.add(newTheme);
