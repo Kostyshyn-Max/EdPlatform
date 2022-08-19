@@ -151,7 +151,7 @@ h1, h2, h3 {
   html.dark .details-page .navigation-panel {
     background-color: #16212B;
   }
-  html.dark .details-page .navigation-panel .name {
+  html.dark .details-page .navigation-panel .name a {
     color: #96A3AF;
   }
   html.dark .details-page .navigation-panel .name:hover {
@@ -187,11 +187,11 @@ h1, h2, h3 {
   html.dark .details-page .page-content .code form .code-buttons .run:hover {
     background-color: #232F3A;
   }
-  html.dark .details-page .page-content .buttons button {
+  html.dark .details-page .page-content .buttons a {
     background-color: #758899;
     color: #FFFFFF;
   }
-  html.dark .details-page .page-content .buttons button:hover {
+  html.dark .details-page .page-content .buttons a:hover {
     background-color: #415262;
   }
 }
@@ -332,7 +332,7 @@ html.light .auth-cover .auth .auth-form .auth-links a {
 html.light .details-page .navigation-panel {
   background-color: #2f4c67;
 }
-html.light .details-page .navigation-panel .name {
+html.light .details-page .navigation-panel .name a {
   color: #a1cdf7;
 }
 html.light .details-page .navigation-panel .name:hover {
@@ -368,11 +368,11 @@ html.light .details-page .page-content .code form .code-buttons .run {
 html.light .details-page .page-content .code form .code-buttons .run:hover {
   background-color: #3f668a;
 }
-html.light .details-page .page-content .buttons button {
+html.light .details-page .page-content .buttons a {
   background-color: #89b4dd;
   color: #FFFFFF;
 }
-html.light .details-page .page-content .buttons button:hover {
+html.light .details-page .page-content .buttons a:hover {
   background-color: #7AA1C6;
 }
 
@@ -769,10 +769,11 @@ footer .trademark h2 {
   justify-content: center;
   align-items: center;
 }
-.details-page .navigation-panel .name h2 {
+.details-page .navigation-panel .name a {
   font-size: 20px;
   font-weight: bold;
   text-align: center;
+  text-decoration: none;
 }
 .details-page .navigation-panel .name:hover {
   cursor: pointer;
@@ -837,13 +838,14 @@ footer .trademark h2 {
   display: flex;
   justify-content: flex-end;
 }
-.details-page .page-content .buttons button {
+.details-page .page-content .buttons a {
   font-size: 20px;
   border-radius: 6px;
   border: none;
   padding: 6px 12px;
   margin: 16px 0;
+  text-decoration: none;
 }
-.details-page .page-content .buttons button:hover {
+.details-page .page-content .buttons a:hover {
   cursor: pointer;
 }

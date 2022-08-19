@@ -10,7 +10,7 @@ namespace EdPlatform.Business.Services
     public interface ICodeExerciseService
     {
         Task Create(CodeExerciseModel codeExercise);
-        Task<CodeExerciseModel> GetById(int id);
+        Task<CodeExerciseModel?> GetById(int id);
         Task Edit(CodeExerciseModel codeExercise);
         Task<CourseModel> GetCourseById(int courseId);
     }

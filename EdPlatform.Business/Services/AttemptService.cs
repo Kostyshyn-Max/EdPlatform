@@ -54,13 +54,9 @@ namespace EdPlatform.Business.Services
             }
         }
 
-        public async Task<AttemptModel> GetFromUserExercise(int userId, int exerciseId)
+        public async Task<AttemptModel?> GetFromUserExercise(int userId, int exerciseId)
         {
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Attempt, AttemptModel>();
-            });
-            IMapper mapper = config.CreateMapper();
+            IMapper mapper = CreateAttemptToAttemptModelMapper();
             Attempt? attempt;
             await using (UnitOfWork u = new())
             {
@@ -68,6 +64,47 @@ namespace EdPlatform.Business.Services
             }
 
             return mapper.Map<Attempt, AttemptModel>(attempt);
+        }
+
+        public async Task<int> GetNotSolvedExercise(IEnumerable<ExerciseModel> exercises, int userId)
+        {
+            IMapper mapper = CreateAttemptToAttemptModelMapper();
+
+            List<AttemptModel?> attempts = new List<AttemptModel>();
+
+            await using (UnitOfWork u = new())
+            {
+                foreach(var exercise in exercises)
+                {
+                    var attempt = (await u.AttemptRepository.Find(x => x.ExerciseId == exercise.ExerciseId && x.UserId == userId)).SingleOrDefault();
+
+                    if (attempt != null)
+                        attempts.Add(mapper.Map<Attempt, AttemptModel>(attempt));
+                    else
+                        attempts.Add(null);
+                }
+            }
+
+            for (int i = 0; i < exercises.Count(); i++)
+            {
+                if (attempts[i] == null)
+                {
+                    return exercises.ElementAt(i).ExerciseId;
+                }
+            }
+
+            return -1;
+        }
+
+        private static IMapper CreateAttemptToAttemptModelMapper()
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Attempt, AttemptModel>();
+                cfg.CreateMap<Exercise, ExerciseModel>();
+            });
+            IMapper mapper = config.CreateMapper();
+            return mapper;
         }
 
         private IMapper CreateAttemptModelToAttemptMapper()

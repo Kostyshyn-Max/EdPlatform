@@ -12,6 +12,11 @@
         <textarea id="code-exercise-content" asp-for="Problem"></textarea>
         <span asp-validation-for="Problem"></span>
     </div>
+    <div>
+        <label asp-for="Order"></label>
+        <input asp-for="Order" type="number" />
+        <span asp-validation-for="Order"></span>
+    </div>
     <input asp-for="LessonId" type="hidden" value="@ViewBag.LessonId"/>
     <button type="submit">Create</button>
 </form>

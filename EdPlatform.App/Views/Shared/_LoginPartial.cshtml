@@ -5,8 +5,14 @@
         login = User.FindFirst("Login").Value;
     
     @*<a asp-controller="Courses" asp-action="Create" style="margin-right: 0.5rem;">Create your course</a>*@
-    <div class="user-login">
-        <a>@login</a>
+    <div class="dropdown">
+        <a class="title">@login</a>
+
+        <ul style="right: -8px;">
+           <li>
+               <a asp-page="/Account/Logout">Logout</a>
+           </li>
+        </ul>
     </div>
 }
 else

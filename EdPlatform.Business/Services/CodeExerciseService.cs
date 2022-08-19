@@ -35,7 +35,7 @@ namespace EdPlatform.Business.Services
             await _unitOfWork.Save();
         }
 
-        public async Task<CodeExerciseModel> GetById(int id)
+        public async Task<CodeExerciseModel?> GetById(int id)
         {
             var codeExercise = await _unitOfWork.CodeExerciseRepository.Get(id);
             

@@ -4,17 +4,24 @@
 <div class="details-page">
     <div class="navigation-panel">
         <div class="name">
-            <h2>3. Умовний оператор if</h2>
+            <a asp-controller="Lessons" asp-action="Details" 
+                asp-route-courseId="@ViewBag.Exercise.Lesson.Module.CourseId"
+                asp-route-moduleId="@ViewBag.Exercise.Lesson.ModuleId"
+                asp-route-lessonId="@ViewBag.Exercise.LessonId">@ViewBag.Exercise.Lesson.Order. @ViewBag.Exercise.Lesson.LessonName</a>
         </div>
         <ul class="timeline-list">
-            @for (int i = 0; i < 15; i++)
+            @{
+                (ViewBag.Exercise.Lesson.Exercises as IEnumerable<ExerciseModel>).OrderBy(x => x.Order);
+            }
+
+            @for (int i = 0; i < ViewBag.Exercise.Lesson.Exercises.Count; i++)
             {
                 <li>
                     @if (i == 0)
                     {
                         <img src="~/img/horizontal-start-timeline.svg" />
                     }
-                    else if (i == 14)
+                    else if (i == ViewBag.Exercise.Lesson.Exercises.Count - 1)
                     {
                         <img src="~/img/horizontal-end-timeline.svg" />
                     }
@@ -53,7 +60,7 @@
         </div>
 
         <div class="buttons">
-            <button>Перейти до наступної вправи</button>
+            <a>Перейти до наступної вправи</a>
         </div>
     </div>
 </div>

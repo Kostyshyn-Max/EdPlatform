@@ -30,24 +30,33 @@
 <div class="details-page">
     <div class="navigation-panel">
         <div class="name">
-            <h2>Базовий курс програмування мовою Python</h2>
+            <a asp-controller="Courses" asp-action="Details" asp-route-courseId="@Model.Module.CourseId">@Model.Module.Course.CourseName</a>
         </div>
         <ul class="timeline-list">
-            @for (int i = 0; i < 15; i++)
+            @{
+                List<LessonModel> lessons = Model.Module.Lessons.OrderBy(x => x.Order).ToList();
+            }
+
+            @for (int i = 0; i < lessons.Count(); i++)
             {
                 <li>
-                    @if (i == 0)
-                    {
-                        <img src="~/img/horizontal-start-timeline.svg" />
-                    }
-                    else if (i == 14)
-                    {
-                        <img src="~/img/horizontal-end-timeline.svg" />
-                    }
-                    else
-                    {
-                        <img src="~/img/horizontal-middle-timeline.svg" />
-                    }
+                    <a asp-controller="Lessons" asp-action="Details"
+                        asp-route-courseId="@Model.Module.CourseId" 
+                        asp-route-moduleId="@Model.ModuleId" 
+                        asp-route-lessonId="@lessons[i].LessonId" >
+                        @if (i == 0)
+                        {
+                            <img src="~/img/horizontal-start-timeline.svg" />
+                        }
+                        else if (i == lessons.Count() - 1)
+                        {
+                            <img src="~/img/horizontal-end-timeline.svg" />
+                        }
+                        else
+                        {
+                            <img src="~/img/horizontal-middle-timeline.svg" />
+                        }
+                    </a>
                 </li>
             }
         </ul>
@@ -62,7 +71,15 @@
         </div>
 
         <div class="buttons">
-            <button>Перейти до вправ</button>
+            @if (@ViewBag.NotSolvedExercise is CodeExerciseModel)
+            {
+                <a  asp-controller="Exercises" 
+                    asp-action="CodeExerciseDetails"
+                    asp-route-courseId="@Model.Module.CourseId" 
+                    asp-route-moduleId="@Model.ModuleId" 
+                    asp-route-lessonId="@Model.LessonId" 
+                    asp-route-codeExerciseId="@ViewBag.NotSolvedExercise.ExerciseId">Перейти до вправ</a>
+            }
         </div>
     </div>
 </div>

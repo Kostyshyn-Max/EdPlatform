@@ -10,7 +10,8 @@ namespace EdPlatform.Business.Services
     public interface IAttemptService
     {
         Task Create(AttemptModel attempt, List<bool> codeExecutionResults);
-        Task<AttemptModel> GetFromUserExercise(int userId, int exerciseId);
+        Task<AttemptModel?> GetFromUserExercise(int userId, int exerciseId);
+        Task<int> GetNotSolvedExercise(IEnumerable<ExerciseModel> exercises, int userId);
         Task EditAttempt(AttemptModel attempt);
     }
 }
