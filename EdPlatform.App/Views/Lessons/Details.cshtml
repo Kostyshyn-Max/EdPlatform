@@ -1,13 +1,13 @@
 ﻿@using EdPlatform.Business.Models
 @model LessonModel
 
-@if (Model.Module.Course.Modules != null)
+@*@if (Model.Module.Course.Modules != null)
 {
     @foreach (var module in Model.Module.Course.Modules.OrderBy(x => x.Order))
     {
     <label>Modules:</label>
     <ul class="list-group">
-        <li class="list-group-item">@module.ModuleName</li>  
+        <li class="list-group-item">@module.ModuleName</li>
 
         @if (module.Lessons != null)
         {
@@ -16,17 +16,85 @@
                 @foreach (var lesson in module.Lessons.OrderBy(x => x.Order))
                 {
                     <li class="list-group-item">
-                        @lesson.LessonName 
+                        @lesson.LessonName
                         <a asp-route-courseId="@module.CourseId" asp-route-moduleId="@module.ModuleId" asp-route-lessonId="@lesson.LessonId" asp-action="Details" asp-controller="Lessons">Details</a>
-                    </li> 
+                    </li>
                 }
             </ul>
         </li>
         }
     </ul>
     }
-}
+}*@
 
-<div>
-    @Html.Raw(Model.LessonContent)
+<div class="details-page">
+    <div class="navigation-panel">
+        <div class="name">
+            <a asp-controller="Courses" asp-action="Details" asp-route-courseId="@Model.Module.CourseId">@Model.Module.Course.CourseName</a>
+        </div>
+        <ul class="timeline-list">
+            @{
+                List<LessonModel> lessons = Model.Module.Lessons.OrderBy(x => x.Order).ToList();
+            }
+
+            @for (int i = 0; i < lessons.Count(); i++)
+            {
+                <li>
+                    <a asp-controller="Lessons" asp-action="Details"
+                        asp-route-courseId="@Model.Module.CourseId" 
+                        asp-route-moduleId="@Model.ModuleId" 
+                        asp-route-lessonId="@lessons[i].LessonId" >
+                        @if (i == 0)
+                        {
+                            <img src="~/img/horizontal-start-timeline.svg" />
+                        }
+                        else if (i == lessons.Count() - 1)
+                        {
+                            <img src="~/img/horizontal-end-timeline.svg" />
+                        }
+                        else
+                        {
+                            <img src="~/img/horizontal-middle-timeline.svg" />
+                        }
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div class="page-content">
+        <div class="title">
+            <h2>@Model.Order. @Model.LessonName</h2>
+        </div>
+        <div class="lecture">
+            @Html.Raw(Model.LessonContent)    
+        </div>
+
+        <div class="buttons">
+            @if (@ViewBag.NotSolvedExercise is CodeExerciseModel)
+            {
+                <a  asp-controller="Exercises" 
+                    asp-action="CodeExerciseDetails"
+                    asp-route-courseId="@Model.Module.CourseId" 
+                    asp-route-moduleId="@Model.ModuleId" 
+                    asp-route-lessonId="@Model.LessonId" 
+                    asp-route-codeExerciseId="@ViewBag.NotSolvedExercise.ExerciseId">Перейти до вправ</a>
+            }
+        </div>
+    </div>
 </div>
+
+<style>
+    html.dark .content{
+        background-color: #232F3A;
+    }
+    
+    html.light .content{
+        background-color: #3f668a;
+    }
+</style>
+
+
+@*<div>
+    @Html.Raw(Model.LessonContent)
+</div>*@

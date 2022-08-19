@@ -77,7 +77,9 @@ namespace EdPlatform.App.Controllers
         {
             await _codeExerciseService.Edit(codeExercise);
 
-            return View(codeExercise);
+            var updatedCodeExercise = await _codeExerciseService.GetById(codeExerciseId);
+
+            return View(updatedCodeExercise);
         }
 
         [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Code/{codeExerciseId}/Details")]

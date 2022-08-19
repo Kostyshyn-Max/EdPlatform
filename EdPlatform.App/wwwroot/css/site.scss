@@ -8,12 +8,14 @@ $blue-2: #232F3A;
 $blue-3: #2E3C49;
 $blue-4: #415262;
 $blue-5: #758899;
+$blue-6: #96A3AF;
 
 $light-blue-1: #2f4c67;
 $light-blue-2: #3f668a;
 $light-blue-3: #4E7DA8;
 $light-blue-4: #7AA1C6;
 $light-blue-5: #89b4dd;
+$light-blue-6: #a1cdf7;
 
 html, body {
     height: 100%;
@@ -29,223 +31,298 @@ h1, h2, h3 {
     margin: 0;
 }
 
-html.dark {
-    body {
-        background-color: $background-color-dark;
-        color: $text-color-dark;
-        background-image: url('../img/background.svg');
-    }
+@media(prefers-color-scheme: dark) {
 
-    header nav {
-        background-color: $blue-3;
-
-        .dropdown {
-            .title {
-                color: $text-color-dark;
-
-                &:hover {
-                    background-color: $blue-2;
-                }
-            }
-
-            ul {
-                background-color: #1e2831;
-
-                li {
-                    a {
-                        color: $text-color-dark;
-
-                        &:hover {
-                            background-color: #293744;
-                        }
-                    }
-                }
-            }
+    html.dark {
+        body {
+            background-color: $background-color-dark;
+            color: $text-color-dark;
+            background-image: url('../img/background.svg');
         }
 
-        .searchbar-cover {
-            .searchbar {
-                input {
-                    background-color: $blue-2;
-                    color: $blue-5;
-
-                    &::placeholder {
-                        color: $blue-5;
-                    }
-                }
-
-                a {
-                    background-color: $blue-2;
-                }
-            }
-        }
-
-        .theme {
-            .theme-switcher {
-                img {
-                    content: url('../img/dark-mode-switch.svg');
-                }
-            }
-        }
-
-        .login-button {
-            a {
-                color: $text-color-dark;
-            }
-        }
-    }
-
-    .content {
-        background-color: $blue-1;
-
-        .hero {
-            background-color: $blue-4;
-        }
-
-        .course-carousel {
+        header nav {
             background-color: $blue-3;
 
-            .carousel-popular {
-                background-color: $blue-2;
+            .dropdown {
+                .title {
+                    color: $text-color-dark;
 
-                .course-plate {
-                    background: $blue-4;
+                    &:hover {
+                        background-color: $blue-2;
+                    }
+                }
 
-                    h2 {
+                ul {
+                    background-color: #1e2831;
+
+                    li {
                         a {
-                            color: $text-color-dark;
-                        }
-                    }
-                }
-
-                &::-webkit-scrollbar {
-                    background-color: $blue-1;
-                }
-
-                &::-webkit-scrollbar-thumb {
-                    background-color: $blue-4;
-                }
-            }
-        }
-    }
-
-    footer {
-        background-color: $blue-1;
-
-        .links {
-            a {
-                color: $text-color-dark;
-
-                &:hover {
-                    background-color: $blue-2;
-                }
-            }
-        }
-
-        .trademark {
-            h2 {
-                color: $blue-4;
-            }
-        }
-    }
-
-    .title {
-        .course {
-            background-color: $blue-3;
-
-            .info {
-                .tag {
-                    background-color: $blue-4;
-
-                    a {
-                        color: $text-color-dark;
-                    }
-                }
-            }
-
-            .join-button {
-                background-color: $blue-5;
-
-                &:hover {
-                    background-color: #617281;
-                }
-            }
-        }
-
-        .description {
-            background-color: $blue-2;
-        }
-    }
-
-    .content-title {
-        background-color: $blue-4;
-    }
-
-    .module {
-        .title {
-            background-color: $blue-3;
-        }
-
-        .lessons-list {
-            background-color: $blue-2;
-        }
-    }
-
-    .auth-cover {
-        .auth {
-            background-color: $blue-2;
-
-            .logo-control {
-                background-color: $blue-3;
-            }
-
-            .auth-form {
-                form {
-                    .form-group {
-                        input {
-                            background-color: $blue-3;
-                            color: $blue-5;
-
-                            &::placeholder {
-                                color: $blue-5;
-                            }
-
-                            &:focus {
-                                color: $blue-5;
-                            }
-
-                            &:-webkit-autofill {
-                                background-color: $blue-3;
-                            }
-                        }
-
-                        a {
-                            color: $blue-5;
-                        }
-                    }
-
-                    .auth-button {
-                        button {
-                            background-color: $blue-5;
                             color: $text-color-dark;
 
                             &:hover {
+                                background-color: #293744;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .searchbar-cover {
+                .searchbar {
+                    input {
+                        background-color: $blue-2;
+                        color: $blue-5;
+
+                        &::placeholder {
+                            color: $blue-5;
+                        }
+                    }
+
+                    a {
+                        background-color: $blue-2;
+                    }
+                }
+            }
+
+            .theme {
+                .theme-switcher {
+                    img {
+                        content: url('../img/dark-mode-switch.svg');
+                    }
+                }
+            }
+
+            .login-button {
+                a {
+                    color: $text-color-dark;
+                }
+            }
+        }
+
+        .content {
+            background-color: $blue-1;
+
+            .hero {
+                background-color: $blue-4;
+            }
+
+            .course-carousel {
+                background-color: $blue-3;
+
+                .carousel-popular {
+                    background-color: $blue-2;
+
+                    .course-plate {
+                        background: $blue-4;
+
+                        h2 {
+                            a {
+                                color: $text-color-dark;
+                            }
+                        }
+                    }
+
+                    &::-webkit-scrollbar {
+                        background-color: $blue-1;
+                    }
+
+                    &::-webkit-scrollbar-thumb {
+                        background-color: $blue-4;
+                    }
+                }
+            }
+        }
+
+        footer {
+            background-color: $blue-1;
+
+            .links {
+                a {
+                    color: $text-color-dark;
+
+                    &:hover {
+                        background-color: $blue-2;
+                    }
+                }
+            }
+
+            .trademark {
+                h2 {
+                    color: $blue-4;
+                }
+            }
+        }
+
+        .title {
+            .course {
+                background-color: $blue-3;
+
+                .info {
+                    .tag {
+                        background-color: $blue-4;
+
+                        a {
+                            color: $text-color-dark;
+                        }
+                    }
+                }
+
+                .join-button {
+                    background-color: $blue-5;
+
+                    &:hover {
+                        background-color: #617281;
+                    }
+                }
+            }
+
+            .description {
+                background-color: $blue-2;
+            }
+        }
+
+        .content-title {
+            background-color: $blue-4;
+        }
+
+        .module {
+            .title {
+                background-color: $blue-3;
+            }
+
+            .lessons-list {
+                background-color: $blue-2;
+            }
+        }
+
+        .auth-cover {
+            .auth {
+                background-color: $blue-2;
+
+                .logo-control {
+                    background-color: $blue-3;
+                }
+
+                .auth-form {
+                    form {
+                        .form-group {
+                            input {
+                                background-color: $blue-3;
+                                color: $blue-5;
+
+                                &::placeholder {
+                                    color: $blue-5;
+                                }
+
+                                &:focus {
+                                    color: $blue-5;
+                                }
+
+                                &:-webkit-autofill {
+                                    background-color: $blue-3;
+                                }
+                            }
+
+                            a {
+                                color: $blue-5;
+                            }
+                        }
+
+                        .auth-button {
+                            button {
+                                background-color: $blue-5;
+                                color: $text-color-dark;
+
+                                &:hover {
+                                    background-color: $blue-4;
+                                }
+                            }
+                        }
+                    }
+
+                    .auth-links {
+                        a {
+                            color: $blue-5;
+                        }
+                    }
+                }
+            }
+        }
+
+        .details-page {
+            .navigation-panel {
+                background-color: $blue-1;
+
+                .name {
+                    a {
+                        color: $blue-6;
+                    }
+
+                    &:hover {
+                        background-color: $blue-3;
+                    }
+                }
+            }
+
+            .page-content {
+                .title {
+                    color: $blue-6;
+                }
+
+                .lecture {
+                    color: $blue-5;
+                }
+
+                .code {
+                    background-color: $blue-3;
+
+                    info {
+                        h2 {
+                            color: $blue-6;
+                        }
+                    }
+
+                    form {
+                        .code-buttons {
+                            background-color: $blue-3;
+
+                            button {
+                                color: $blue-6;
+                            }
+
+                            .send {
                                 background-color: $blue-4;
+
+                                &:hover {
+                                    background-color: #28343e;
+                                }
+                            }
+
+                            .run {
+                                background-color: $blue-1;
+
+                                &:hover {
+                                    background-color: $blue-2;
+                                }
                             }
                         }
                     }
                 }
 
-                .auth-links {
+                .buttons {
                     a {
-                        color: $blue-5;
+                        background-color: $blue-5;
+                        color: $text-color-dark;
+
+                        &:hover {
+                            background-color: $blue-4;
+                        }
                     }
                 }
             }
         }
     }
 }
-
 html.light {
     body {
         background-color: #FFFFFF;
@@ -456,6 +533,79 @@ html.light {
                 .auth-links {
                     a {
                         color: $light-blue-5;
+                    }
+                }
+            }
+        }
+    }
+
+    .details-page {
+        .navigation-panel {
+            background-color: $light-blue-1;
+
+            .name {
+                a {
+                    color: $light-blue-6;
+                }
+
+                &:hover {
+                    background-color: $light-blue-3;
+                }
+            }
+        }
+
+        .page-content {
+            .title {
+                color: $light-blue-6;
+            }
+
+            .lecture {
+                color: $light-blue-5;
+            }
+
+            .code {
+                background-color: $light-blue-3;
+
+                info {
+                    h2 {
+                        color: $light-blue-6;
+                    }
+                }
+
+                form {
+                    .code-buttons {
+                        background-color: $light-blue-3;
+
+                        button {
+                            color: $light-blue-6;
+                        }
+
+                        .send {
+                            background-color: $light-blue-4;
+
+                            &:hover {
+                                background-color: #6a8caa;
+                            }
+                        }
+
+                        .run {
+                            background-color: $light-blue-1;
+
+                            &:hover {
+                                background-color: $light-blue-2;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .buttons {
+                a {
+                    background-color: $light-blue-5;
+                    color: $text-color-dark;
+
+                    &:hover {
+                        background-color: $light-blue-4;
                     }
                 }
             }
@@ -929,6 +1079,119 @@ footer {
                 a {
                     font-size: 14px;
                     text-decoration: none;
+                }
+            }
+        }
+    }
+}
+
+.details-page {
+    .navigation-panel {
+        display: flex;
+
+        .name {
+            display: flex;
+            width: 15%;
+            justify-content: center;
+            align-items: center;
+
+            a {
+                font-size: 20px;
+                font-weight: bold;
+                text-align: center;
+                text-decoration: none;
+            }
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        ul {
+            display: flex;
+            align-items: center;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            padding: 6px 0;
+
+            li {
+                float: left;
+
+                img {
+                    display: block;
+                }
+            }
+        }
+    }
+
+    .page-content {
+        padding: 0 36px;
+
+        .title {
+            display: flex;
+            justify-content: center;
+            margin: 16px 0;
+
+            h2 {
+                font-weight: bold;
+                font-size: 36px;
+            }
+        }
+
+        .lecture {
+            font-size: 20px;
+            line-height: 30px;
+            text-align: justify;
+        }
+
+        .code {
+            margin: 16px 0;
+
+            .info {
+                padding: 8px 16px;
+
+                h2 {
+                    font-size: 16px;
+                    padding: 3px 0;
+                }
+            }
+
+            form {
+                .code-buttons {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 8px 16px;
+
+                    button {
+                        border: none;
+                        border-radius: 6px;
+                        padding: 8px 16px;
+                        font-size: 20px;
+
+                        &:hover {
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: flex-end;
+
+            a {
+                font-size: 20px;
+                border-radius: 6px;
+                border: none;
+                padding: 6px 12px;
+                margin: 16px 0;
+                text-decoration: none;
+
+                &:hover {
+                    cursor: pointer;
                 }
             }
         }

@@ -9,13 +9,10 @@ namespace EdPlatform.Data.Entities
 {
     public class Exercise
     {
-#pragma warning disable CS8618
         [Key]
         public int ExerciseId { get; set; }
-
-        [Required(ErrorMessage = "String name must not be empty")]
-        [StringLength(100, ErrorMessage = "Exercise name is too long")]
         public string ExerciseName { get; set; }
+        public int Order { get; set; }
         public int LessonId { get; set; }
         public Lesson Lesson { get; set; }
     }

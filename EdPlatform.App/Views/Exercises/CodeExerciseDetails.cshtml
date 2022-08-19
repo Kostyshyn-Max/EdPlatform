@@ -1,7 +1,81 @@
 ﻿@using EdPlatform.Business.Models
 @model CodeModel
 
-<div>
+<div class="details-page">
+    <div class="navigation-panel">
+        <div class="name">
+            <a asp-controller="Lessons" asp-action="Details" 
+                asp-route-courseId="@ViewBag.Exercise.Lesson.Module.CourseId"
+                asp-route-moduleId="@ViewBag.Exercise.Lesson.ModuleId"
+                asp-route-lessonId="@ViewBag.Exercise.LessonId">@ViewBag.Exercise.Lesson.Order. @ViewBag.Exercise.Lesson.LessonName</a>
+        </div>
+        <ul class="timeline-list">
+            @{
+                (ViewBag.Exercise.Lesson.Exercises as IEnumerable<ExerciseModel>).OrderBy(x => x.Order);
+            }
+
+            @for (int i = 0; i < ViewBag.Exercise.Lesson.Exercises.Count; i++)
+            {
+                <li>
+                    @if (i == 0)
+                    {
+                        <img src="~/img/horizontal-start-timeline.svg" />
+                    }
+                    else if (i == ViewBag.Exercise.Lesson.Exercises.Count - 1)
+                    {
+                        <img src="~/img/horizontal-end-timeline.svg" />
+                    }
+                    else
+                    {
+                        <img src="~/img/horizontal-middle-timeline.svg" />
+                    }
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div class="page-content">
+        <div class="title">
+            <h2>@ViewBag.Exercise.ExerciseName</h2>
+        </div>
+        <div class="lecture">
+            @Html.Raw(ViewBag.Exercise.Problem)
+        </div>
+
+        <div class="code">
+            <div class="info">
+                <h2>Time limit: 15 sec</h2>
+                <h2>Memory limit: 128 MB</h2>
+            </div>
+            <form asp-controller="Exercises" asp-action="CodeExerciseDetails" method="post">
+                <div>
+                    <textarea asp-for="Code" data-editor="python" id="editor"></textarea>
+                </div>
+
+                <div class="code-buttons">
+                    <button type="submit" class="send">Надіслати на перевірку</button>
+                    <button class="run">Запустити код</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="buttons">
+            <a>Перейти до наступної вправи</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    html.dark .content{
+        background-color: #232F3A;
+    }
+
+    html.light .content{
+        background-color: #3f668a;
+    }
+</style>
+
+@*<div>
     @if (ViewBag.Attempt != null)
     {
         <p>@ViewBag.Attempt.IsCompleted</p>
@@ -13,7 +87,7 @@
         <textarea asp-for="Code" data-editor="python" id="editor"></textarea>
     </div>
     <button type="submit">Send code!</button>
-</form>
+</form>*@
 
 @{
     var userAnswer = (ViewBag.Attempt != null) ? ViewBag.Attempt.UserAnswer : "";
@@ -23,6 +97,17 @@
 <script type="text/javascript" src="~/js/CodeEditor/ace.js"></script>
 <script type="text/javascript"> 
     $('textarea[data-editor]').each(function() {
+        var htmlBlock = document.documentElement;
+
+        var theme = "";
+
+        if (htmlBlock.classList.contains("dark"))
+            theme = "ace/theme/dracula";
+        else if (htmlBlock.classList.contains("light"))
+            theme = "ace/theme/solarized-light";
+
+        console.log(theme)
+
         var textarea = $(this);
         var mode = textarea.data('editor');
 
@@ -36,7 +121,7 @@
 
         var editor = ace.edit(div[0], {
             value: textarea.val().replace("textarea", "ace!"),
-            theme: "ace/theme/monokai",
+            theme: 'ace/theme/dracula',
             mode: 'ace/mode/python',
             newLineMode: 'unix',
             tabSize: 4,

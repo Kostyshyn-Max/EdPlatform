@@ -11,11 +11,20 @@ namespace EdPlatform.App.Controllers
         private readonly ILessonService _lessonService;
         private readonly IAuthorizationService _authorizationService;
         private readonly ICourseUserService _courseUserService;
-        public LessonsController(ILessonService lessonService, IAuthorizationService authorizationService, ICourseUserService courseUserService)
+        private readonly IAttemptService _attemptService;
+        private readonly ICodeExerciseService _codeExerciseService;
+        public LessonsController(
+            ILessonService lessonService, 
+            IAuthorizationService authorizationService,
+            ICourseUserService courseUserService,
+            IAttemptService attemptService,
+            ICodeExerciseService codeExerciseService)
         {
             _lessonService = lessonService;
             _authorizationService = authorizationService;
             _courseUserService = courseUserService;
+            _attemptService = attemptService;
+            _codeExerciseService = codeExerciseService;
         }
 
         [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/Create")]
@@ -75,7 +84,19 @@ namespace EdPlatform.App.Controllers
             var courseUser = await _courseUserService.Get(new CourseUserModel() { CourseId = courseId, UserId = int.Parse(User.FindFirst("UserId")?.Value ?? "0") });
 
             if (courseUser != null)
+            {
+                int notSolvedExerciseId = await _attemptService.GetNotSolvedExercise(lesson.Exercises.OrderBy(x => x.Order), courseUser.UserId);
+
+                var codeExercise = await _codeExerciseService.GetById(notSolvedExerciseId);
+
+                if (codeExercise != null)
+                {
+                    ViewBag.NotSolvedExercise = codeExercise;
+                }
+
+
                 return View(lesson);
+            }
             else
                 return RedirectToAction("Details", "Courses", new { courseId = courseId });
         }
