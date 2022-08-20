@@ -68,6 +68,22 @@ namespace EdPlatform.App.Controllers
             var authorizationResult = await _authorizationService.AuthorizeAsync(User, lesson.Module.Course, new EditCourseRequirement());
             if (authorizationResult.Succeeded)
             {
+                var redirectExercises = new List<ExerciseRedirectViewModel>();
+
+                foreach(var exercise in lesson.Exercises)
+                {
+                    redirectExercises.Add(new ExerciseRedirectViewModel()
+                    {
+                        Action = exercise.Discriminator + "Edit",
+                        CourseId = courseId,
+                        ModuleId = moduleId,
+                        LessonId = lessonId,
+                        ExerciseId = exercise.ExerciseId
+                    });
+                }
+
+                ViewBag.RedirectExercises = redirectExercises;
+
                 return View(lesson);
             }
             else

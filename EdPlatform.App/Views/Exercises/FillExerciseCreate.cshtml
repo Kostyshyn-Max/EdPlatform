@@ -1,0 +1,32 @@
+﻿@using EdPlatform.Business.Models
+@model FillExerciseModel
+
+<form asp-controller="Exercises" asp-action="FillExerciseCreate" method="post">
+    <div>
+        <label asp-for="ExerciseName"></label>
+        <input asp-for="ExerciseName" type="text" placeholder="Exercise name"/>
+        <span asp-validation-for="ExerciseName"></span>
+    </div>
+    <div>
+        <label asp-for="Condition"></label>
+        <textarea asp-for="Condition" id="fill-exercise-content"></textarea>
+        <span asp-validation-for="Condition"></span>
+    </div>
+    <div>
+        <label asp-for="Answer"></label>
+        <input asp-for="Answer" type="text" placeholder="Enter the answer"/>
+        <span asp-validation-for="Answer"></span>
+    </div>
+    <input asp-for="LessonId" type="hidden" value="@ViewBag.LessonId" />
+
+    <button type="submit">Create</button>
+</form>
+
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+<script>
+    tinymce.init({
+        selector: '#fill-exercise-content',
+        height: "480"
+    });
+</script>
