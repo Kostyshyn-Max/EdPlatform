@@ -13,5 +13,6 @@ namespace EdPlatform.Business.Models
         public int Order { get; set; }
         public int LessonId { get; set; }
         public LessonModel Lesson { get; set; }
+        public string Discriminator { get; set; }
     }
 }

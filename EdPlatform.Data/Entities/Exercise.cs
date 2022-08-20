@@ -15,5 +15,6 @@ namespace EdPlatform.Data.Entities
         public int Order { get; set; }
         public int LessonId { get; set; }
         public Lesson Lesson { get; set; }
+        public string Discriminator { get; set; }
     }
 }

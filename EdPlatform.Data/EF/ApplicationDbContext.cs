@@ -25,6 +25,8 @@ namespace EdPlatform.Data.EF
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Category> Categories { get; set; }
 
+        public DbSet<Exercise> Exercise { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseNpgsql("Server = hattie.db.elephantsql.com; Database = nqhbqzai; Persist Security Info = True; User ID = nqhbqzai; Password = SA3VjkjKiCLxwMTpUoHBnrmc4AOKb9DJ");
