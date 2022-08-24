@@ -16,11 +16,11 @@ namespace EdPlatform.Business.Services
         {
         }
 
-        public async Task Create(AttemptModel attempt, List<bool> codeExecutionResults)
+        public async Task Create(AttemptModel attempt, List<bool> results)
         {
             IMapper mapper = CreateAttemptModelToAttemptMapper();
 
-            attempt.IsCompleted = codeExecutionResults.Where(x => x.Equals(true)).Count().Equals(codeExecutionResults.Count());
+            attempt.IsCompleted = results.Where(x => x.Equals(true)).Count().Equals(results.Count());
 
             Attempt existingAttempt;
             await using (UnitOfWork u = new())

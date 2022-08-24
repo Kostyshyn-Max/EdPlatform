@@ -36,6 +36,7 @@ builder.Services.AddTransient<IIOCaseService, IOCaseService>();
 builder.Services.AddTransient<IAttemptService, AttemptService>();
 builder.Services.AddTransient<IExerciseService, ExerciseService>();
 builder.Services.AddTransient<IFillExerciseService, FillExerciseService>();
+builder.Services.AddTransient<ICheckFillExerciseAnswerService, CheckFillExerciseAnswerService>();
 
 builder.Services.AddHttpClient<ICodeExecutingService, CodeExecutingService>();
 
