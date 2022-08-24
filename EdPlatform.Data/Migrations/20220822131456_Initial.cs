@@ -11,21 +11,6 @@ namespace EdPlatform.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Attempts",
-                columns: table => new
-                {
-                    UserId = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ExerciseId = table.Column<int>(type: "integer", nullable: false),
-                    UserAnswer = table.Column<string>(type: "text", nullable: false),
-                    IsCompleted = table.Column<bool>(type: "boolean", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Attempts", x => x.UserId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Categories",
                 columns: table => new
                 {
@@ -94,7 +79,8 @@ namespace EdPlatform.Data.Migrations
                     Description = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
                     CategoryId = table.Column<int>(type: "integer", nullable: false),
                     AuthorId = table.Column<int>(type: "integer", nullable: false),
-                    UsersJoined = table.Column<int>(type: "integer", nullable: false)
+                    UsersJoined = table.Column<int>(type: "integer", nullable: false),
+                    ImageName = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -155,24 +141,46 @@ namespace EdPlatform.Data.Migrations
                 name: "Exercise",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
+                    ExerciseId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ExerciseName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    ExerciseName = table.Column<string>(type: "text", nullable: false),
+                    Problem = table.Column<string>(type: "text", nullable: false),
+                    Order = table.Column<int>(type: "integer", nullable: false),
+                    LessonId = table.Column<int>(type: "integer", nullable: false),
                     Discriminator = table.Column<string>(type: "text", nullable: false),
-                    LessonId = table.Column<int>(type: "integer", nullable: true),
-                    Condition = table.Column<string>(type: "text", nullable: true),
-                    FillExercise_Condition = table.Column<string>(type: "text", nullable: true),
-                    Answer = table.Column<string>(type: "text", nullable: true),
-                    Quiz_Condition = table.Column<string>(type: "text", nullable: true)
+                    Answer = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Exercise", x => x.Id);
+                    table.PrimaryKey("PK_Exercise", x => x.ExerciseId);
                     table.ForeignKey(
                         name: "FK_Exercise_Lessons_LessonId",
                         column: x => x.LessonId,
                         principalTable: "Lessons",
-                        principalColumn: "LessonId");
+                        principalColumn: "LessonId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Attempts",
+                columns: table => new
+                {
+                    AttemptId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    ExerciseId = table.Column<int>(type: "integer", nullable: false),
+                    UserAnswer = table.Column<string>(type: "text", nullable: false),
+                    IsCompleted = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Attempts", x => x.AttemptId);
+                    table.ForeignKey(
+                        name: "FK_Attempts_Exercise_ExerciseId",
+                        column: x => x.ExerciseId,
+                        principalTable: "Exercise",
+                        principalColumn: "ExerciseId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -183,16 +191,16 @@ namespace EdPlatform.Data.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CaseName = table.Column<string>(type: "text", nullable: false),
                     IsCorrect = table.Column<bool>(type: "boolean", nullable: false),
-                    QuizId = table.Column<int>(type: "integer", nullable: true)
+                    QuizExerciseId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cases", x => x.CaseId);
                     table.ForeignKey(
-                        name: "FK_Cases_Exercise_QuizId",
-                        column: x => x.QuizId,
+                        name: "FK_Cases_Exercise_QuizExerciseId",
+                        column: x => x.QuizExerciseId,
                         principalTable: "Exercise",
-                        principalColumn: "Id");
+                        principalColumn: "ExerciseId");
                 });
 
             migrationBuilder.CreateTable(
@@ -201,24 +209,30 @@ namespace EdPlatform.Data.Migrations
                 {
                     IOCaseId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    InputData = table.Column<string>(type: "text", nullable: false),
+                    InputData = table.Column<string>(type: "text", nullable: true),
                     OutputData = table.Column<string>(type: "text", nullable: false),
-                    CodeExerciseId = table.Column<int>(type: "integer", nullable: true)
+                    CodeExerciseExerciseId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_IOCases", x => x.IOCaseId);
                     table.ForeignKey(
-                        name: "FK_IOCases_Exercise_CodeExerciseId",
-                        column: x => x.CodeExerciseId,
+                        name: "FK_IOCases_Exercise_CodeExerciseExerciseId",
+                        column: x => x.CodeExerciseExerciseId,
                         principalTable: "Exercise",
-                        principalColumn: "Id");
+                        principalColumn: "ExerciseId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cases_QuizId",
+                name: "IX_Attempts_ExerciseId",
+                table: "Attempts",
+                column: "ExerciseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cases_QuizExerciseId",
                 table: "Cases",
-                column: "QuizId");
+                column: "QuizExerciseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Courses_CategoryId",
@@ -231,9 +245,9 @@ namespace EdPlatform.Data.Migrations
                 column: "LessonId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_IOCases_CodeExerciseId",
+                name: "IX_IOCases_CodeExerciseExerciseId",
                 table: "IOCases",
-                column: "CodeExerciseId");
+                column: "CodeExerciseExerciseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Lessons_ModuleId",

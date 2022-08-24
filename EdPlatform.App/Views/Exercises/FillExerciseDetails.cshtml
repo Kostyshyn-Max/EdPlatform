@@ -1,0 +1,72 @@
+﻿@using EdPlatform.Business.Models
+@model FillExerciseCheckModel
+
+<div class="details-page">
+    <div class="navigation-panel">
+        <div class="name">
+            <a asp-controller="Lessons" asp-action="Details" 
+                asp-route-courseId="@ViewBag.Exercise.Lesson.Module.CourseId"
+                asp-route-moduleId="@ViewBag.Exercise.Lesson.ModuleId"
+                asp-route-lessonId="@ViewBag.Exercise.LessonId">@ViewBag.Exercise.Lesson.Order. @ViewBag.Exercise.Lesson.LessonName</a>
+        </div>
+        <ul class="timeline-list">
+            @{
+                (ViewBag.Exercise.Lesson.Exercises as IEnumerable<ExerciseModel>).OrderBy(x => x.Order);
+            }
+
+            @for (int i = 0; i < ViewBag.Exercise.Lesson.Exercises.Count; i++)
+            {
+                <li>
+                    @if (i == 0)
+                    {
+                        <img src="~/img/horizontal-start-timeline.svg" />
+                    }
+                    else if (i == ViewBag.Exercise.Lesson.Exercises.Count - 1)
+                    {
+                        <img src="~/img/horizontal-end-timeline.svg" />
+                    }
+                    else
+                    {
+                        <img src="~/img/horizontal-middle-timeline.svg" />
+                    }
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div class="page-content">
+        <div class="title">
+            <h2>@ViewBag.Exercise.ExerciseName</h2>
+        </div>
+        <div class="lecture">
+            @Html.Raw(ViewBag.Exercise.Problem)
+        </div>
+
+        <div class="code">
+            <form asp-controller="Exercises" asp-action="FillExerciseDetails" method="post">
+                <div>
+                    <input asp-for="UserAnswer" data-editor="python" id="editor" />
+                </div>
+                <input type="hidden" asp-for="Answer" value="@ViewBag.Exercise.Answer" />
+
+                <div class="code-buttons">
+                    <button type="submit" class="send">Перевірити</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="buttons">
+            <a>Перейти до наступної вправи</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    html.dark .content{
+        background-color: #232F3A;
+    }
+
+    html.light .content{
+        background-color: #3f668a;
+    }
+</style>

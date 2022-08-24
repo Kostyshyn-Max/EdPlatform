@@ -165,5 +165,25 @@ namespace EdPlatform.App.Controllers
 
             return View(newFillExercise);
         }
+
+        [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Fill/{exerciseId}/Details")]
+        public async Task<IActionResult> FillExerciseDetails(int courseId, int moduleId, int lessonId, int exerciseId)
+        {
+            var fillExercise = await _fillExerciseService.Get(exerciseId);
+
+            ViewBag.Exercise = fillExercise;
+
+            return View(new FillExerciseCheckModel());
+        }
+
+        [HttpPost("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Fill/{exerciseId}/Details")]
+        public async Task<IActionResult> FillExerciseDetails(int courseId, int moduleId, int lessonId, int exerciseId, FillExerciseCheckModel fillExerciseCheckModel)
+        {
+            var fillExercise = await _fillExerciseService.Get(exerciseId);
+
+            ViewBag.FillExercise = fillExercise;
+
+            return View();
+        }
     }
 }

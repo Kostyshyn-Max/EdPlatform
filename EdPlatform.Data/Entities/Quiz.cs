@@ -10,8 +10,6 @@ namespace EdPlatform.Data.Entities
     public class Quiz : Exercise
     {
 #pragma warning disable CS8618
-        [Required(ErrorMessage = "Condition must be not empty")]
-        public string Condition { get; set; }
         public IEnumerable<Case> Cases { get; set; }
     }
 }

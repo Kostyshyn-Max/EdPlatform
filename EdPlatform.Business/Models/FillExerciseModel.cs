@@ -8,7 +8,7 @@ namespace EdPlatform.Business.Models
 {
     public class FillExerciseModel : ExerciseModel
     {
-        public string Condition { get; set; }
+        public string Problem { get; set; }
         public string Answer { get; set; }
     }
 }

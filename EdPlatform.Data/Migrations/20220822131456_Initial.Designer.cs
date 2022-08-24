@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EdPlatform.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220808135406_FixSyntaxErrorInIdField")]
-    partial class FixSyntaxErrorInIdField
+    [Migration("20220822131456_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,11 +26,11 @@ namespace EdPlatform.Data.Migrations
 
             modelBuilder.Entity("EdPlatform.Data.Entities.Attempt", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("AttemptId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("UserId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AttemptId"));
 
                     b.Property<int>("ExerciseId")
                         .HasColumnType("integer");
@@ -42,7 +42,12 @@ namespace EdPlatform.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("UserId");
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("AttemptId");
+
+                    b.HasIndex("ExerciseId");
 
                     b.ToTable("Attempts");
                 });
@@ -186,11 +191,17 @@ namespace EdPlatform.Data.Migrations
 
                     b.Property<string>("ExerciseName")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("text");
 
                     b.Property<int>("LessonId")
                         .HasColumnType("integer");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Problem")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("ExerciseId");
 
@@ -209,11 +220,10 @@ namespace EdPlatform.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IOCaseId"));
 
-                    b.Property<int?>("CodeExerciseExerciseId")
+                    b.Property<int>("CodeExerciseExerciseId")
                         .HasColumnType("integer");
 
                     b.Property<string>("InputData")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("OutputData")
@@ -317,10 +327,6 @@ namespace EdPlatform.Data.Migrations
                 {
                     b.HasBaseType("EdPlatform.Data.Entities.Exercise");
 
-                    b.Property<string>("Condition")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.HasDiscriminator().HasValue("CodeExercise");
                 });
 
@@ -332,11 +338,6 @@ namespace EdPlatform.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Condition")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("FillExercise_Condition");
-
                     b.HasDiscriminator().HasValue("FillExercise");
                 });
 
@@ -344,12 +345,18 @@ namespace EdPlatform.Data.Migrations
                 {
                     b.HasBaseType("EdPlatform.Data.Entities.Exercise");
 
-                    b.Property<string>("Condition")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("Quiz_Condition");
-
                     b.HasDiscriminator().HasValue("Quiz");
+                });
+
+            modelBuilder.Entity("EdPlatform.Data.Entities.Attempt", b =>
+                {
+                    b.HasOne("EdPlatform.Data.Entities.Exercise", "Exercise")
+                        .WithMany()
+                        .HasForeignKey("ExerciseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Exercise");
                 });
 
             modelBuilder.Entity("EdPlatform.Data.Entities.Case", b =>
@@ -372,18 +379,22 @@ namespace EdPlatform.Data.Migrations
 
             modelBuilder.Entity("EdPlatform.Data.Entities.Exercise", b =>
                 {
-                    b.HasOne("EdPlatform.Data.Entities.Lesson", null)
+                    b.HasOne("EdPlatform.Data.Entities.Lesson", "Lesson")
                         .WithMany("Exercises")
                         .HasForeignKey("LessonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Lesson");
                 });
 
             modelBuilder.Entity("EdPlatform.Data.Entities.IOCase", b =>
                 {
                     b.HasOne("EdPlatform.Data.Entities.CodeExercise", null)
                         .WithMany("IOCases")
-                        .HasForeignKey("CodeExerciseExerciseId");
+                        .HasForeignKey("CodeExerciseExerciseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("EdPlatform.Data.Entities.Lesson", b =>

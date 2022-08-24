@@ -87,13 +87,6 @@ namespace EdPlatform.App.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CourseViewModel course)
         {
-            if (!ModelState.IsValid)
-            {
-                await CreateSelectListFromCategories();
-
-                return View(course);
-            }
-
             string? sid = User.FindFirst("UserId")?.Value;
             if (sid == null || !int.TryParse(sid, out int id))
                 return Redirect("/");
@@ -113,6 +106,14 @@ namespace EdPlatform.App.Controllers
                 Modules = course.Modules,
                 UsersJoined = course.UsersJoined
             });
+
+            //if (!ModelState.IsValid)
+            //{
+            //    await CreateSelectListFromCategories();
+
+            //    return View(course);
+            //}
+
             return RedirectToAction(nameof(Index));
         }
         public static async Task<byte[]> GetBytes(IFormFile formFile)

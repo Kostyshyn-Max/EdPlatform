@@ -12,6 +12,7 @@ namespace EdPlatform.Data.Entities
         [Key]
         public int ExerciseId { get; set; }
         public string ExerciseName { get; set; }
+        public string Problem { get; set; }
         public int Order { get; set; }
         public int LessonId { get; set; }
         public Lesson Lesson { get; set; }

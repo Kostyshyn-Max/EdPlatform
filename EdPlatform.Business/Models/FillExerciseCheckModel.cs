@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EdPlatform.Data.Entities
+namespace EdPlatform.Business.Models
 {
-    public class FillExercise : Exercise
+    public class FillExerciseCheckModel
     {
-#pragma warning disable CS8618
         public string Answer { get; set; }
+        public string UserAnswer { get; set; }
     }
 }
