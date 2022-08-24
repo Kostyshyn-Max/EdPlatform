@@ -26,17 +26,24 @@ namespace EdPlatform.Data.Repositories
 
         public async Task<FillExercise?> Get(int id)
         {
-            return await _context.FillExercises.FindAsync(id);
+            return await _context.FillExercises
+                .Include(x => x.Lesson).ThenInclude(x => x.Exercises)
+                .Include(x => x.Lesson).ThenInclude(x => x.Module).ThenInclude(x => x.Course)
+                .SingleOrDefaultAsync(x => x.ExerciseId == id);
         }
 
         public async Task<IEnumerable<FillExercise>> GetAll()
         {
-            return await _context.FillExercises.ToListAsync();
+            return await _context.FillExercises
+                .Include(x => x.Lesson).ThenInclude(x => x.Exercises)
+                .Include(x => x.Lesson).ThenInclude(x => x.Module).ThenInclude(x => x.Course).ToListAsync();
         }
 
         public async Task<IEnumerable<FillExercise>> Find(Expression<Func<FillExercise, bool>> expression)
         {
-            return await _context.FillExercises.Where(expression).ToListAsync();
+            return await _context.FillExercises.Where(expression)
+                .Include(x => x.Lesson).ThenInclude(x => x.Exercises)
+                .Include(x => x.Lesson).ThenInclude(x => x.Module).ThenInclude(x => x.Course).ToListAsync();
         }
 
         public void Update(FillExercise entity)

@@ -10,8 +10,6 @@ namespace EdPlatform.Data.Entities
     public class CodeExercise : Exercise
     {
 #pragma warning disable CS8618
-        [Required(ErrorMessage = "Condition must be not empty")]
-        public string Problem { get; set; }
         public IEnumerable<IOCase> IOCases { get; set; }
     }
 }

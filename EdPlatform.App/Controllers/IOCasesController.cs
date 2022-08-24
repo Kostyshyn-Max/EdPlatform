@@ -37,7 +37,7 @@ namespace EdPlatform.App.Controllers
         {
             await _iocaseService.Create(iOCase);
 
-            return RedirectToAction("CodeExerciseEdit", "Exercises", new { courseId = courseId, moduleId = moduleId, lessonId = lessonId, codeExerciseId = codeExerciseId });
+            return RedirectToAction("CodeExerciseEdit", "Exercises", new { courseId = courseId, moduleId = moduleId, lessonId = lessonId, exerciseId = codeExerciseId });
         }
 
         [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Code/{codeExerciseId}/IOCases/{iOCaseId}/Edit")]

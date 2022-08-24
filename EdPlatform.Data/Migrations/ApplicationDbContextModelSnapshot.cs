@@ -197,6 +197,10 @@ namespace EdPlatform.Data.Migrations
                     b.Property<int>("Order")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Problem")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("ExerciseId");
 
                     b.HasIndex("LessonId");
@@ -321,10 +325,6 @@ namespace EdPlatform.Data.Migrations
                 {
                     b.HasBaseType("EdPlatform.Data.Entities.Exercise");
 
-                    b.Property<string>("Problem")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.HasDiscriminator().HasValue("CodeExercise");
                 });
 
@@ -336,21 +336,12 @@ namespace EdPlatform.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Condition")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.HasDiscriminator().HasValue("FillExercise");
                 });
 
             modelBuilder.Entity("EdPlatform.Data.Entities.Quiz", b =>
                 {
                     b.HasBaseType("EdPlatform.Data.Entities.Exercise");
-
-                    b.Property<string>("Condition")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("Quiz_Condition");
 
                     b.HasDiscriminator().HasValue("Quiz");
                 });

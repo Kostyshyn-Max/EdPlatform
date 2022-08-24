@@ -10,25 +10,27 @@
                 asp-route-lessonId="@ViewBag.Exercise.LessonId">@ViewBag.Exercise.Lesson.Order. @ViewBag.Exercise.Lesson.LessonName</a>
         </div>
         <ul class="timeline-list">
-            @{
-                (ViewBag.Exercise.Lesson.Exercises as IEnumerable<ExerciseModel>).OrderBy(x => x.Order);
-            }
-
-            @for (int i = 0; i < ViewBag.Exercise.Lesson.Exercises.Count; i++)
+            @for (int i = 0; i < ViewBag.RedirectExercises.Count; i++)
             {
                 <li>
-                    @if (i == 0)
-                    {
-                        <img src="~/img/horizontal-start-timeline.svg" />
-                    }
-                    else if (i == ViewBag.Exercise.Lesson.Exercises.Count - 1)
-                    {
-                        <img src="~/img/horizontal-end-timeline.svg" />
-                    }
-                    else
-                    {
-                        <img src="~/img/horizontal-middle-timeline.svg" />
-                    }
+                    <a asp-controller="Exercises" asp-action="@ViewBag.RedirectExercises[i].Action"
+                   asp-route-courseId="@ViewBag.RedirectExercises[i].CourseId"
+                   asp-route-moduleId="@ViewBag.RedirectExercises[i].ModuleId"
+                   asp-route-lessonId="@ViewBag.RedirectExercises[i].LessonId"
+                   asp-route-exerciseId="@ViewBag.RedirectExercises[i].ExerciseId">
+                        @if (i == 0)
+                        {
+                            <img src="~/img/horizontal-start-timeline.svg" />
+                        }
+                        else if (i == ViewBag.RedirectExercises.Count - 1)
+                        {
+                            <img src="~/img/horizontal-end-timeline.svg" />
+                        }
+                        else
+                        {
+                            <img src="~/img/horizontal-middle-timeline.svg" />
+                        }
+                    </a>
                 </li>
             }
         </ul>

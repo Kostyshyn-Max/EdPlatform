@@ -34,6 +34,9 @@ builder.Services.AddTransient<IImageService, S3ImageService>();
 builder.Services.AddTransient<ICodeExerciseService, CodeExerciseService>();
 builder.Services.AddTransient<IIOCaseService, IOCaseService>();
 builder.Services.AddTransient<IAttemptService, AttemptService>();
+builder.Services.AddTransient<IExerciseService, ExerciseService>();
+builder.Services.AddTransient<IFillExerciseService, FillExerciseService>();
+builder.Services.AddTransient<ICheckFillExerciseAnswerService, CheckFillExerciseAnswerService>();
 
 builder.Services.AddHttpClient<ICodeExecutingService, CodeExecutingService>();
 

@@ -29,6 +29,7 @@ namespace EdPlatform.Data
             QuizRepository = new QuizRepository(_context);
             UserRepository = new UserRepository(_context);
             CategoryRepository = new CategoryRepository(_context);
+            ExerciseRepository = new ExerciseRepository(_context);
         }
 
         public IAttemptRepository AttemptRepository { get; private set; }
@@ -56,6 +57,8 @@ namespace EdPlatform.Data
         public IUserRepository UserRepository { get; private set; }
 
         public ICategoryRepository CategoryRepository { get; private set; }
+
+        public IExerciseRepository ExerciseRepository { get; set; }
 
         public async Task Save()
         {

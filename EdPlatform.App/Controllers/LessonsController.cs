@@ -1,4 +1,5 @@
 ﻿using EdPlatform.App.AuthorizationPolicy;
+using EdPlatform.App.Models;
 using EdPlatform.Business.Models;
 using EdPlatform.Business.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -13,18 +14,24 @@ namespace EdPlatform.App.Controllers
         private readonly ICourseUserService _courseUserService;
         private readonly IAttemptService _attemptService;
         private readonly ICodeExerciseService _codeExerciseService;
+        private readonly IExerciseService _exerciseService;
+        private readonly ILogger<LessonsController> _logger;
         public LessonsController(
             ILessonService lessonService, 
             IAuthorizationService authorizationService,
             ICourseUserService courseUserService,
             IAttemptService attemptService,
-            ICodeExerciseService codeExerciseService)
+            ICodeExerciseService codeExerciseService,
+            IExerciseService exerciseService,
+            ILogger<LessonsController> ilogger)
         {
             _lessonService = lessonService;
             _authorizationService = authorizationService;
             _courseUserService = courseUserService;
             _attemptService = attemptService;
             _codeExerciseService = codeExerciseService;
+            _exerciseService = exerciseService;
+            _logger = ilogger;
         }
 
         [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/Create")]
@@ -61,6 +68,22 @@ namespace EdPlatform.App.Controllers
             var authorizationResult = await _authorizationService.AuthorizeAsync(User, lesson.Module.Course, new EditCourseRequirement());
             if (authorizationResult.Succeeded)
             {
+                var redirectExercises = new List<ExerciseRedirectViewModel>();
+
+                foreach(var exercise in lesson.Exercises)
+                {
+                    redirectExercises.Add(new ExerciseRedirectViewModel()
+                    {
+                        Action = exercise.Discriminator + "Edit",
+                        CourseId = courseId,
+                        ModuleId = moduleId,
+                        LessonId = lessonId,
+                        ExerciseId = exercise.ExerciseId
+                    });
+                }
+
+                ViewBag.RedirectExercises = redirectExercises;
+
                 return View(lesson);
             }
             else
@@ -87,13 +110,16 @@ namespace EdPlatform.App.Controllers
             {
                 int notSolvedExerciseId = await _attemptService.GetNotSolvedExercise(lesson.Exercises.OrderBy(x => x.Order), courseUser.UserId);
 
-                var codeExercise = await _codeExerciseService.GetById(notSolvedExerciseId);
+                var exercise = await _exerciseService.Get(notSolvedExerciseId);
 
-                if (codeExercise != null)
-                {
-                    ViewBag.NotSolvedExercise = codeExercise;
-                }
-
+                ViewBag.NotSolvedExercise = new ExerciseRedirectViewModel() 
+                { 
+                    Action = exercise.Discriminator + "Details", 
+                    CourseId = courseId,
+                    ModuleId = moduleId, 
+                    LessonId = lessonId, 
+                    ExerciseId = notSolvedExerciseId
+                };
 
                 return View(lesson);
             }
