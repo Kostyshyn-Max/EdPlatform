@@ -12,6 +12,5 @@ namespace EdPlatform.Business.Services
         Task Create(CodeExerciseModel codeExercise);
         Task<CodeExerciseModel?> GetById(int id);
         Task Edit(CodeExerciseModel codeExercise);
-        Task<CourseModel> GetCourseById(int courseId);
     }
 }

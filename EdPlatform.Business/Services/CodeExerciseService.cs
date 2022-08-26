@@ -54,20 +54,6 @@ namespace EdPlatform.Business.Services
             return mapper.Map<CodeExercise, CodeExerciseModel>(codeExercise);
         }
 
-        public async Task<CourseModel> GetCourseById(int courseId)
-        {
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Course, CourseModel>();
-                cfg.CreateMap<Category, CategoryModel>();
-                cfg.CreateMap<Module, ModuleModel>();
-                cfg.CreateMap<Lesson, LessonModel>();
-            });
-            var mapper = config.CreateMapper();
-
-            return mapper.Map<Course, CourseModel>(await _unitOfWork.CourseRepository.Get(courseId));
-        }
-
         private static IMapper CreateCodeExerciseModelToCodeExerciseMapper()
         {
             var config = new MapperConfiguration(cfg =>

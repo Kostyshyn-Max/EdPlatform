@@ -9,31 +9,7 @@
                 asp-route-moduleId="@ViewBag.Exercise.Lesson.ModuleId"
                 asp-route-lessonId="@ViewBag.Exercise.LessonId">@ViewBag.Exercise.Lesson.Order. @ViewBag.Exercise.Lesson.LessonName</a>
         </div>
-        <ul class="timeline-list">
-            @for (int i = 0; i < ViewBag.RedirectExercises.Count; i++)
-            {
-                <li>
-                    <a asp-controller="Exercises" asp-action="@ViewBag.RedirectExercises[i].Action"
-                   asp-route-courseId="@ViewBag.RedirectExercises[i].CourseId"
-                   asp-route-moduleId="@ViewBag.RedirectExercises[i].ModuleId"
-                   asp-route-lessonId="@ViewBag.RedirectExercises[i].LessonId"
-                   asp-route-exerciseId="@ViewBag.RedirectExercises[i].ExerciseId">
-                        @if (i == 0)
-                        {
-                            <img src="~/img/horizontal-start-timeline.svg" />
-                        }
-                        else if (i == ViewBag.RedirectExercises.Count - 1)
-                        {
-                            <img src="~/img/horizontal-end-timeline.svg" />
-                        }
-                        else
-                        {
-                            <img src="~/img/horizontal-middle-timeline.svg" />
-                        }
-                    </a>
-                </li>
-            }
-        </ul>
+        <partial name="_RedirectExercisesPartial"></partial>
     </div>
 
     <div class="page-content">

@@ -55,19 +55,5 @@ namespace EdPlatform.Business.Services
             var mapper = config.CreateMapper();
             return mapper;
         }
-
-        public async Task<CourseModel> GetCourseById(int courseId)
-        {
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Course, CourseModel>();
-                cfg.CreateMap<Category, CategoryModel>();
-                cfg.CreateMap<Module, ModuleModel>();
-                cfg.CreateMap<Lesson, LessonModel>();
-            });
-            var mapper = config.CreateMapper();
-
-            return mapper.Map<Course, CourseModel>(await _unitOfWork.CourseRepository.Get(courseId));
-        }
     }
 }

@@ -12,6 +12,5 @@ namespace EdPlatform.Business.Services
         Task CreateLesson(LessonModel lesson);
         Task<LessonModel> Get(int lessonId);
         Task EditLesson (LessonModel lesson);
-        Task<CourseModel> GetCourseById(int moduleId);
     }
 }

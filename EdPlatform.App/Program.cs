@@ -1,4 +1,5 @@
 using EdPlatform.App.AuthorizationPolicy;
+using EdPlatform.App.Services;
 using EdPlatform.Business.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -39,6 +40,8 @@ builder.Services.AddTransient<IFillExerciseService, FillExerciseService>();
 builder.Services.AddTransient<ICheckFillExerciseAnswerService, CheckFillExerciseAnswerService>();
 
 builder.Services.AddHttpClient<ICodeExecutingService, CodeExecutingService>();
+
+builder.Services.AddTransient<ICustomAuthorizationViewService, CustomAuthorizationViewService>();
 
 var app = builder.Build();
 
