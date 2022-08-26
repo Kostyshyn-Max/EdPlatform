@@ -1,5 +1,6 @@
 ﻿using EdPlatform.App.AuthorizationPolicy;
 using EdPlatform.App.Models;
+using EdPlatform.App.Services;
 using EdPlatform.Business.Models;
 using EdPlatform.Business.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -10,46 +11,41 @@ namespace EdPlatform.App.Controllers
     public class LessonsController : Controller
     {
         private readonly ILessonService _lessonService;
-        private readonly IAuthorizationService _authorizationService;
         private readonly ICourseUserService _courseUserService;
         private readonly IAttemptService _attemptService;
         private readonly ICodeExerciseService _codeExerciseService;
         private readonly IExerciseService _exerciseService;
+        private readonly ICustomAuthorizationViewService _customAuthorizattionViewService;
         private readonly ILogger<LessonsController> _logger;
         public LessonsController(
             ILessonService lessonService, 
-            IAuthorizationService authorizationService,
             ICourseUserService courseUserService,
             IAttemptService attemptService,
             ICodeExerciseService codeExerciseService,
             IExerciseService exerciseService,
+            ICustomAuthorizationViewService customAuthorizattionViewService,
             ILogger<LessonsController> ilogger)
         {
             _lessonService = lessonService;
-            _authorizationService = authorizationService;
             _courseUserService = courseUserService;
             _attemptService = attemptService;
             _codeExerciseService = codeExerciseService;
             _exerciseService = exerciseService;
+            _customAuthorizattionViewService = customAuthorizattionViewService;
             _logger = ilogger;
         }
 
         [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/Create")]
         public async Task<IActionResult> Create(int courseId, int moduleId)
         {
-            var course = await _lessonService.GetCourseById(courseId);
-            var authrorizationResult = await _authorizationService.AuthorizeAsync(User, course, new EditCourseRequirement());
-
-            if (authrorizationResult.Succeeded)
+            if (await _customAuthorizattionViewService.Authorize(User, courseId))
             {
                 ViewBag.ModuleId = moduleId;
 
                 return View(new LessonModel());
             }
-            else
-            {
-                return RedirectToAction("Index", "Courses");
-            }
+
+            return RedirectToAction(nameof(HomeController.AccessDenied), nameof(HomeController).Replace("Controller", "");
         }
 
         [HttpPost("Courses/{courseId}/Modules/{moduleId}/Lessons/Create")]
@@ -57,7 +53,7 @@ namespace EdPlatform.App.Controllers
         {
             await _lessonService.CreateLesson(lesson);
 
-            return RedirectToAction("Edit", "Modules", new {courseId = courseId, moduleId = moduleId});
+            return RedirectToAction(nameof(ModulesController.Edit), nameof(ModulesController).Replace("Controller", ""), new {courseId = courseId, moduleId = moduleId});
         }
 
         [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Edit")]
@@ -65,8 +61,7 @@ namespace EdPlatform.App.Controllers
         {
             var lesson = await _lessonService.Get(lessonId);
 
-            var authorizationResult = await _authorizationService.AuthorizeAsync(User, lesson.Module.Course, new EditCourseRequirement());
-            if (authorizationResult.Succeeded)
+            if (await _customAuthorizattionViewService.Authorize(User, lesson.Module.Course))
             {
                 var redirectExercises = new List<ExerciseRedirectViewModel>();
 
@@ -86,10 +81,8 @@ namespace EdPlatform.App.Controllers
 
                 return View(lesson);
             }
-            else
-            {
-                return RedirectToAction("Index", "Courses");
-            }
+
+            return RedirectToAction(nameof(HomeController.AccessDenied), nameof(HomeController).Replace("Controller", ""));
         }
 
         [HttpPost("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Edit")]
@@ -123,8 +116,8 @@ namespace EdPlatform.App.Controllers
 
                 return View(lesson);
             }
-            else
-                return RedirectToAction("Details", "Courses", new { courseId = courseId });
+
+            return RedirectToAction(nameof(CoursesController.Details), nameof(CoursesController).Replace("Controller", ""), new { courseId = courseId });
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using EdPlatform.App.AuthorizationPolicy;
 using EdPlatform.App.Models;
+using EdPlatform.App.Services;
 using EdPlatform.Business.Models;
 using EdPlatform.Business.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -16,25 +17,25 @@ namespace EdPlatform.App.Controllers
     {
         private readonly ILogger<CoursesController> _logger;
         private readonly ICourseService _courseService;
-        private readonly IAuthorizationService _authorizationService;
         private readonly ICategoryService _categoryService;
         private readonly IModuleService _moduleService;
         private readonly ICourseUserService _courseUserService;
         private readonly IImageService _imageService;
+        private readonly ICustomAuthorizationViewService _customAuthorizationViewService;
         public CoursesController(
             ILogger<CoursesController> logger, 
             ICourseService courseService,
-            IAuthorizationService authorizationService,
             ICategoryService categoryService,
             IModuleService moduleService,
-            ICourseUserService courseUserService)
+            ICourseUserService courseUserService,
+            ICustomAuthorizationViewService customAuthorizationViewService)
         {
             _logger = logger;
             _courseService = courseService;
             _categoryService = categoryService;
-            _authorizationService = authorizationService;
             _moduleService = moduleService;
             _courseUserService = courseUserService;
+            _customAuthorizationViewService = customAuthorizationViewService;
         }
 
         public async Task<IActionResult> Index()
@@ -107,13 +108,6 @@ namespace EdPlatform.App.Controllers
                 UsersJoined = course.UsersJoined
             });
 
-            //if (!ModelState.IsValid)
-            //{
-            //    await CreateSelectListFromCategories();
-
-            //    return View(course);
-            //}
-
             return RedirectToAction(nameof(Index));
         }
         public static async Task<byte[]> GetBytes(IFormFile formFile)
@@ -128,8 +122,7 @@ namespace EdPlatform.App.Controllers
         {
             var course = await _courseService.GetById(courseId);
 
-            var authorizationResult = await _authorizationService.AuthorizeAsync(User, course, new EditCourseRequirement());
-            if (authorizationResult.Succeeded)
+            if (await _customAuthorizationViewService.Authorize(User, course))
             {
                 await CreateSelectListFromCategories();
 
@@ -145,10 +138,8 @@ namespace EdPlatform.App.Controllers
                     UsersJoined = course.UsersJoined
                 });
             }
-            else
-            {
-                return RedirectToAction(nameof(Index));
-            }
+
+            return RedirectToAction(nameof(HomeController.AccessDenied), nameof(HomeController).Replace("Controller", ""));
         }
 
         [HttpPost("Courses/{courseId}/Edit")]

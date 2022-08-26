@@ -1,4 +1,5 @@
 ﻿using EdPlatform.App.AuthorizationPolicy;
+using EdPlatform.App.Services;
 using EdPlatform.Business.Models;
 using EdPlatform.Business.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -9,27 +10,24 @@ namespace EdPlatform.App.Controllers
     public class ModulesController : Controller
     {
         private readonly IModuleService _moduleService;
-        private readonly IAuthorizationService _authorizationService;
-        public ModulesController(IModuleService moduleService, IAuthorizationService authorizationService)
+        private readonly ICustomAuthorizationViewService _customAuthorizationViewService;
+        public ModulesController(IModuleService moduleService, ICustomAuthorizationViewService customAuthorizationViewService)
         {
             _moduleService = moduleService;
-            _authorizationService = authorizationService;
+            _customAuthorizationViewService = customAuthorizationViewService;
         }
 
         [HttpGet("Courses/{courseId}/Modules/Create")]
         public async Task<IActionResult> Create(int courseId)
         {
-            var course = await _moduleService.GetCourseById(courseId);
-            var authorizationResult = await _authorizationService.AuthorizeAsync(User, course, new EditCourseRequirement());
-
-            if (authorizationResult.Succeeded)
+            if (await _customAuthorizationViewService.Authorize(User, courseId))
             {
                 ViewBag.CourseId = courseId;
 
                 return View(new ModuleModel());
             }
 
-            return RedirectToAction("Index", "Courses");
+            return RedirectToAction(nameof(HomeController.AccessDenied), nameof(HomeController).Replace("Controller", ""));
         }
 
         [HttpPost("Courses/{courseId}/Modules/Create")]
@@ -37,24 +35,18 @@ namespace EdPlatform.App.Controllers
         {
             await _moduleService.CreateModule(module);
 
-            return RedirectToAction("Edit", "Courses", new {courseId = courseId});
+            return RedirectToAction(nameof(CoursesController.Edit), nameof(CoursesController).Replace("Controller", ""), new {courseId = courseId});
         }
 
         [HttpGet("Courses/{courseId}/Modules/{moduleId}/Edit")]
         public async Task<IActionResult> Edit(int courseId, int moduleId)
         {
             var module = await _moduleService.GetById(moduleId);
-
-            var authorizationResult = await _authorizationService.AuthorizeAsync(User, module.Course, new EditCourseRequirement());
-
-            if (authorizationResult.Succeeded)
-            {
+            
+            if (await _customAuthorizationViewService.Authorize(User, module.Course))
                 return View(module);
-            }
-            else
-            {
-                return RedirectToAction("Index", "Courses");
-            }
+
+            return RedirectToAction(nameof(HomeController.AccessDenied), nameof(HomeController).Replace("Controller", ""));
         }
 
         [HttpPost("Courses/{courseId}/Modules/{moduleId}/Edit")]

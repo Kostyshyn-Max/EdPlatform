@@ -1,5 +1,6 @@
 ﻿using EdPlatform.App.AuthorizationPolicy;
 using EdPlatform.App.Models;
+using EdPlatform.App.Services;
 using EdPlatform.Business.Models;
 using EdPlatform.Business.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -11,47 +12,44 @@ namespace EdPlatform.App.Controllers
     public class ExercisesController : Controller
     {
         private readonly ICodeExerciseService _codeExerciseService;
-        private readonly IAuthorizationService _authorizationService;
         private readonly ICodeExecutingService _codeExecutingService;
         private readonly IIOCaseService _iOCaseService;
         private readonly IAttemptService _attemptService;
         private readonly ILogger<ExercisesController> _logger;
         private readonly IFillExerciseService _fillExerciseService;
         private readonly ICheckFillExerciseAnswerService _checkFillExerciseAnswerService;
+        private readonly ICustomAuthorizationViewService _customAuthorizationViewService;
         public ExercisesController(
             ICodeExerciseService codeExerciseService,
-            IAuthorizationService authorizationService,
             ILogger<ExercisesController> logger,
             ICodeExecutingService codeExecutingService,
             IIOCaseService iOCaseService,   
             IAttemptService attemptService,
             IFillExerciseService fillExerciseService,
-            ICheckFillExerciseAnswerService checkFillExerciseAnswerService)
+            ICheckFillExerciseAnswerService checkFillExerciseAnswerService,
+            ICustomAuthorizationViewService customAuthorizationViewService)
         {
             _codeExerciseService = codeExerciseService;
-            _authorizationService = authorizationService;
             _logger = logger;
             _codeExecutingService = codeExecutingService;
             _iOCaseService = iOCaseService;
             _attemptService = attemptService;
             _fillExerciseService = fillExerciseService;
             _checkFillExerciseAnswerService = checkFillExerciseAnswerService;
+            _customAuthorizationViewService = customAuthorizationViewService;
         }
 
         [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Create/Code")]
         public async Task<IActionResult> CodeExerciseCreate(int courseId, int moduleId, int lessonId)
         {
-            var course = await _codeExerciseService.GetCourseById(courseId);
-            var authrorizationResult = await _authorizationService.AuthorizeAsync(User, course, new EditCourseRequirement());
-
-            if (authrorizationResult.Succeeded)
+            if (await _customAuthorizationViewService.Authorize(User, courseId))
             {
                 ViewBag.LessonId = lessonId;
 
                 return View(new CodeExerciseModel());
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(HomeController.AccessDenied), nameof(HomeController).Replace("Controller", ""));
         }
 
         [HttpPost("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Create/Code")]
@@ -61,22 +59,20 @@ namespace EdPlatform.App.Controllers
 
             await _codeExerciseService.Create(codeExercise);
 
-            return RedirectToAction("Edit", "Lessons", new { courseId = courseId, moduleId = moduleId, lessonId = lessonId });
+            return RedirectToAction(nameof(LessonsController.Edit), nameof(LessonsController).Replace("Controller", ""), new { courseId = courseId, moduleId = moduleId, lessonId = lessonId });
         }
 
         [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Code/{exerciseId}/Edit")]
         public async Task<IActionResult> CodeExerciseEdit(int courseId, int moduleId, int lessonId, int exerciseId)
         {
-            var course = await _codeExerciseService.GetCourseById(courseId);
-            var authrorizationResult = await _authorizationService.AuthorizeAsync(User, course, new EditCourseRequirement());
-            if (authrorizationResult.Succeeded)
+            if (await _customAuthorizationViewService.Authorize(User, courseId))
             {
                 var codeExercise = await _codeExerciseService.GetById(exerciseId);
 
                 return View(codeExercise);
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(HomeController.AccessDenied), nameof(HomeController).Replace("Controller", ""));
         }
 
         [HttpPost("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Code/{exerciseId}/Edit")]
@@ -144,11 +140,16 @@ namespace EdPlatform.App.Controllers
         }
 
         [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Create/Fill")]
-        public IActionResult FillExerciseCreate(int courseId, int moduleId, int lessonId)
+        public async Task<IActionResult> FillExerciseCreate(int courseId, int moduleId, int lessonId)
         {
-            ViewBag.LessonId = lessonId;
+            if (await _customAuthorizationViewService.Authorize(User, courseId))
+            {
+                ViewBag.LessonId = lessonId;
 
-            return View(new FillExerciseModel());
+                return View(new FillExerciseModel());
+            }
+
+            return RedirectToAction(nameof(HomeController.AccessDenied), nameof(HomeController).Replace("Controller", ""));
         }
 
         [HttpPost("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Create/Fill")]
@@ -156,15 +157,20 @@ namespace EdPlatform.App.Controllers
         {
             await _fillExerciseService.Create(fillExercise);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(LessonsController.Edit), nameof(LessonsController).Replace("Controller", ""), new { courseId = courseId, moduleId = moduleId, lessonId = lessonId });
         }
 
         [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Fill/{exerciseId}/Edit")]
         public async Task<IActionResult> FillExerciseEdit(int courseId, int moduleId, int lessonId, int exerciseId)
         {
-            var fillExercise = await _fillExerciseService.Get(exerciseId);
+            if (await _customAuthorizationViewService.Authorize(User, courseId))
+            {
+                var fillExercise = await _fillExerciseService.Get(exerciseId);
 
-            return View(fillExercise);
+                return View(fillExercise);
+            }
+
+            return RedirectToAction(nameof(HomeController.AccessDenied), nameof(HomeController).Replace("Controller", ""));
         }
 
         [HttpPost("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Fill/{exerciseId}/Edit")]

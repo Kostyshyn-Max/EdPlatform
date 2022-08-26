@@ -13,6 +13,5 @@ namespace EdPlatform.Business.Services
         Task<IEnumerable<ModuleModel>> GetAllModulesFromCourse(int courseId);
         Task EditModule(ModuleModel module);
         Task<ModuleModel> GetById(int moduleId);
-        Task<CourseModel> GetCourseById(int courseId);
     }
 }
