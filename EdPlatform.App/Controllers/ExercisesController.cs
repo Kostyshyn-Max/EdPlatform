@@ -96,6 +96,7 @@ namespace EdPlatform.App.Controllers
             ViewBag.Attempt = attempt;
 
             CreateRedirectExercisesList("Details", courseId, moduleId, lessonId, exercise);
+            ViewBag.Attempts = await _attemptService.GetAllAttemptsFromExercises(exercise.Lesson.Exercises, int.Parse(User.FindFirst("UserId").Value));
 
             return View(new CodeModel());
         }
@@ -135,6 +136,7 @@ namespace EdPlatform.App.Controllers
             ViewBag.Attempt = newAttempt;
 
             CreateRedirectExercisesList("Details", courseId, moduleId, lessonId, exercise);
+            ViewBag.Attempts = await _attemptService.GetAllAttemptsFromExercises(exercise.Lesson.Exercises, int.Parse(User.FindFirst("UserId").Value));
 
             return View();
         }
@@ -190,6 +192,8 @@ namespace EdPlatform.App.Controllers
             ViewBag.Exercise = fillExercise;
             CreateRedirectExercisesList("Details", courseId, moduleId, lessonId, fillExercise);
 
+            ViewBag.Attempts = await _attemptService.GetAllAttemptsFromExercises(fillExercise.Lesson.Exercises, int.Parse(User.FindFirst("UserId").Value));
+
             return View(new FillExerciseCheckModel());
         }
 
@@ -201,6 +205,7 @@ namespace EdPlatform.App.Controllers
             CreateRedirectExercisesList("Details", courseId, moduleId, lessonId, fillExercise);
 
             await _checkFillExerciseAnswerService.ReviewUserAnswer(fillExerciseCheckModel);
+            ViewBag.Attempts = await _attemptService.GetAllAttemptsFromExercises(fillExercise.Lesson.Exercises, int.Parse(User.FindFirst("UserId").Value));
 
             return View(fillExerciseCheckModel);
         }

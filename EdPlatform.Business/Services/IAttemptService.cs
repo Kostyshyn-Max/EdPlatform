@@ -11,7 +11,8 @@ namespace EdPlatform.Business.Services
     {
         Task Create(AttemptModel attempt, List<bool> codeExecutionResults);
         Task<AttemptModel?> GetFromUserExercise(int userId, int exerciseId);
-        Task<int> GetNotSolvedExercise(IEnumerable<ExerciseModel> exercises, int userId);
+        Task<int> GetNotSolvedExerciseId(IEnumerable<ExerciseModel> exercises, int userId);
+        Task<List<AttemptModel?>> GetAllAttemptsFromExercises(IEnumerable<ExerciseModel> exercises, int userId);
         Task EditAttempt(AttemptModel attempt);
     }
 }

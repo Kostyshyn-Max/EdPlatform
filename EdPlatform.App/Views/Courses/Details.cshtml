@@ -52,15 +52,15 @@
                     <li>
                         @if (i == 0)
                         {
-                            <img src="~/img/start-timeline.svg" />
+                            <img src="~/img/timelines/start-timeline.svg" />
                         }
                         else if (i == lessons.Count() - 1)
                         {
-                            <img src="~/img/end-timeline.svg" />
+                            <img src="~/img/timelines/end-timeline.svg" />
                         }
                         else
                         {
-                            <img src="~/img/middle-timeline.svg" />
+                            <img src="~/img/timelines/middle-timeline.svg" />
                         }
 
                         <a>@lessons.ElementAt(i).LessonName</a>

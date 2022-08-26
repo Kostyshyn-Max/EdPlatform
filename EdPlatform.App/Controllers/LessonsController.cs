@@ -45,7 +45,7 @@ namespace EdPlatform.App.Controllers
                 return View(new LessonModel());
             }
 
-            return RedirectToAction(nameof(HomeController.AccessDenied), nameof(HomeController).Replace("Controller", "");
+            return RedirectToAction(nameof(HomeController.AccessDenied), nameof(HomeController).Replace("Controller", ""));
         }
 
         [HttpPost("Courses/{courseId}/Modules/{moduleId}/Lessons/Create")]
@@ -101,7 +101,7 @@ namespace EdPlatform.App.Controllers
 
             if (courseUser != null)
             {
-                int notSolvedExerciseId = await _attemptService.GetNotSolvedExercise(lesson.Exercises.OrderBy(x => x.Order), courseUser.UserId);
+                int notSolvedExerciseId = await _attemptService.GetNotSolvedExerciseId(lesson.Exercises.OrderBy(x => x.Order), courseUser.UserId);
 
                 var exercise = await _exerciseService.Get(notSolvedExerciseId);
 
