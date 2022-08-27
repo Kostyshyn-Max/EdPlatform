@@ -27,24 +27,24 @@ namespace EdPlatform.Data.Repositories
         public async Task<Lesson?> Get(int id)
         {
             return await _context.Lessons.Where(x => x.LessonId == id)
-                .Include(x => x.Module).ThenInclude(x => x.Course).ThenInclude(x => x.Modules).ThenInclude(x => x.Lessons)
-                .Include(x => x.Module).ThenInclude(x => x.Lessons)
+                .Include(x => x.Module).ThenInclude(x => x.Course).ThenInclude(x => x.Modules).ThenInclude(x => x.Lessons).ThenInclude(x => x.Exercises)
+                .Include(x => x.Module).ThenInclude(x => x.Lessons).ThenInclude(x => x.Exercises)
                 .Include(x => x.Exercises).SingleOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Lesson>> GetAll()
         {
             return await _context.Lessons
-                .Include(x => x.Module).ThenInclude(x => x.Course).ThenInclude(x => x.Modules).ThenInclude(x => x.Lessons)
-                .Include(x => x.Module).ThenInclude(x => x.Lessons)
+                .Include(x => x.Module).ThenInclude(x => x.Course).ThenInclude(x => x.Modules).ThenInclude(x => x.Lessons).ThenInclude(x => x.Exercises)
+                .Include(x => x.Module).ThenInclude(x => x.Lessons).ThenInclude(x => x.Exercises)
                 .Include(x => x.Exercises).ToListAsync();
         }
 
         public async Task<IEnumerable<Lesson>> Find(Expression<Func<Lesson, bool>> expression)
         {
             return await _context.Lessons.Where(expression)
-                .Include(x => x.Module).ThenInclude(x => x.Course).ThenInclude(x => x.Modules).ThenInclude(x => x.Lessons)
-                .Include(x => x.Module).ThenInclude(x => x.Lessons)
+                .Include(x => x.Module).ThenInclude(x => x.Course).ThenInclude(x => x.Modules).ThenInclude(x => x.Lessons).ThenInclude(x => x.Exercises)
+                .Include(x => x.Module).ThenInclude(x => x.Lessons).ThenInclude(x => x.Exercises)
                 .Include(x => x.Exercises).ToListAsync();
         }
 

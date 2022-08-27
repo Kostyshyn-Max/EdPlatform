@@ -16,15 +16,17 @@ namespace EdPlatform.App.Controllers
         private readonly ICodeExerciseService _codeExerciseService;
         private readonly IExerciseService _exerciseService;
         private readonly ICustomAuthorizationViewService _customAuthorizattionViewService;
+        private readonly ICompletedLessonsViewService _completedLessonsViewService;
         private readonly ILogger<LessonsController> _logger;
         public LessonsController(
-            ILessonService lessonService, 
+            ILessonService lessonService,
             ICourseUserService courseUserService,
             IAttemptService attemptService,
             ICodeExerciseService codeExerciseService,
             IExerciseService exerciseService,
             ICustomAuthorizationViewService customAuthorizattionViewService,
-            ILogger<LessonsController> ilogger)
+            ILogger<LessonsController> ilogger,
+            ICompletedLessonsViewService completedLessonsViewService)
         {
             _lessonService = lessonService;
             _courseUserService = courseUserService;
@@ -33,6 +35,7 @@ namespace EdPlatform.App.Controllers
             _exerciseService = exerciseService;
             _customAuthorizattionViewService = customAuthorizattionViewService;
             _logger = ilogger;
+            _completedLessonsViewService = completedLessonsViewService;
         }
 
         [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/Create")]
@@ -53,7 +56,7 @@ namespace EdPlatform.App.Controllers
         {
             await _lessonService.CreateLesson(lesson);
 
-            return RedirectToAction(nameof(ModulesController.Edit), nameof(ModulesController).Replace("Controller", ""), new {courseId = courseId, moduleId = moduleId});
+            return RedirectToAction(nameof(ModulesController.Edit), nameof(ModulesController).Replace("Controller", ""), new { courseId = courseId, moduleId = moduleId });
         }
 
         [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Edit")]
@@ -65,7 +68,7 @@ namespace EdPlatform.App.Controllers
             {
                 var redirectExercises = new List<ExerciseRedirectViewModel>();
 
-                foreach(var exercise in lesson.Exercises)
+                foreach (var exercise in lesson.Exercises)
                 {
                     redirectExercises.Add(new ExerciseRedirectViewModel()
                     {
@@ -88,8 +91,8 @@ namespace EdPlatform.App.Controllers
         [HttpPost("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Edit")]
         public async Task<IActionResult> Edit(int courseId, int moduleId, int lessonId, LessonModel lesson)
         {
-            await _lessonService.EditLesson(lesson); 
-            
+            await _lessonService.EditLesson(lesson);
+
             return View(await _lessonService.Get(lessonId));
         }
 
@@ -101,18 +104,27 @@ namespace EdPlatform.App.Controllers
 
             if (courseUser != null)
             {
-                int notSolvedExerciseId = await _attemptService.GetNotSolvedExerciseId(lesson.Exercises.OrderBy(x => x.Order), courseUser.UserId);
+                if (lesson.Exercises.Count() > 0)
+                {
+                    int notSolvedExerciseId = await _attemptService.GetNotSolvedExerciseId(lesson.Exercises.OrderBy(x => x.Order), courseUser.UserId);
 
-                var exercise = await _exerciseService.Get(notSolvedExerciseId);
+                    var exercise = await _exerciseService.Get(notSolvedExerciseId);
 
-                ViewBag.NotSolvedExercise = new ExerciseRedirectViewModel() 
-                { 
-                    Action = exercise.Discriminator + "Details", 
-                    CourseId = courseId,
-                    ModuleId = moduleId, 
-                    LessonId = lessonId, 
-                    ExerciseId = notSolvedExerciseId
-                };
+                    ViewBag.NotSolvedExercise = new ExerciseRedirectViewModel()
+                    {
+                        Action = exercise.Discriminator + "Details",
+                        CourseId = courseId,
+                        ModuleId = moduleId,
+                        LessonId = lessonId,
+                        ExerciseId = notSolvedExerciseId
+                    };
+                }
+                else
+                {
+                    ViewBag.NotSolvedExercise = null;
+                }
+
+                ViewBag.CompletedLessons = await _completedLessonsViewService.CreateListOfCompletedLessons(lesson.Module.Lessons.OrderBy(x => x.Order).ToList(), int.Parse(User.FindFirst("UserId").Value));
 
                 return View(lesson);
             }

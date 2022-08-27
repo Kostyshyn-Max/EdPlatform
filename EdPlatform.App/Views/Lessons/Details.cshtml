@@ -1,32 +1,6 @@
 ﻿@using EdPlatform.Business.Models
 @model LessonModel
 
-@*@if (Model.Module.Course.Modules != null)
-{
-    @foreach (var module in Model.Module.Course.Modules.OrderBy(x => x.Order))
-    {
-    <label>Modules:</label>
-    <ul class="list-group">
-        <li class="list-group-item">@module.ModuleName</li>
-
-        @if (module.Lessons != null)
-        {
-        <li class="list-group-item">
-            <ul class="list-group">
-                @foreach (var lesson in module.Lessons.OrderBy(x => x.Order))
-                {
-                    <li class="list-group-item">
-                        @lesson.LessonName
-                        <a asp-route-courseId="@module.CourseId" asp-route-moduleId="@module.ModuleId" asp-route-lessonId="@lesson.LessonId" asp-action="Details" asp-controller="Lessons">Details</a>
-                    </li>
-                }
-            </ul>
-        </li>
-        }
-    </ul>
-    }
-}*@
-
 <div class="details-page">
     <div class="navigation-panel">
         <div class="name">
@@ -41,20 +15,74 @@
             {
                 <li>
                     <a asp-controller="Lessons" asp-action="Details"
-                        asp-route-courseId="@Model.Module.CourseId" 
-                        asp-route-moduleId="@Model.ModuleId" 
-                        asp-route-lessonId="@lessons[i].LessonId" >
-                        @if (i == 0)
+                   asp-route-courseId="@Model.Module.CourseId"
+                   asp-route-moduleId="@Model.ModuleId"
+                   asp-route-lessonId="@lessons[i].LessonId">
+                        @if (ViewBag.CompletedLessons[i] != null && ViewBag.CompletedLessons[i].IsCompleted && ViewBag.CompletedLessons[i].LessonId == lessons[i].LessonId)
                         {
-                            <img src="~/img/timelines/horizontal-start-timeline.svg" />
-                        }
-                        else if (i == lessons.Count() - 1)
-                        {
-                            <img src="~/img/timelines/horizontal-end-timeline.svg" />
+                            @if (lessons[i].LessonId == Model.LessonId)
+                            {
+                                @if (i == 0)
+                                {
+                                    <img src="~/img/timelines/horizontal-start-completed-selected-timeline.svg" />
+                                }
+                                else if (i == lessons.Count() - 1)
+                                {
+                                    <img src="~/img/timelines/horizontal-end-completed-selected-timeline.svg" />
+                                }
+                                else
+                                {
+                                    <img src="~/img/timelines/horizontal-middle-completed-selected-timeline.svg" />
+                                }
+                            }
+                            else
+                            {
+                                @if (i == 0)
+                                {
+                                    <img src="~/img/timelines/horizontal-start-completed-timeline.svg" />
+                                }
+                                else if (i == lessons.Count() - 1)
+                                {
+                                    <img src="~/img/timelines/horizontal-end-completed-timeline.svg" />
+                                }
+                                else
+                                {
+                                    <img src="~/img/timelines/horizontal-middle-completed-timeline.svg" />
+                                }
+                            }
                         }
                         else
                         {
-                            <img src="~/img/timelines/horizontal-middle-timeline.svg" />
+                            @if (lessons[i].LessonId == Model.LessonId)
+                            {
+                                @if (i == 0)
+                                {
+                                    <img src="~/img/timelines/horizontal-start-selected-timeline.svg" />
+                                }
+                                else if (i == lessons.Count() - 1)
+                                {
+                                    <img src="~/img/timelines/horizontal-end-selected-timeline.svg" />
+                                }
+                                else
+                                {
+                                    <img src="~/img/timelines/horizontal-middle-selected-timeline.svg" />
+                                }
+                            }
+                            else
+                            {
+                                @if (i == 0)
+                                {
+                                    <img src="~/img/timelines/horizontal-start-timeline.svg" />
+                                }
+                                else if (i == lessons.Count() - 1)
+                                {
+                                    <img src="~/img/timelines/horizontal-end-timeline.svg" />
+                                }
+                                else
+                                {
+                                    <img src="~/img/timelines/horizontal-middle-timeline.svg" />
+                                }
+                            }
                         }
                     </a>
                 </li>
@@ -67,31 +95,30 @@
             <h2>@Model.Order. @Model.LessonName</h2>
         </div>
         <div class="lecture">
-            @Html.Raw(Model.LessonContent)    
+            @Html.Raw(Model.LessonContent)
         </div>
 
-        <div class="buttons">
-            <a  asp-controller="Exercises" 
-                asp-action="@ViewBag.NotSolvedExercise.Action"
-                asp-route-courseId="@ViewBag.NotSolvedExercise.CourseId" 
-                asp-route-moduleId="@ViewBag.NotSolvedExercise.ModuleId" 
-                asp-route-lessonId="@ViewBag.NotSolvedExercise.LessonId" 
-                asp-route-exerciseId="@ViewBag.NotSolvedExercise.ExerciseId">Перейти до вправ</a>
-        </div>
+        @if (ViewBag.NotSolvedExercise != null)
+        {
+            <div class="buttons">
+                <a asp-controller="Exercises"
+               asp-action="@ViewBag.NotSolvedExercise.Action"
+               asp-route-courseId="@ViewBag.NotSolvedExercise.CourseId"
+               asp-route-moduleId="@ViewBag.NotSolvedExercise.ModuleId"
+               asp-route-lessonId="@ViewBag.NotSolvedExercise.LessonId"
+               asp-route-exerciseId="@ViewBag.NotSolvedExercise.ExerciseId">Перейти до вправ</a>
+            </div>
+        }
+
     </div>
 </div>
 
 <style>
-    html.dark .content{
+    html.dark .content {
         background-color: #232F3A;
     }
-    
-    html.light .content{
+
+    html.light .content {
         background-color: #3f668a;
     }
 </style>
-
-
-@*<div>
-    @Html.Raw(Model.LessonContent)
-</div>*@
