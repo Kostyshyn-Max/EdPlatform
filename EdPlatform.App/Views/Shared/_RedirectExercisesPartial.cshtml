@@ -7,35 +7,71 @@
            asp-route-moduleId="@ViewBag.RedirectExercises[i].ModuleId"
            asp-route-lessonId="@ViewBag.RedirectExercises[i].LessonId"
            asp-route-exerciseId="@ViewBag.RedirectExercises[i].ExerciseId">
-                @if (ViewBag.Attempts[i] != null && ViewBag.Attempts[i].IsCompleted && ViewBag.Attempts[i].ExerciseId == ViewBag.RedirectExercises[i].ExerciseId)
-                {   
-                    if (i == 0)
+                @if (ViewBag.RedirectExercises[i].ExerciseId == ViewBag.Exercise.ExerciseId)
+                {
+                    @if (ViewBag.Attempts[i] != null && ViewBag.Attempts[i].IsCompleted && ViewBag.Attempts[i].ExerciseId == ViewBag.RedirectExercises[i].ExerciseId)
                     {
-                        <img src="~/img/timelines/horizontal-start-completed-timeline.svg" />
-                    }
-                    else if (i == ViewBag.RedirectExercises.Count - 1)
-                    {
-                        <img src="~/img/timelines/horizontal-end-completed-timeline.svg" />
+                        if (i == 0)
+                        {
+                            <img src="~/img/timelines/horizontal-start-completed-selected-timeline.svg" />
+                        }
+                        else if (i == ViewBag.RedirectExercises.Count - 1)
+                        {
+                            <img src="~/img/timelines/horizontal-end-completed-selected-timeline.svg" />
+                        }
+                        else
+                        {
+                            <img src="~/img/timelines/horizontal-middle-completed-selected-timeline.svg" />
+                        }
                     }
                     else
                     {
-                        <img src="~/img/timelines/horizontal-middle-completed-timeline.svg" />
-                    } 
+                        if (i == 0)
+                        {
+                            <img src="~/img/timelines/horizontal-start-selected-timeline.svg" />
+                        }
+                        else if (i == ViewBag.RedirectExercises.Count - 1)
+                        {
+                            <img src="~/img/timelines/horizontal-end-selected-timeline.svg" />
+                        }
+                        else
+                        {
+                            <img src="~/img/timelines/horizontal-middle-selected-timeline.svg" />
+                        }
+                    }
                 }
                 else
-                {  
-                    if (i == 0)
+                {
+                    @if (ViewBag.Attempts[i] != null && ViewBag.Attempts[i].IsCompleted && ViewBag.Attempts[i].ExerciseId == ViewBag.RedirectExercises[i].ExerciseId)
                     {
-                        <img src="~/img/timelines/horizontal-start-timeline.svg" />
-                    }
-                    else if (i == ViewBag.RedirectExercises.Count - 1)
-                    {
-                        <img src="~/img/timelines/horizontal-end-timeline.svg" />
+                        if (i == 0)
+                        {
+                            <img src="~/img/timelines/horizontal-start-completed-timeline.svg" />
+                        }
+                        else if (i == ViewBag.RedirectExercises.Count - 1)
+                        {
+                            <img src="~/img/timelines/horizontal-end-completed-timeline.svg" />
+                        }
+                        else
+                        {
+                            <img src="~/img/timelines/horizontal-middle-completed-timeline.svg" />
+                        }
                     }
                     else
                     {
-                        <img src="~/img/timelines/horizontal-middle-timeline.svg" />
-                    }   
+                        if (i == 0)
+                        {
+                            <img src="~/img/timelines/horizontal-start-timeline.svg" />
+                        }
+                        else if (i == ViewBag.RedirectExercises.Count - 1)
+                        {
+                            <img src="~/img/timelines/horizontal-end-timeline.svg" />
+                        }
+                        else
+                        {
+                            <img src="~/img/timelines/horizontal-middle-timeline.svg" />
+                        }
+                    }
                 }
             </a>
         </li>
