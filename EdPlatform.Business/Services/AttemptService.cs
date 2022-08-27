@@ -12,10 +12,6 @@ namespace EdPlatform.Business.Services
 {
     public class AttemptService : IAttemptService
     {
-        public AttemptService()
-        {
-        }
-
         public async Task Create(AttemptModel attempt, List<bool> results)
         {
             IMapper mapper = CreateAttemptModelToAttemptMapper();
@@ -66,15 +62,38 @@ namespace EdPlatform.Business.Services
             return mapper.Map<Attempt, AttemptModel>(attempt);
         }
 
-        public async Task<int> GetNotSolvedExercise(IEnumerable<ExerciseModel> exercises, int userId)
+        public async Task<int> GetNotSolvedExerciseId(IEnumerable<ExerciseModel> exercises, int userId)
         {
             IMapper mapper = CreateAttemptToAttemptModelMapper();
+            List<AttemptModel?> attempts = await GetAttemptsList(exercises, userId, mapper);
 
-            List<AttemptModel?> attempts = new List<AttemptModel>();
+            for (int i = 0; i < exercises.Count(); i++)
+            {
+                if (attempts[i] == null)
+                {
+                    return exercises.ElementAt(i).ExerciseId;
+                }
+            }
+
+            return exercises.ElementAt(exercises.Count() - 1).ExerciseId;
+        }
+
+        public async Task<List<AttemptModel?>> GetAllAttemptsFromExercises(IEnumerable<ExerciseModel> exercises, int userId)
+        {
+            IMapper mapper = CreateAttemptToAttemptModelMapper();
+            List<AttemptModel?> attempts = await GetAttemptsList(exercises, userId, mapper);
+
+            return attempts;
+        }
+
+        private static async Task<List<AttemptModel?>> GetAttemptsList(IEnumerable<ExerciseModel> exercises, int userId, IMapper mapper)
+        {
+            exercises = exercises.OrderBy(x => x.Order).ToList();
+            List<AttemptModel?> attempts = new List<AttemptModel?>();
 
             await using (UnitOfWork u = new())
             {
-                foreach(var exercise in exercises)
+                foreach (var exercise in exercises)
                 {
                     var attempt = (await u.AttemptRepository.Find(x => x.ExerciseId == exercise.ExerciseId && x.UserId == userId)).SingleOrDefault();
 
@@ -85,15 +104,7 @@ namespace EdPlatform.Business.Services
                 }
             }
 
-            for (int i = 0; i < exercises.Count(); i++)
-            {
-                if (attempts[i] == null)
-                {
-                    return exercises.ElementAt(i).ExerciseId;
-                }
-            }
-
-            return -1;
+            return attempts;
         }
 
         private static IMapper CreateAttemptToAttemptModelMapper()

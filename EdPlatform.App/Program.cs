@@ -42,6 +42,7 @@ builder.Services.AddTransient<ICheckFillExerciseAnswerService, CheckFillExercise
 builder.Services.AddHttpClient<ICodeExecutingService, CodeExecutingService>();
 
 builder.Services.AddTransient<ICustomAuthorizationViewService, CustomAuthorizationViewService>();
+builder.Services.AddTransient<ICompletedLessonsViewService, CompletedLessonsViewService>();
 
 var app = builder.Build();
 

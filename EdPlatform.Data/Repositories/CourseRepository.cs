@@ -29,7 +29,7 @@ namespace EdPlatform.Data.Repositories
         {
             return await _context.Courses.Where(x => x.CourseId == id)
                 .Include(x => x.Category)
-                .Include(x => x.Modules).ThenInclude(x => x.Lessons)
+                .Include(x => x.Modules).ThenInclude(x => x.Lessons).ThenInclude(x => x.Exercises)
                 .SingleOrDefaultAsync();
         }
 
@@ -37,7 +37,7 @@ namespace EdPlatform.Data.Repositories
         {
             return await _context.Courses
                 .Include(x => x.Category)
-                .Include(x => x.Modules).ThenInclude(x => x.Lessons)
+                .Include(x => x.Modules).ThenInclude(x => x.Lessons).ThenInclude(x => x.Exercises)
                 .ToListAsync();
         }
 
@@ -45,7 +45,7 @@ namespace EdPlatform.Data.Repositories
         {
             return await _context.Courses.Where(expression)
                 .Include(x => x.Category)
-                .Include(x => x.Modules).ThenInclude(x => x.Lessons)
+                .Include(x => x.Modules).ThenInclude(x => x.Lessons).ThenInclude(x => x.Exercises)
                 .ToListAsync();
         }
 

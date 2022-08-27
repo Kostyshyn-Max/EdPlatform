@@ -22,13 +22,16 @@ namespace EdPlatform.App.Controllers
         private readonly ICourseUserService _courseUserService;
         private readonly IImageService _imageService;
         private readonly ICustomAuthorizationViewService _customAuthorizationViewService;
+        private readonly ICompletedLessonsViewService _completedLessonsViewService;
+
         public CoursesController(
             ILogger<CoursesController> logger, 
             ICourseService courseService,
             ICategoryService categoryService,
             IModuleService moduleService,
             ICourseUserService courseUserService,
-            ICustomAuthorizationViewService customAuthorizationViewService)
+            ICustomAuthorizationViewService customAuthorizationViewService,
+            ICompletedLessonsViewService completedLessonsViewService)
         {
             _logger = logger;
             _courseService = courseService;
@@ -36,6 +39,7 @@ namespace EdPlatform.App.Controllers
             _moduleService = moduleService;
             _courseUserService = courseUserService;
             _customAuthorizationViewService = customAuthorizationViewService;
+            _completedLessonsViewService = completedLessonsViewService;
         }
 
         public async Task<IActionResult> Index()
@@ -59,7 +63,8 @@ namespace EdPlatform.App.Controllers
             
             ViewBag.Course = course;
             ViewBag.UserId = userId;
-            ViewBag.CourseUser = courseUser;
+            ViewBag.CourseUser = courseUser; 
+            ViewBag.CompletedLessons = await _completedLessonsViewService.CreateListOfCompletedLessons(course.Modules.SelectMany(x => x.Lessons).ToList(), int.Parse(User.FindFirst("UserId").Value));
 
             return View(new CourseUserModel());
         }
@@ -71,6 +76,7 @@ namespace EdPlatform.App.Controllers
             ViewBag.Course = course;
             ViewBag.UserId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
             ViewBag.CourseUser = courseUser;
+            ViewBag.CompletedLessons = await _completedLessonsViewService.CreateListOfCompletedLessons(course.Modules.SelectMany(x => x.Lessons).OrderBy(x => x.Order).ToList(), int.Parse(User.FindFirst("UserId").Value));
 
             await _courseUserService.CreateCourseUser(courseUser);
 

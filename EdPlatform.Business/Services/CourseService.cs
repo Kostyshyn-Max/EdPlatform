@@ -124,6 +124,7 @@ namespace EdPlatform.Business.Services
                 cfg.CreateMap<Category, CategoryModel>();
                 cfg.CreateMap<Module, ModuleModel>();
                 cfg.CreateMap<Lesson, LessonModel>();
+                cfg.CreateMap<Exercise, ExerciseModel>();
             });
             return config.CreateMapper();
         }

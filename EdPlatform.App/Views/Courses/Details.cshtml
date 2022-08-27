@@ -50,17 +50,35 @@
                 @for (int i = 0; i < lessons.Count(); i++)
                 {
                     <li>
-                        @if (i == 0)
+                        @if (ViewBag.CompletedLessons[i] != null && ViewBag.CompletedLessons[i].ModuleId == module.ModuleId && ViewBag.CompletedLessons[i].IsCompleted)
                         {
-                            <img src="~/img/start-timeline.svg" />
-                        }
-                        else if (i == lessons.Count() - 1)
-                        {
-                            <img src="~/img/end-timeline.svg" />
+                            @if (i == 0)
+                            {
+                                <img src="~/img/timelines/vertical-start-completed-timeline.svg" />
+                            }
+                            else if (i == lessons.Count() - 1)
+                            {
+                                <img src="~/img/timelines/vertical-end-completed-timeline.svg" />
+                            }
+                            else
+                            {
+                                <img src="~/img/timelines/vertical-middle-completed-timeline.svg" />
+                            }
                         }
                         else
                         {
-                            <img src="~/img/middle-timeline.svg" />
+                            @if (i == 0)
+                            {
+                                <img src="~/img/timelines/vertical-start-timeline.svg" />
+                            }
+                            else if (i == lessons.Count() - 1)
+                            {
+                                <img src="~/img/timelines/vertical-end-timeline.svg" />
+                            }
+                            else
+                            {
+                                <img src="~/img/timelines/verical-middle-timeline.svg" />
+                            }
                         }
 
                         <a>@lessons.ElementAt(i).LessonName</a>
