@@ -20,6 +20,7 @@ namespace EdPlatform.Data.Entities
         [StringLength(1000, ErrorMessage = "Course description is too long")]
         public string Description { get; set; }
 
+        public int CategoryId { get; set; }
         public Category Category { get; set; }
         public IEnumerable<Module> Modules { get; set; }
         public int AuthorId { get; set; }

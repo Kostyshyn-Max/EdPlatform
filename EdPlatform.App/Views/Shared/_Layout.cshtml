@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - EdPlatform.App</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/EdPlatform.App.styles.css" asp-append-version="true" />*@
 </head>
 <body>
     <header>
@@ -30,12 +28,12 @@
             </div>
 
             <div class="searchbar-cover">
-                <div class="searchbar">
-                    <input type="search" placeholder="Знайти курс... "/>
-                    <a href="#">
+                <form method="get" id="search-form" asp-action="Search" asp-controller="Courses" class="searchbar">
+                    <input name="searchRequest" type="search" placeholder="Назва курсу або його категорія "/>
+                    <a onclick="document.getElementById('search-form').submit()">
                         <img src="~/img/find-icon.svg" />
                     </a>
-                </div>
+                </form>
             </div>
 
             <div class="theme">
@@ -49,45 +47,7 @@
             <partial name="_LoginPartial"></partial>
         </nav>
     </header>
-
-    @*<header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-    <div class="container-fluid">
-    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EdPlatform.App</a>
-
-    <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-    Catalogue
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    @if (ViewData["Categories"] != null)
-    {
-    foreach(var category in ViewData["Categories"] as IEnumerable<CategoryModel>)
-    {
-    <li><a class="dropdown-item" href="#">@category.CategoryName</a></li>
-    }
-    }
-    </ul>
-    </div>
-
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-    aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-    <ul class="navbar-nav flex-grow-1">
-    <li class="nav-item">
-    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-    </li>
-    <li class="nav-item">
-    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-    </li>
-    </ul>
-    </div>
-    <partial name="_LoginPartial"></partial>
-    </div>
-    </nav>
-    </header>*@
+    
     <div class="content">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -109,10 +69,6 @@
             <h2>&copy; 2022 - EdPlatform - Privacy</h2>
         </div>
     </footer>
-
-    @*<script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    *@
 
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)

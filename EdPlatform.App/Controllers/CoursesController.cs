@@ -100,10 +100,23 @@ namespace EdPlatform.App.Controllers
 
             course.AuthorId = id;
 
+            if (course.Image == null)
+            {
+                ModelState.AddModelError("Image", "Course image must be not null");
+                await CreateSelectListFromCategories();
+                return View(course);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                await CreateSelectListFromCategories();
+                return View(course);
+            }
+
             await _courseService.CreateCourse(new()
             {
                 AuthorId = course.AuthorId,
-                Category = course.Category,
+                CategoryId = course.CategoryId,
                 ContentType = course.Image.ContentType,
                 CourseId = course.CourseId,
                 CourseName = course.CourseName,
@@ -135,7 +148,7 @@ namespace EdPlatform.App.Controllers
                 return View(new CourseViewModel()
                 {
                     AuthorId = course.AuthorId,
-                    Category = course.Category,
+                    CategoryId = course.CategoryId,
                     CourseId = course.CourseId,
                     CourseName = course.CourseName,
                     Description = course.Description,
@@ -156,7 +169,7 @@ namespace EdPlatform.App.Controllers
             await _courseService.EditCourse(new()
             {
                 AuthorId = course.AuthorId,
-                Category = course.Category,
+                CategoryId = course.CategoryId,
                 ContentType = course.Image?.ContentType,
                 CourseId = course.CourseId,
                 CourseName = course.CourseName,
@@ -190,6 +203,16 @@ namespace EdPlatform.App.Controllers
                 Text = c.CategoryName 
             }).ToList();
             ViewBag.SelectCategories = selectCategories;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Search(string searchRequest)
+        {
+            var searchResults = await _courseService.SearchCourses(searchRequest);
+
+            ViewBag.SearchResults = searchResults;
+
+            return View();
         }
     }
 }
