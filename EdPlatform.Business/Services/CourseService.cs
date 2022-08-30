@@ -22,7 +22,7 @@ namespace EdPlatform.Business.Services
 
         public async Task<bool> CreateCourse(CourseModel course)
         {
-            Category? category = (await _unitOfWork.CategoryRepository.Get(course.Category.CategoryId));
+            Category? category = (await _unitOfWork.CategoryRepository.Get(course.CategoryId));
             if (category == null)
                 return false;
 
@@ -38,6 +38,7 @@ namespace EdPlatform.Business.Services
                 CourseName = course.CourseName,
                 Description = course.Description,
                 Category = category,
+                CategoryId = course.CategoryId,
                 ImageName = fileName
             }
             );
@@ -47,7 +48,7 @@ namespace EdPlatform.Business.Services
 
         public async Task<IEnumerable<CourseModel>> GetAllFromAuthor(int authorId)
         {
-            var mapper = CreateCourseModelMapper();
+            var mapper = CreateCourseToCourseModelMapper();
 
             List<CourseModel> courseModels = new List<CourseModel>();
             foreach (var course in await _unitOfWork.CourseRepository.Find(x => x.AuthorId == authorId))
@@ -59,7 +60,7 @@ namespace EdPlatform.Business.Services
         }
         public async Task<IEnumerable<CourseModel>> GetAll()
         {
-            var mapper = CreateCourseModelMapper();
+            var mapper = CreateCourseToCourseModelMapper();
 
             List<CourseModel> courseModels = new List<CourseModel>();
             foreach (var course in await _unitOfWork.CourseRepository.GetAll())
@@ -72,7 +73,7 @@ namespace EdPlatform.Business.Services
 
         public async Task<CourseModel> GetById(int id)
         {
-            var mapper = CreateCourseModelMapper();
+            var mapper = CreateCourseToCourseModelMapper();
             var course = mapper.Map<Course, CourseModel>(await _unitOfWork.CourseRepository.Get(id));
 
             return course;
@@ -115,8 +116,29 @@ namespace EdPlatform.Business.Services
             await _unitOfWork.Save();
             return true;
         }
+        public async Task<IEnumerable<CourseModel>> SearchCourses(string searchRequest)
+        {
+            IMapper mapper = CreateCourseToCourseModelMapper();
 
-        private static IMapper CreateCourseModelMapper()
+            List<CourseModel> searchResults = new List<CourseModel>();
+
+            var courses = await _unitOfWork.CourseRepository.GetAll();
+
+            foreach (var course in courses)
+            {
+                foreach (var word in searchRequest.Replace(" ", "").Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).ToList())
+                {
+                    if (course.CourseName.Contains(searchRequest) || course.Category.CategoryName.Contains(word))
+                    {
+                        searchResults.Add(mapper.Map<Course, CourseModel>(course));
+                    }
+                }
+            }
+
+            return searchResults;
+        }
+
+        private static IMapper CreateCourseToCourseModelMapper()
         {
             var config = new MapperConfiguration(cfg =>
             {

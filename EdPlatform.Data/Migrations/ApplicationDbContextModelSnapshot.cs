@@ -47,7 +47,7 @@ namespace EdPlatform.Data.Migrations
 
                     b.HasIndex("ExerciseId");
 
-                    b.ToTable("Attempts");
+                    b.ToTable("Attempts", (string)null);
                 });
 
             modelBuilder.Entity("EdPlatform.Data.Entities.Case", b =>
@@ -72,7 +72,7 @@ namespace EdPlatform.Data.Migrations
 
                     b.HasIndex("QuizExerciseId");
 
-                    b.ToTable("Cases");
+                    b.ToTable("Cases", (string)null);
                 });
 
             modelBuilder.Entity("EdPlatform.Data.Entities.Category", b =>
@@ -89,7 +89,7 @@ namespace EdPlatform.Data.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("EdPlatform.Data.Entities.Comment", b =>
@@ -115,7 +115,7 @@ namespace EdPlatform.Data.Migrations
 
                     b.HasKey("CommentId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("EdPlatform.Data.Entities.Course", b =>
@@ -153,7 +153,7 @@ namespace EdPlatform.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Courses");
+                    b.ToTable("Courses", (string)null);
                 });
 
             modelBuilder.Entity("EdPlatform.Data.Entities.CourseUser", b =>
@@ -172,7 +172,7 @@ namespace EdPlatform.Data.Migrations
 
                     b.HasKey("CourseUserId");
 
-                    b.ToTable("CourseUsers");
+                    b.ToTable("CourseUsers", (string)null);
                 });
 
             modelBuilder.Entity("EdPlatform.Data.Entities.Exercise", b =>
@@ -205,7 +205,7 @@ namespace EdPlatform.Data.Migrations
 
                     b.HasIndex("LessonId");
 
-                    b.ToTable("Exercise");
+                    b.ToTable("Exercise", (string)null);
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("Exercise");
                 });
@@ -232,7 +232,7 @@ namespace EdPlatform.Data.Migrations
 
                     b.HasIndex("CodeExerciseExerciseId");
 
-                    b.ToTable("IOCases");
+                    b.ToTable("IOCases", (string)null);
                 });
 
             modelBuilder.Entity("EdPlatform.Data.Entities.Lesson", b =>
@@ -264,7 +264,7 @@ namespace EdPlatform.Data.Migrations
 
                     b.HasIndex("ModuleId");
 
-                    b.ToTable("Lessons");
+                    b.ToTable("Lessons", (string)null);
                 });
 
             modelBuilder.Entity("EdPlatform.Data.Entities.Module", b =>
@@ -289,7 +289,7 @@ namespace EdPlatform.Data.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("Modules");
+                    b.ToTable("Modules", (string)null);
                 });
 
             modelBuilder.Entity("EdPlatform.Data.Entities.User", b =>
@@ -318,7 +318,7 @@ namespace EdPlatform.Data.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("EdPlatform.Data.Entities.CodeExercise", b =>

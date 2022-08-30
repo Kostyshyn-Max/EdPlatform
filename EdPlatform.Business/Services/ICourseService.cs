@@ -14,5 +14,6 @@ namespace EdPlatform.Business.Services
         Task<IEnumerable<CourseModel>> GetAll();
         Task<CourseModel> GetById(int id);
         Task<bool> EditCourse(CourseModel course);
+        Task<IEnumerable<CourseModel>> SearchCourses(string searchRequest);
     }
 }
