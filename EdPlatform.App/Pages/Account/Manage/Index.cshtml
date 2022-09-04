@@ -1,0 +1,24 @@
+﻿@page
+@using EdPlatform.Business.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model EdPlatform.App.Pages.Account.Manage.IndexModel
+
+@{
+    Layout = "_Layout";
+}
+
+<form method="post">
+    <div>
+        <label asp-for="Input.Login"></label>
+        <input asp-for="Input.Login" type="text" value="@((ViewData["UserData"] as UserModel).Login)" />
+        <span asp-validation-for="Input.Login"></span>
+    </div>
+    <div>
+        <label asp-for="Input.Email"></label>
+        <input type="text" disabled value="@((ViewData["UserData"] as UserModel).Email)" />
+    </div>
+    <input asp-for="Input.UserId" type="hidden" value="@((ViewData["UserData"] as UserModel).UserId)" />
+    <input asp-for="Input.Email" type="hidden" value="@((ViewData["UserData"] as UserModel).Email)"/>
+
+    <button type="submit">Save changes</button>
+</form>

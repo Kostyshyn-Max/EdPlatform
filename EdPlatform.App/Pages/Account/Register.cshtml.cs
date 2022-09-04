@@ -44,6 +44,14 @@ namespace EdPlatform.App.Pages.Account
         {
             if (ModelState.IsValid)
             {
+                var usersWithSameLogin = await _userService.GetAllByLogin(Input.Login);
+
+                if (usersWithSameLogin.Count() >= 1)
+                    ModelState.AddModelError("Input.Login", "User with same login already exists");
+            }
+
+            if (ModelState.IsValid)
+            {
                 await _userService.Register(new UserRegisterModel() { Email = Input?.Email, Login = Input?.Login, Password = Input?.Password });
 
                 return Redirect("/");

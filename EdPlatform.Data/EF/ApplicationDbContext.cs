@@ -32,5 +32,12 @@ namespace EdPlatform.Data.EF
             optionsBuilder.UseNpgsql("Server = abul.db.elephantsql.com; Database = vumzfetu; Persist Security Info = True; User ID = vumzfetu; Password = oB1t1mwyAPk8TrNY0rVkAMmrMWeXJ1jc");
             optionsBuilder.EnableSensitiveDataLogging();
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasIndex(x => x.Login).IsUnique(true);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

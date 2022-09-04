@@ -10,7 +10,7 @@ namespace EdPlatform.App.Pages.Account
         public async Task<IActionResult> OnGetAsync()
         {
             await HttpContext.SignOutAsync();
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToPage("Login");
         }
     }
 }
