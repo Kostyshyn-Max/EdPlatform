@@ -43,15 +43,6 @@ namespace EdPlatform.App.Pages.Account.Manage
             var user = await _userService.GetUser(Input.Login);
             UserData = user;
 
-            //var identity = new ClaimsIdentity(User.Identity);
-
-            //var claim = (from c in User.Claims
-            //             where c.Type == "Login"
-            //             select c).Single();
-
-            //identity.RemoveClaim(claim);
-            //identity.AddClaim(new Claim("Login", user.Login));
-
             await HttpContext.SignOutAsync();
 
             var claims = new List<Claim>

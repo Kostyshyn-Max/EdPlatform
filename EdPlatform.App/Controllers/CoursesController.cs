@@ -206,11 +206,36 @@ namespace EdPlatform.App.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Search(string searchRequest)
+        public async Task<IActionResult> Search(string searchRequest)
         {
             var searchResults = await _courseService.SearchCourses(searchRequest);
 
             ViewBag.SearchResults = searchResults;
+
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> JoinedCourses()
+        {
+            var courseUsers = await _courseUserService.GetAllFromUser(Convert.ToInt32(User.FindFirst("UserId").Value));
+            List<CourseModel> courses = new List<CourseModel>();
+
+            foreach (var courseUser in courseUsers)
+            {
+                courses.Add(await _courseService.GetById(courseUser.CourseId));
+            }
+
+            ViewBag.Courses = courses;
+
+            return View();
+        }
+
+        public async Task<IActionResult> MyCourses()
+        {
+            List<CourseModel> courses = (await _courseService.GetAllFromAuthor(Convert.ToInt32(User.FindFirst("UserId").Value))).ToList();
+
+            ViewBag.Courses = courses;  
 
             return View();
         }
