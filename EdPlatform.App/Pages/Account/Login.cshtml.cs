@@ -21,7 +21,6 @@ namespace EdPlatform.App.Pages.Account
             _userService = userService;
         }
 
-
         [TempData]
         public string? ErrorMessage { get; set; }
 

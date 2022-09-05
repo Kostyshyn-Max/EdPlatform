@@ -1,0 +1,21 @@
+﻿<div class="course-carousel">
+    <h2>Мої курси: </h2>
+    @if (ViewBag.Courses != null)
+    {
+        <div class="carousel-popular">
+            @foreach (var course in ViewBag.Courses)
+            {
+                <div class="course-plate">
+                    <div class="image-cover">
+                        <img src="@("https://ed-platform.s3.amazonaws.com/"+course.ImageName)" />
+                    </div>
+                    <h2>
+                        <a asp-controller="Courses" asp-action="Details" asp-route-courseId="@course.CourseId">@course.CourseName</a>
+                    </h2>
+
+                    <a asp-controller="Courses" asp-action="Edit" asp-route-courseId="@course.CourseId">Edit</a>
+                </div>
+            }
+        </div>
+    }
+</div>
