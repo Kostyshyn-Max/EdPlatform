@@ -38,7 +38,22 @@
         </div>
 
         <div class="buttons">
-            <a>Перейти до наступної вправи</a>
+            @foreach (var exercise in ViewBag.RedirectExercises)
+            {
+                if (@exercise.ExerciseId > ViewBag.Exercise.ExerciseId)
+                {
+                    <a asp-controller="Exercises"
+               asp-action="@exercise.Action"
+               asp-route-courseId="@exercise.CourseId"
+               asp-route-moduleId="@exercise.ModuleId"
+               asp-route-lessonId="@exercise.LessonId"
+               asp-route-exerciseId="@exercise.ExerciseId">
+                        Перейти до наступної вправи
+                    </a>
+
+                    break;
+                }
+            }
         </div>
     </div>
 </div>

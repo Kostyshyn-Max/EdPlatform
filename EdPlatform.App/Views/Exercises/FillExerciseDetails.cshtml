@@ -4,10 +4,10 @@
 <div class="details-page">
     <div class="navigation-panel">
         <div class="name">
-            <a asp-controller="Lessons" asp-action="Details" 
-                asp-route-courseId="@ViewBag.Exercise.Lesson.Module.CourseId"
-                asp-route-moduleId="@ViewBag.Exercise.Lesson.ModuleId"
-                asp-route-lessonId="@ViewBag.Exercise.LessonId">@ViewBag.Exercise.Lesson.Order. @ViewBag.Exercise.Lesson.LessonName</a>
+            <a asp-controller="Lessons" asp-action="Details"
+               asp-route-courseId="@ViewBag.Exercise.Lesson.Module.CourseId"
+               asp-route-moduleId="@ViewBag.Exercise.Lesson.ModuleId"
+               asp-route-lessonId="@ViewBag.Exercise.LessonId">@ViewBag.Exercise.Lesson.Order. @ViewBag.Exercise.Lesson.LessonName</a>
         </div>
         <partial name="_RedirectExercisesPartial"></partial>
     </div>
@@ -36,7 +36,22 @@
         </div>
 
         <div class="buttons">
-            <a>Перейти до наступної вправи</a>
+            @foreach (var exercise in ViewBag.RedirectExercises)
+            {
+                if (@exercise.ExerciseId > ViewBag.Exercise.ExerciseId)
+                {
+                    <a asp-controller="Exercises"
+               asp-action="@exercise.Action"
+               asp-route-courseId="@exercise.CourseId"
+               asp-route-moduleId="@exercise.ModuleId"
+               asp-route-lessonId="@exercise.LessonId"
+               asp-route-exerciseId="@exercise.ExerciseId">
+                        Перейти до наступної вправи
+                    </a>
+
+                    break;
+                }
+            }
         </div>
     </div>
 </div>
