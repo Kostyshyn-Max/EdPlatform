@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace EdPlatform.Business.Models
 {
-    public class CodeExerciseModel : ExerciseModel
+    public class QuizModel : ExerciseModel
     {
-        public IEnumerable<IOCaseModel> IOCases { get; set; }
+
     }
 }

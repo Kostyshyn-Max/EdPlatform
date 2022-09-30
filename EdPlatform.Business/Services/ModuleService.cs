@@ -71,6 +71,10 @@ namespace EdPlatform.Business.Services
                 cfg.CreateMap<Module, ModuleModel>();
                 cfg.CreateMap<Lesson, LessonModel>();
                 cfg.CreateMap<Course, CourseModel>();
+                cfg.CreateMap<Exercise, ExerciseModel>();
+                cfg.CreateMap<Quiz, QuizModel>();
+                cfg.CreateMap<CodeExercise, CodeExerciseModel>();
+                cfg.CreateMap<FillExercise, FillExerciseModel>();
             });
             var mapper = config.CreateMapper();
             return mapper;
