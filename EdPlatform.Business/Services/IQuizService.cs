@@ -10,5 +10,7 @@ namespace EdPlatform.Business.Services
     public interface IQuizService
     {
         Task Create(QuizModel quizExercise);
+        Task<QuizModel> Get(int quizExerciseId);
+        Task Edit(QuizModel quiz);
     }
 }

@@ -265,7 +265,7 @@ namespace EdPlatform.App.Controllers
         }
 
         [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Create/Quiz")]
-        public async Task<IActionResult> QuizExerciseCreate(int courseId, int moduleId, int lessonId)
+        public async Task<IActionResult> QuizCreate(int courseId, int moduleId, int lessonId)
         {
             if (await _customAuthorizationViewService.Authorize(User, courseId))
             {
@@ -278,11 +278,33 @@ namespace EdPlatform.App.Controllers
         }
 
         [HttpPost("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Create/Quiz")]
-        public async Task<IActionResult> QuizExerciseCreate(int courseId, int moduleId, int lessonId, QuizModel quizExercise)
+        public async Task<IActionResult> QuizCreate(int courseId, int moduleId, int lessonId, QuizModel quizExercise)
         {
             await _quizService.Create(quizExercise);
-
+            
             return RedirectToAction(nameof(LessonsController.Edit), nameof(LessonsController).Replace("Controller", ""), new { courseId = courseId, moduleId = moduleId, lessonId = lessonId });
+        }
+
+        [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Quiz/{exerciseId}/Edit")]
+        public async Task<IActionResult> QuizEdit(int courseId, int moduleId, int lessonId, int exerciseId)
+        {
+            if (await _customAuthorizationViewService.Authorize(User, courseId))
+            {
+                var quiz = await _quizService.Get(exerciseId);
+
+                return View(quiz);
+            }
+
+            return RedirectToAction(nameof(HomeController.AccessDenied), nameof(HomeController).Replace("Controller", ""));
+        }
+
+        [HttpPost("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Quiz/{exerciseId}/Edit")]
+        public async Task<IActionResult> QuizEdit(int courseId, int moduleId, int lessonId, int exerciseId, QuizModel quiz)
+        {
+            await _quizService.Edit(quiz);
+            var updatedQuiz = await _quizService.Get(exerciseId);
+
+            return View(updatedQuiz);
         }
     }
 }
