@@ -8,6 +8,6 @@ namespace EdPlatform.Business.Models
 {
     public class QuizModel : ExerciseModel
     {
-
+        public IEnumerable<CaseModel> Cases { get; set; }
     }
 }

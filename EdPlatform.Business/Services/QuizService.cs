@@ -31,6 +31,11 @@ namespace EdPlatform.Business.Services
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Quiz, QuizModel>();
+                cfg.CreateMap<Case, CaseModel>();
+                cfg.CreateMap<Course, CourseModel>();
+                cfg.CreateMap<Module, ModuleModel>();
+                cfg.CreateMap<Lesson, LessonModel>();
+                cfg.CreateMap<Exercise, ExerciseModel>();
             });
             var mapper = config.CreateMapper();
 

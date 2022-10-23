@@ -26,17 +26,24 @@ namespace EdPlatform.Data.Repositories
 
         public async Task<Quiz?> Get(int id)
         {
-            return await _context.Quizzes.FindAsync(id);
+            return await _context.Quizzes.Where(x => x.ExerciseId == id)
+                .Include(x => x.Lesson).ThenInclude(x => x.Exercises)
+                .Include(x => x.Lesson).ThenInclude(x => x.Module).ThenInclude(x => x.Course)
+                .Include(x => x.Cases).SingleOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Quiz>> GetAll()
         {
-            return await _context.Quizzes.ToListAsync();
+            return await _context.Quizzes.Include(x => x.Lesson).ThenInclude(x => x.Exercises)
+                .Include(x => x.Lesson).ThenInclude(x => x.Module).ThenInclude(x => x.Course)
+                .Include(x => x.Cases).ToListAsync();
         }
 
         public async Task<IEnumerable<Quiz>> Find(Expression<Func<Quiz, bool>> expression)
         {
-            return await _context.Quizzes.Where(expression).ToListAsync();
+            return await _context.Quizzes.Where(expression).Include(x => x.Lesson).ThenInclude(x => x.Exercises)
+                .Include(x => x.Lesson).ThenInclude(x => x.Module).ThenInclude(x => x.Course)
+                .Include(x => x.Cases).ToListAsync();
         }
 
         public void Update(Quiz entity)
