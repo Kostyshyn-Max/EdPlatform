@@ -38,6 +38,9 @@ builder.Services.AddTransient<IAttemptService, AttemptService>();
 builder.Services.AddTransient<IExerciseService, ExerciseService>();
 builder.Services.AddTransient<IFillExerciseService, FillExerciseService>();
 builder.Services.AddTransient<ICheckFillExerciseAnswerService, CheckFillExerciseAnswerService>();
+builder.Services.AddTransient<IQuizService, QuizService>();
+builder.Services.AddTransient<ICaseService, CaseService>();
+builder.Services.AddTransient<ICheckQuizAnswerService, CheckQuizAnswerService>();
 
 builder.Services.AddHttpClient<ICodeExecutingService, CodeExecutingService>();
 

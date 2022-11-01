@@ -28,7 +28,17 @@
 <a asp-controller="Exercises" asp-action="CodeExerciseCreate" 
     asp-route-courseId="@Model.Module.CourseId" 
     asp-route-moduleId="@Model.ModuleId"
-    asp-route-lessonId="@Model.LessonId">Create exercise</a>
+    asp-route-lessonId="@Model.LessonId">Create code exercise</a>
+
+<a asp-controller="Exercises" asp-action="FillExerciseCreate" 
+    asp-route-courseId="@Model.Module.CourseId" 
+    asp-route-moduleId="@Model.ModuleId"
+    asp-route-lessonId="@Model.LessonId">Create fill exercise</a>
+
+<a asp-controller="Exercises" asp-action="QuizCreate" 
+    asp-route-courseId="@Model.Module.CourseId" 
+    asp-route-moduleId="@Model.ModuleId"
+    asp-route-lessonId="@Model.LessonId">Create quiz exercise</a>
 
 @if (Model.Exercises != null)
 {

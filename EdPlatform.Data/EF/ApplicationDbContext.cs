@@ -29,7 +29,8 @@ namespace EdPlatform.Data.EF
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Server = abul.db.elephantsql.com; Database = vumzfetu; Persist Security Info = True; User ID = vumzfetu; Password = oB1t1mwyAPk8TrNY0rVkAMmrMWeXJ1jc");
+            optionsBuilder.UseSqlServer("Data Source=MSI-GF65-THIN;Initial Catalog=EdPlatform;Integrated Security=True");
+            //optionsBuilder.UseNpgsql("Server = mouse.db.elephantsql.com; Database = cegffjdt; Persist Security Info = True; User ID = vumzfetu; Password = 7crej_TeDIB3ZiumU59yks4ULhC7UR_M;");
             optionsBuilder.EnableSensitiveDataLogging();
         }
 
