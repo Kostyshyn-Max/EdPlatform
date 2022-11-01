@@ -22,7 +22,9 @@ namespace EdPlatform.App.Services
 
                 bool isCompleted = false;
 
-                if (attempts.Count(x => x == null) != attempts.Count())
+                if (attempts.Count(x => x == null) > 0)
+                    isCompleted = false;
+                else if (attempts.Count(x => x == null) != attempts.Count())
                     isCompleted = (attempts.Count(x => x.IsCompleted == true) == lessons[i].Exercises.Count()) ? true : false;
                 else
                     isCompleted = false;   

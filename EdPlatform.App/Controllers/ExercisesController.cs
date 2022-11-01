@@ -21,6 +21,7 @@ namespace EdPlatform.App.Controllers
         private readonly ICustomAuthorizationViewService _customAuthorizationViewService;
         private readonly ICourseUserService _courseUserService;
         private readonly IQuizService _quizService;
+        private readonly ICheckQuizAnswerService _checkQuizAnswerService;
         public ExercisesController(
             ICodeExerciseService codeExerciseService,
             ILogger<ExercisesController> logger,
@@ -31,7 +32,8 @@ namespace EdPlatform.App.Controllers
             ICheckFillExerciseAnswerService checkFillExerciseAnswerService,
             ICustomAuthorizationViewService customAuthorizationViewService,
             ICourseUserService courseUserService,
-            IQuizService quizService)
+            IQuizService quizService,
+            ICheckQuizAnswerService checkQuizAnswerService)
         {
             _codeExerciseService = codeExerciseService;
             _logger = logger;
@@ -43,6 +45,7 @@ namespace EdPlatform.App.Controllers
             _customAuthorizationViewService = customAuthorizationViewService;
             _courseUserService = courseUserService;
             _quizService = quizService;
+            _checkQuizAnswerService = checkQuizAnswerService;
         }
 
         [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Create/Code")]
@@ -216,6 +219,9 @@ namespace EdPlatform.App.Controllers
                 ViewBag.Exercise = fillExercise;
                 CreateRedirectExercisesList("Details", courseId, moduleId, lessonId, fillExercise);
 
+                var attempt = await _attemptService.GetFromUserExercise(int.Parse(User.FindFirst("UserId").Value), exerciseId);
+                ViewBag.Attempt = attempt;
+
                 ViewBag.Attempts = await _attemptService.GetAllAttemptsFromExercises(fillExercise.Lesson.Exercises, int.Parse(User.FindFirst("UserId").Value));
 
                 return View(new FillExerciseCheckModel());
@@ -231,11 +237,15 @@ namespace EdPlatform.App.Controllers
 
             if (courseUser != null)
             {
+                var attempt = await _attemptService.GetFromUserExercise(int.Parse(User.FindFirst("UserId").Value), exerciseId);
+                if (attempt == null)
+                    await _checkFillExerciseAnswerService.ReviewUserAnswer(fillExerciseCheckModel);
+                ViewBag.Attempt = attempt;
+
                 var fillExercise = await _fillExerciseService.Get(exerciseId);
                 ViewBag.Exercise = fillExercise;
                 CreateRedirectExercisesList("Details", courseId, moduleId, lessonId, fillExercise);
 
-                await _checkFillExerciseAnswerService.ReviewUserAnswer(fillExerciseCheckModel);
                 ViewBag.Attempts = await _attemptService.GetAllAttemptsFromExercises(fillExercise.Lesson.Exercises, int.Parse(User.FindFirst("UserId").Value));
 
                 return View(fillExerciseCheckModel);
@@ -305,6 +315,62 @@ namespace EdPlatform.App.Controllers
             var updatedQuiz = await _quizService.Get(exerciseId);
 
             return View(updatedQuiz);
+        }
+
+        [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Quiz/{exerciseId}/Details")]
+        public async Task<IActionResult> QuizDetails(int courseId, int moduleId, int lessonId, int exerciseId)
+        {
+            var courseUser = await _courseUserService.Get(new CourseUserModel() { CourseId = courseId, UserId = int.Parse(User.FindFirst("UserId")?.Value ?? "0") });
+
+            if (courseUser != null)
+            {
+                var exercise = await _quizService.Get(exerciseId);
+                ViewBag.Exercise = exercise;
+
+                var attempt = await _attemptService.GetFromUserExercise(int.Parse(User.FindFirst("UserId").Value), exerciseId);
+                if (attempt != null)
+                    attempt.UserAnswer = Regex.Escape(attempt.UserAnswer);
+                ViewBag.Attempt = attempt;
+
+                CreateRedirectExercisesList("Details", courseId, moduleId, lessonId, exercise);
+                ViewBag.Attempts = await _attemptService.GetAllAttemptsFromExercises(exercise.Lesson.Exercises, int.Parse(User.FindFirst("UserId").Value));
+
+                return View(new CaseViewModel());
+            }
+
+            return RedirectToAction(nameof(HomeController.AccessDenied), nameof(HomeController).Replace("Controller", ""));
+        }
+
+        [HttpPost("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Quiz/{exerciseId}/Details")]
+        public async Task<IActionResult> QuizDetails(int courseId, int moduleId, int lessonId, int exerciseId, CaseViewModel caseViewModel)
+        {
+            _logger.LogInformation(caseViewModel.CaseId.ToString());
+
+            var attempt = await _attemptService.GetFromUserExercise(int.Parse(User.FindFirst("UserId").Value), exerciseId);
+            if (attempt != null)
+            {
+                attempt.UserAnswer = Regex.Escape(attempt.UserAnswer);
+            }
+            else
+            {
+                await _checkQuizAnswerService.CheckAnswer(new QuizAnswerCheckModel()
+                {
+                    Result = caseViewModel.IsCorrect,
+                    SelectedCaseId = caseViewModel.CaseId,
+                    UserId = int.Parse(User.FindFirst("UserId").Value),
+                    ExerciseId = exerciseId,
+                });
+            }
+
+            var exercise = await _quizService.Get(exerciseId);
+            ViewBag.Exercise = exercise;
+            
+            ViewBag.Attempt = attempt;
+
+            CreateRedirectExercisesList("Details", courseId, moduleId, lessonId, exercise);
+            ViewBag.Attempts = await _attemptService.GetAllAttemptsFromExercises(exercise.Lesson.Exercises, int.Parse(User.FindFirst("UserId").Value));
+
+            return View(new CaseViewModel());
         }
     }
 }

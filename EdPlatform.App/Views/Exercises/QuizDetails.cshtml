@@ -1,13 +1,12 @@
-﻿@using EdPlatform.Business.Models
-@model FillExerciseCheckModel
+﻿@model CaseViewModel
 
 <div class="details-page">
     <div class="navigation-panel">
         <div class="name">
-            <a asp-controller="Lessons" asp-action="Details"
-               asp-route-courseId="@ViewBag.Exercise.Lesson.Module.CourseId"
-               asp-route-moduleId="@ViewBag.Exercise.Lesson.ModuleId"
-               asp-route-lessonId="@ViewBag.Exercise.LessonId">@ViewBag.Exercise.Lesson.Order. @ViewBag.Exercise.Lesson.LessonName</a>
+            <a asp-controller="Lessons" asp-action="Details" 
+                asp-route-courseId="@ViewBag.Exercise.Lesson.Module.CourseId"
+                asp-route-moduleId="@ViewBag.Exercise.Lesson.ModuleId"
+                asp-route-lessonId="@ViewBag.Exercise.LessonId">@ViewBag.Exercise.Lesson.Order. @ViewBag.Exercise.Lesson.LessonName</a>
         </div>
         <partial name="_RedirectExercisesPartial"></partial>
     </div>
@@ -21,13 +20,16 @@
         </div>
 
         <div class="code">
-            <form asp-controller="Exercises" asp-action="FillExerciseDetails" method="post">
-                <div>
-                    <input asp-for="UserAnswer" data-editor="python" id="editor" value="@ViewBag.Attempt.UserAnswer" />
-                </div>
-                <input type="hidden" asp-for="Answer" value="@ViewBag.Exercise.Answer" />
-                <input type="hidden" asp-for="ExerciseId" value="@ViewBag.Exercise.ExerciseId" />
-                <input type="hidden" asp-for="UserId" value="@Convert.ToInt32(User.FindFirst("UserId").Value)" />
+            <form asp-controller="Exercises" asp-action="QuizDetails" method="post">
+                @foreach (var quizCase in ViewBag.Exercise.Cases)
+                {
+                    <div>
+                        <label asp-for="IsCorrect">@quizCase.CaseName</label>
+                        <input asp-for="IsCorrect" type="radio" id="CaseId" value="@quizCase.IsCorrect" 
+                            checked="@((ViewBag.Attempt != null && quizCase.CaseId == int.Parse(ViewBag.Attempt.UserAnswer)) ? "True" : "False")" />
+                        <input asp-for="CaseId" type="hidden" for="@quizCase.CaseId" value="@quizCase.CaseId">
+                    </div>
+                }
 
                 <div class="code-buttons">
                     <button type="submit" class="send">Перевірити</button>
@@ -55,13 +57,3 @@
         </div>
     </div>
 </div>
-
-<style>
-    html.dark .content {
-        background-color: #232F3A;
-    }
-
-    html.light .content {
-        background-color: #3f668a;
-    }
-</style>
