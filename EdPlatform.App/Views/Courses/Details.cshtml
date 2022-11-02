@@ -1,6 +1,27 @@
 ﻿@using EdPlatform.Business.Models
 @model CourseUserModel
 
+@functions{
+    public string GerSubscribersString(int usersJoined)
+    {
+        if (Enumerable.Range(11, 15).Contains(usersJoined))
+        {
+            return "підписників";
+        }
+        else 
+        {
+            var temp = usersJoined % 10;
+
+            if (Enumerable.Range(5, 11).Contains(temp) || temp == 0)
+                return "підписників";
+            else if (temp == 1)
+                return "підписник";
+            else
+                return "підписники";
+        }
+    }
+}
+
 <div class="title">
     <div class="course">
         <img src="@("https://ed-platform.s3.amazonaws.com/"+ViewBag.Course.ImageName)" alt="test image" />
@@ -8,7 +29,7 @@
 
         <div class="info">
             <div class="tag"><a href="#">@ViewBag.Course.Category.CategoryName</a></div>
-            <h2>@ViewBag.Course.UsersJoined підписників</h2>
+            <h2>@ViewBag.Course.UsersJoined @GerSubscribersString(ViewBag.Course.UsersJoined)</h2>
         </div>
 
         <div class="status">створено 05.08.2020 </div>

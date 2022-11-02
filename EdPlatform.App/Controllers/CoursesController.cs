@@ -72,15 +72,16 @@ namespace EdPlatform.App.Controllers
         [HttpPost("Courses/{courseId}/Details")]
         public async Task<IActionResult> Details([FromRoute] int courseId, CourseUserModel courseUser)
         {
+            if ((await _courseUserService.Get(courseUser)) == null)
+                await _courseUserService.CreateCourseUser(courseUser);
+
             var course = await _courseService.GetById(courseId);
             ViewBag.Course = course;
             ViewBag.UserId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
             ViewBag.CourseUser = courseUser;
             ViewBag.CompletedLessons = await _completedLessonsViewService.CreateListOfCompletedLessons(course.Modules.SelectMany(x => x.Lessons).OrderBy(x => x.Order).ToList(), int.Parse(User.FindFirst("UserId").Value));
 
-            await _courseUserService.CreateCourseUser(courseUser);
-
-            return View(new CourseUserModel());
+            return View(courseUser);
         }
 
         [HttpGet]
