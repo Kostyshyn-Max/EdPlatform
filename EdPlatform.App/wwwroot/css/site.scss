@@ -1,616 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz@8..144&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Jura");
 
-$background-color-dark: #18324A;
-$text-color-dark: #FFFFFF;
+$dark-blue: #0c0650;
+$text-color: #ffffff;
 
-$blue-1: #16212B;
-$blue-2: #232F3A;
-$blue-3: #2E3C49;
-$blue-4: #415262;
-$blue-5: #758899;
-$blue-6: #96A3AF;
-
-$light-blue-1: #2f4c67;
-$light-blue-2: #3f668a;
-$light-blue-3: #4E7DA8;
-$light-blue-4: #7AA1C6;
-$light-blue-5: #89b4dd;
-$light-blue-6: #a1cdf7;
-
-html, body {
-    height: 100%;
+html,
+body {
     margin: 0;
 }
 
 body {
-    font-family: 'Roboto Serif', serif;
-}
-
-h1, h2, h3 {
-    font-weight: 400;
-    margin: 0;
-}
-
-@media(prefers-color-scheme: dark) {
-
-    html.dark {
-        body {
-            background-color: $background-color-dark;
-            color: $text-color-dark;
-            background-image: url('../img/background.svg');
-        }
-
-        header nav {
-            background-color: $blue-3;
-
-            .dropdown {
-                .title {
-                    color: $text-color-dark;
-
-                    &:hover {
-                        background-color: $blue-2;
-                    }
-                }
-
-                ul {
-                    background-color: #1e2831;
-
-                    li {
-                        a {
-                            color: $text-color-dark;
-
-                            &:hover {
-                                background-color: #293744;
-                            }
-                        }
-                    }
-                }
-            }
-
-            .searchbar-cover {
-                .searchbar {
-                    input {
-                        background-color: $blue-2;
-                        color: $blue-5;
-
-                        &::placeholder {
-                            color: $blue-5;
-                        }
-                    }
-
-                    a {
-                        background-color: $blue-2;
-                    }
-                }
-            }
-
-            .theme {
-                .theme-switcher {
-                    img {
-                        content: url('../img/dark-mode-switch.svg');
-                    }
-                }
-            }
-
-            .login-button {
-                a {
-                    color: $text-color-dark;
-                }
-            }
-        }
-
-        .content {
-            background-color: $blue-1;
-
-            .hero {
-                background-color: $blue-4;
-            }
-
-            .course-carousel {
-                background-color: $blue-3;
-
-                .carousel-popular {
-                    background-color: $blue-2;
-
-                    .course-plate {
-                        background: $blue-4;
-
-                        h2 {
-                            a {
-                                color: $text-color-dark;
-                            }
-                        }
-                    }
-
-                    &::-webkit-scrollbar {
-                        background-color: $blue-1;
-                    }
-
-                    &::-webkit-scrollbar-thumb {
-                        background-color: $blue-4;
-                    }
-                }
-            }
-        }
-
-        footer {
-            background-color: $blue-1;
-
-            .links {
-                a {
-                    color: $text-color-dark;
-
-                    &:hover {
-                        background-color: $blue-2;
-                    }
-                }
-            }
-
-            .trademark {
-                h2 {
-                    color: $blue-4;
-                }
-            }
-        }
-
-        .title {
-            .course {
-                background-color: $blue-3;
-
-                .info {
-                    .tag {
-                        background-color: $blue-4;
-
-                        a {
-                            color: $text-color-dark;
-                        }
-                    }
-                }
-
-                .join-button {
-                    background-color: $blue-5;
-
-                    &:hover {
-                        background-color: #617281;
-                    }
-                }
-            }
-
-            .description {
-                background-color: $blue-2;
-            }
-        }
-
-        .content-title {
-            background-color: $blue-4;
-        }
-
-        .module {
-            .title {
-                background-color: $blue-3;
-            }
-
-            .lessons-list {
-                background-color: $blue-2;
-            }
-        }
-
-        .auth-cover {
-            .auth {
-                background-color: $blue-2;
-
-                .logo-control {
-                    background-color: $blue-3;
-                }
-
-                .auth-form {
-                    form {
-                        .form-group {
-                            input {
-                                background-color: $blue-3;
-                                color: $blue-5;
-
-                                &::placeholder {
-                                    color: $blue-5;
-                                }
-
-                                &:focus {
-                                    color: $blue-5;
-                                }
-
-                                &:-webkit-autofill {
-                                    background-color: $blue-3;
-                                }
-                            }
-
-                            a {
-                                color: $blue-5;
-                            }
-                        }
-
-                        .auth-button {
-                            button {
-                                background-color: $blue-5;
-                                color: $text-color-dark;
-
-                                &:hover {
-                                    background-color: $blue-4;
-                                }
-                            }
-                        }
-                    }
-
-                    .auth-links {
-                        a {
-                            color: $blue-5;
-                        }
-                    }
-                }
-            }
-        }
-
-        .details-page {
-            .navigation-panel {
-                background-color: $blue-1;
-
-                .name {
-                    a {
-                        color: $blue-6;
-                    }
-
-                    &:hover {
-                        background-color: $blue-3;
-                    }
-                }
-            }
-
-            .page-content {
-                .title {
-                    color: $blue-6;
-                }
-
-                .lecture {
-                    color: $blue-5;
-                }
-
-                .code {
-                    background-color: $blue-3;
-
-                    info {
-                        h2 {
-                            color: $blue-6;
-                        }
-                    }
-
-                    form {
-                        .code-buttons {
-                            background-color: $blue-3;
-
-                            button {
-                                color: $blue-6;
-                            }
-
-                            .send {
-                                background-color: $blue-4;
-
-                                &:hover {
-                                    background-color: #28343e;
-                                }
-                            }
-
-                            .run {
-                                background-color: $blue-1;
-
-                                &:hover {
-                                    background-color: $blue-2;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                .buttons {
-                    a {
-                        background-color: $blue-5;
-                        color: $text-color-dark;
-
-                        &:hover {
-                            background-color: $blue-4;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-html.light {
-    body {
-        background-color: #FFFFFF;
-        color: $text-color-dark;
-        background-image: none;
-    }
-
-    header nav {
-        background-color: $light-blue-3;
-
-        .dropdown {
-            .title {
-                color: $text-color-dark;
-
-                &:hover {
-                    background-color: $light-blue-2;
-                }
-            }
-
-            ul {
-                background: #365775;
-
-                li {
-                    a {
-                        color: $text-color-dark;
-
-                        &:hover {
-                            background-color: #2d4860;
-                        }
-                    }
-                }
-            }
-        }
-
-        .searchbar-cover {
-            .searchbar {
-                input {
-                    background-color: $light-blue-2;
-                    color: $light-blue-5;
-
-                    &::placeholder {
-                        color: $light-blue-5;
-                    }
-                }
-
-                a {
-                    background-color: $light-blue-2;
-                }
-            }
-        }
-
-        .theme {
-            .theme-switcher {
-                img {
-                    content: url('../img/light-mode-switch.svg');
-                }
-            }
-        }
-
-        .login-button {
-            a {
-                color: $text-color-dark;
-            }
-        }
-    }
-
-    .content {
-        background-color: $light-blue-1;
-
-        .hero {
-            background-color: $light-blue-4;
-        }
-
-        .course-carousel {
-            background-color: $light-blue-3;
-
-            .carousel-popular {
-                background-color: $light-blue-2;
-
-                .course-plate {
-                    background: $light-blue-4;
-
-                    h2 {
-                        a {
-                            color: $text-color-dark;
-                        }
-                    }
-                }
-
-                &::-webkit-scrollbar {
-                    background-color: $light-blue-1;
-                }
-
-                &::-webkit-scrollbar-thumb {
-                    background-color: $light-blue-4;
-                }
-            }
-        }
-    }
-
-    footer {
-        background-color: $light-blue-1;
-
-        .links {
-            a {
-                color: $text-color-dark;
-
-                &:hover {
-                    background-color: $light-blue-2;
-                }
-            }
-        }
-
-        .trademark {
-            h2 {
-                color: $light-blue-4;
-            }
-        }
-    }
-
-    .title {
-        .course {
-            background-color: $light-blue-3;
-
-            .info {
-                .tag {
-                    background-color: $light-blue-4;
-
-                    a {
-                        color: $text-color-dark;
-                    }
-                }
-            }
-
-            .join-button {
-                background-color: $light-blue-5;
-
-                &:hover {
-                    background-color: #7ca2c6;
-                }
-            }
-        }
-
-        .description {
-            background-color: $light-blue-2;
-        }
-    }
-
-    .content-title {
-        background-color: $light-blue-4;
-    }
-
-    .module {
-        .title {
-            background-color: $light-blue-3;
-        }
-
-        .lessons-list {
-            background-color: $light-blue-2;
-        }
-    }
-
-    .auth-cover {
-        .auth {
-            background-color: $light-blue-2;
-
-            .logo-control {
-                background-color: $light-blue-3;
-            }
-
-            .auth-form {
-                form {
-                    .form-group {
-                        input {
-                            background-color: $light-blue-3;
-                            color: $light-blue-5;
-
-                            &::placeholder {
-                                color: $light-blue-5;
-                            }
-
-                            &:focus {
-                                color: $light-blue-5;
-                            }
-
-                            &:-webkit-autofill {
-                                background-color: $light-blue-3;
-                            }
-                        }
-
-                        a {
-                            color: $light-blue-5;
-                        }
-                    }
-
-                    .auth-button {
-                        button {
-                            background-color: $light-blue-5;
-                            color: $text-color-dark;
-
-                            &:hover {
-                                background-color: $light-blue-4;
-                            }
-                        }
-                    }
-                }
-
-                .auth-links {
-                    a {
-                        color: $light-blue-5;
-                    }
-                }
-            }
-        }
-    }
-
-    .details-page {
-        .navigation-panel {
-            background-color: $light-blue-1;
-
-            .name {
-                a {
-                    color: $light-blue-6;
-                }
-
-                &:hover {
-                    background-color: $light-blue-3;
-                }
-            }
-        }
-
-        .page-content {
-            .title {
-                color: $light-blue-6;
-            }
-
-            .lecture {
-                color: $light-blue-5;
-            }
-
-            .code {
-                background-color: $light-blue-3;
-
-                info {
-                    h2 {
-                        color: $light-blue-6;
-                    }
-                }
-
-                form {
-                    .code-buttons {
-                        background-color: $light-blue-3;
-
-                        button {
-                            color: $light-blue-6;
-                        }
-
-                        .send {
-                            background-color: $light-blue-4;
-
-                            &:hover {
-                                background-color: #6a8caa;
-                            }
-                        }
-
-                        .run {
-                            background-color: $light-blue-1;
-
-                            &:hover {
-                                background-color: $light-blue-2;
-                            }
-                        }
-                    }
-                }
-            }
-
-            .buttons {
-                a {
-                    background-color: $light-blue-5;
-                    color: $text-color-dark;
-
-                    &:hover {
-                        background-color: $light-blue-4;
-                    }
-                }
-            }
-        }
-    }
+    font-family: "Jura";
+    min-height: 100% !important;
+    background: linear-gradient(172.41deg, #3d10b8 0%, #120635 29.53%, #1d1b2d 51.35%, #110270 91.2%);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 header nav {
@@ -618,7 +21,11 @@ header nav {
     display: flex;
     align-items: center;
     position: sticky;
-    filter: drop-shadow(0.167rem 0px 0.167rem rgba(0, 0, 0, 0.25));
+    padding: 0 36px 0 36px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    color: $text-color;
+    background-color: $dark-blue;
 
     .logo {
         height: 40px;
@@ -633,33 +40,42 @@ header nav {
             text-decoration: none;
             font-size: 20px;
             display: flex;
-            padding: 0px 12px;
             align-items: center;
-            margin: 0 0.5rem;
+            margin: 0 1.5rem;
             height: 48px;
+
+            color: $text-color;
 
             img {
                 margin: 0 0.3rem;
-                content: url('../img/arrow-down.svg');
+                content: url("../img/arrow-down.svg");
             }
         }
 
         ul {
             clear: both;
             overflow: hidden;
-            transition: height .4s ease;
+            transition: height 0.4s ease;
             display: none;
             position: absolute;
             list-style: none;
-            padding: 8px;
-            margin: 0 8px;
+            margin: 0 1.5rem;
+            padding: 0;
 
             li {
                 padding: 8px 0;
 
+                background-color: #b76698;
+
                 a {
                     text-decoration: none;
-                    padding: 8px;
+                    padding: 8px 16px;
+
+                    color: $text-color;
+                }
+
+                &:hover {
+                    background-color: #9c5581;
                 }
             }
         }
@@ -677,72 +93,68 @@ header nav {
         justify-content: center;
 
         .searchbar {
-            width: 30%;
+            align-items: center;
             display: flex;
+            width: 40%;
 
             input {
                 border: none;
+                height: 28px;
                 width: 100%;
                 border-radius: 26px 0 0 26px;
-                height: 30px;
-                padding-left: 15px;
+                padding: 12px;
 
+                background-color: #10063a;
+
+                &::placeholder {
+                    color: #758899;
+                }
 
                 &:focus {
-                    border: none;
                     outline: none;
+                    color: $text-color;
                 }
             }
 
             a {
+                background-color: #10063a;
+                height: 28px;
                 border-radius: 0 26px 26px 0;
                 padding-right: 8px;
                 display: flex;
-                align-content: center;
                 align-items: center;
+
+                cursor: pointer;
             }
         }
     }
 
     .theme {
-        display: flex;
-        align-items: center;
-        align-content: center;
-        padding: 0 9px;
-
-
         .theme-switcher {
-            padding: 0;
-            border: none;
             background: none;
+            border: none;
             cursor: pointer;
+
+            img {
+                content: url("../img/dark-mode-switch.svg");
+            }
         }
     }
 
     .language {
+        margin: 0;
         font-size: 16px;
+        font-weight: 300;
+
         cursor: pointer;
     }
 
     .login-button {
-        display: flex;
-        padding: 0 10px;
-        width: 160px;
-        justify-content: center;
+        padding-left: 64px;
+        padding-right: 32px;
 
         a {
-            text-decoration: none;
-            font-size: 20px;
-        }
-    }
-
-    .user-login {
-        display: flex;
-        padding: 0 10px;
-        width: 160px;
-        justify-content: center;
-
-        a {
+            color: $text-color;
             text-decoration: none;
             font-size: 20px;
         }
@@ -750,93 +162,147 @@ header nav {
 }
 
 .content {
-    margin: 0px 180px;
-    min-height: calc(100% - 48px);
-    margin-bottom: -169px;
-
     .hero {
-        text-align: center;
+        display: flex;
+        width: 75%;
+        margin: auto;
+        margin-top: 5%;
+        align-items: center;
 
-        h1 {
-            font-size: 64px;
-            padding: 25px 0;
+        color: $text-color;
+
+        .title {
+            h1 {
+                font-size: 48px;
+                font-weight: bold;
+                margin: 0;
+                margin-right: 2rem;
+            }
+
+            h2 {
+                font-size: 36px;
+                font-weight: 500;
+                margin-right: 2rem;
+
+                span {
+                    color: #b76698;
+                }
+            }
         }
 
-        h2 {
-            padding-bottom: 15px;
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-right: 2rem;
+
+            a {
+                text-decoration: none;
+                color: #ffffff;
+                border: none;
+                font-size: 24px;
+                padding: 8px 32px;
+            }
+
+            .go {
+                background: linear-gradient(90deg, #6e23da 44.39%, rgba(110, 35, 218, 0) 100%);
+            }
+
+            .create {
+                background: linear-gradient(90deg, #b76698 40.73%, rgba(183, 102, 152, 0) 100%);
+            }
+        }
+
+        img {
+            filter: drop-shadow(17px 11px 12px rgba(253, 253, 253, 0.12));
+            height: 50%;
+            width: auto;
         }
     }
 
     .course-carousel {
+        width: 65%;
+        margin: auto;
+        margin-top: 10%;
+        margin-bottom: 10%;
+
         h2 {
-            padding: 12px;
+            color: $text-color;
+            font-size: 32px;
+        }
+
+        .course-sort {
+            .cover {
+                display: flex;
+                justify-content: space-between;
+
+                h3 {
+                    color: white;
+                    font-weight: 500;
+                    border-bottom: 4px #b76698 solid;
+                    width: fit-content;
+                    margin: 0;
+                    top: 4px;
+                    position: relative;
+                }
+
+                button {
+                    background: none;
+                    border: none;
+                }
+            }
+
+            .line {
+                border: 2px solid rgba(56, 121, 182, 0.28);
+                margin: 0;
+            }
         }
 
         .carousel-popular {
-            display: flex;
-            padding: 10px;
-            overflow-x: auto;
-            gap: 10px;
-
             .course-plate {
-                padding: 10px;
-                border-radius: 4px;
-                flex-grow: 0;
+                background: white;
+                display: flex;
+                border-left: 11px solid #c65098;
+                align-items: center;
+                margin: 32px 0;
+                box-shadow: 11px 8px 13px 1px rgb(255 255 255 / 25%);
+
+                .image-cover {
+                    width: fit-content;
+
+                    img {
+                        width: 200px;
+                        padding: 16px;
+                    }
+                }
 
                 h2 {
-                    font-size: 20px;
+                    width: auto;
+                    font-size: 24px;
+                    color: black;
+                    font-weight: 500;
 
                     a {
                         text-decoration: none;
+                        color: black;
                     }
                 }
-
-                .image-cover {
-                    width: 274px;
-                    height: 166px;
-                    overflow: hidden;
-
-                    img {
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-                        border-radius: 4px;
-                    }
-                }
-            }
-
-            &::-webkit-scrollbar {
-                margin: 0 10px;
-                height: 10px;
-            }
-
-            &::-webkit-scrollbar-thumb {
-                height: 10px;
-                border-radius: 4px;
             }
         }
     }
 }
 
-.push {
-    height: 169px;
-}
-
 footer {
-    display: flex;
-    flex-direction: column;
-    bottom: 0;
-    width: 100%;
+    background-color: #0c0650;
+    border-top: 5px solid #ffffff;
 
     .icons {
-        height: 80px;
         display: flex;
         justify-content: center;
-        align-items: center;
-        width: 100%;
-        gap: 50px;
+        padding: 8px 0;
 
         img {
+            padding: 0 16px;
+
             &:hover {
                 cursor: pointer;
                 filter: brightness(1.5);
@@ -845,355 +311,1230 @@ footer {
     }
 
     .links {
-        height: 43px;
         display: flex;
-        width: 100%;
-        align-items: center;
         justify-content: center;
-        gap: 20px;
+        padding: 8px 0;
 
         a {
-            font-size: 20px;
+            color: $text-color;
             text-decoration: none;
-            padding: 10px;
-            border-radius: 10px;
+            font-size: 20px;
+            font-weight: 500;
+            padding: 0 16px;
+
+            &:hover {
+                color: #c9aaaa;
+            }
         }
     }
 
     .trademark {
-        height: 46px;
         display: flex;
         justify-content: center;
-        align-items: center;
+        padding: 8px 0;
 
         h2 {
-            font-size: 20px;
-        }
-    }
-}
-
-.title {
-    display: flex;
-
-    .course {
-        flex: 0 0 36%;
-        display: flex;
-        flex-direction: column;
-        padding: 13px;
-
-        .info {
-            display: flex;
-            align-items: center;
-            height: auto;
-            justify-content: flex-start;
-            margin-bottom: 10px;
-
-            .tag {
-                border-radius: 12px;
-                padding: 3px 16px;
-
-                a {
-                    text-decoration: none;
-                }
-            }
-
-            h2 {
-                font-size: 20px;
-                margin: 0 10px;
-            }
-        }
-
-        .status {
-            color: #96A3AF;
-            margin: 10px 0;
-        }
-
-        form {
-            display: flex;
-            justify-content: center;
-
-            .join-button {
-                align-self: center;
-                border-radius: 6px;
-                color: #FFFFFF;
-                padding: 3px 16px;
-                font-size: 20px;
-                margin: 0 91px;
-                text-decoration: none;
-                border: none;
-                cursor: pointer;
-            }
-        }
-
-        img {
-            width: 100%;
-        }
-
-        h2 {
-            font-size: 24px;
-            margin: 20px 0;
-        }
-    }
-
-    .description {
-        width: 100%;
-
-        h2 {
-            padding: 40px 26px 26px 26px;
-            font-size: 20px;
-            text-align: justify;
-        }
-    }
-}
-
-.content-title {
-    height: 48px;
-    text-align: center;
-    line-height: 48px;
-
-    h2 {
-        font-weight: bold;
-    }
-}
-
-.module {
-    display: flex;
-    flex-direction: column;
-
-    .title {
-        line-height: 48px;
-        padding: 0 13px;
-        height: 48px;
-    }
-
-    .lessons-list {
-        ul {
-            list-style: none;
-
-            li {
-                display: flex;
-                align-items: center;
-                height: 69px;
-
-                a {
-                    padding: 0 13px;
-                }
-            }
-        }
-    }
-}
-
-.auth-cover {
-    display: flex;
-    justify-content: center;
-
-    .auth {
-        margin-top: 64px;
-        width: 460px;
-
-        .logo-control {
-            display: flex;
-            align-items: center;
-            padding: 8px 12px;
-
-            img {
-                height: 26px;
-            }
-
-            h2 {
-                font-size: 16px;
-            }
-        }
-
-        .auth-form {
-            padding: 12px 16px;
-
-            .auth-title {
-                text-align: center;
-
-                h2 {
-                    font-weight: bold;
-                    font-size: 20px;
-                }
-            }
-
-            form {
-
-                .form-group {
-                    display: flex;
-                    flex-direction: column;
-                    padding-top: 16px;
-
-                    label {
-                        font-size: 16px;
-                        font-weight: bold;
-                    }
-
-                    input {
-                        border: none;
-                        border-radius: 26px;
-                        height: 30px;
-                        padding-left: 15px;
-                        font-size: 16px;
-
-                        &:focus {
-                            outline: none;
-                        }
-                    }
-
-                    span {
-                        font-size: 14px;
-                        color: crimson;
-                        padding: 6px 0px 0px 15px;
-                    }
-
-                    a {
-                        font-size: 14px;
-                        padding: 6px 0px 0px 15px;
-                        text-decoration: none;
-                    }
-                }
-
-                .auth-button {
-                    padding-top: 16px;
-                    display: flex;
-                    justify-content: center;
-
-                    button {
-                        width: 45%;
-                        border: none;
-                        font-size: 18px;
-                        border-radius: 6px;
-                        padding: 4px 8px;
-
-                        &:hover {
-                            cursor: pointer;
-                        }
-                    }
-                }
-            }
-
-            .auth-links {
-                text-align: center;
-
-                a {
-                    font-size: 14px;
-                    text-decoration: none;
-                }
-            }
-        }
-    }
-}
-
-.details-page {
-    .navigation-panel {
-        display: flex;
-
-        .name {
-            display: flex;
-            width: 15%;
-            justify-content: center;
-            align-items: center;
-
-            a {
-                font-size: 20px;
-                font-weight: bold;
-                text-align: center;
-                text-decoration: none;
-            }
-
-            &:hover {
-                cursor: pointer;
-            }
-        }
-
-        ul {
-            display: flex;
-            align-items: center;
-            list-style-type: none;
             margin: 0;
-            padding: 0;
-            overflow: hidden;
-            padding: 6px 0;
-
-            li {
-                float: left;
-
-                img {
-                    display: block;
-                }
-            }
-        }
-    }
-
-    .page-content {
-        padding: 0 36px;
-
-        .title {
-            display: flex;
-            justify-content: center;
-            margin: 16px 0;
-
-            h2 {
-                font-weight: bold;
-                font-size: 36px;
-            }
-        }
-
-        .lecture {
             font-size: 20px;
-            line-height: 30px;
-            text-align: justify;
-        }
-
-        .code {
-            margin: 16px 0;
-
-            .info {
-                padding: 8px 16px;
-
-                h2 {
-                    font-size: 16px;
-                    padding: 3px 0;
-                }
-            }
-
-            form {
-                .code-buttons {
-                    display: flex;
-                    justify-content: space-between;
-                    padding: 8px 16px;
-
-                    button {
-                        border: none;
-                        border-radius: 6px;
-                        padding: 8px 16px;
-                        font-size: 20px;
-
-                        &:hover {
-                            cursor: pointer;
-                        }
-                    }
-                }
-            }
-        }
-
-        .buttons {
-            display: flex;
-            justify-content: flex-end;
-
-            a {
-                font-size: 20px;
-                border-radius: 6px;
-                border: none;
-                padding: 6px 12px;
-                margin: 16px 0;
-                text-decoration: none;
-
-                &:hover {
-                    cursor: pointer;
-                }
-            }
+            color: #415262;
         }
     }
 }
+
+//@import url('https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz@8..144&display=swap');
+
+//$background-color-dark: #18324A;
+//$text-color-dark: #FFFFFF;
+
+//$blue-1: #16212B;
+//$blue-2: #232F3A;
+//$blue-3: #2E3C49;
+//$blue-4: #415262;
+//$blue-5: #758899;
+//$blue-6: #96A3AF;
+
+//$light-blue-1: #2f4c67;
+//$light-blue-2: #3f668a;
+//$light-blue-3: #4E7DA8;
+//$light-blue-4: #7AA1C6;
+//$light-blue-5: #89b4dd;
+//$light-blue-6: #a1cdf7;
+
+//html, body {
+//    height: 100%;
+//    margin: 0;
+//}
+
+//body {
+//    font-family: 'Roboto Serif', serif;
+//}
+
+//h1, h2, h3 {
+//    font-weight: 400;
+//    margin: 0;
+//}
+
+//@media(prefers-color-scheme: dark) {
+
+//    html.dark {
+//        body {
+//            background-color: $background-color-dark;
+//            color: $text-color-dark;
+//            background-image: url('../img/background.svg');
+//        }
+
+//        header nav {
+//            background-color: $blue-3;
+
+//            .dropdown {
+//                .title {
+//                    color: $text-color-dark;
+
+//                    &:hover {
+//                        background-color: $blue-2;
+//                    }
+//                }
+
+//                ul {
+//                    background-color: #1e2831;
+
+//                    li {
+//                        a {
+//                            color: $text-color-dark;
+
+//                            &:hover {
+//                                background-color: #293744;
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+
+//            .searchbar-cover {
+//                .searchbar {
+//                    input {
+//                        background-color: $blue-2;
+//                        color: $blue-5;
+
+//                        &::placeholder {
+//                            color: $blue-5;
+//                        }
+//                    }
+
+//                    a {
+//                        background-color: $blue-2;
+//                    }
+//                }
+//            }
+
+//            .theme {
+//                .theme-switcher {
+//                    img {
+//                        content: url('../img/dark-mode-switch.svg');
+//                    }
+//                }
+//            }
+
+//            .login-button {
+//                a {
+//                    color: $text-color-dark;
+//                }
+//            }
+//        }
+
+//        .content {
+//            background-color: $blue-1;
+
+//            .hero {
+//                background-color: $blue-4;
+//            }
+
+//            .course-carousel {
+//                background-color: $blue-3;
+
+//                .carousel-popular {
+//                    background-color: $blue-2;
+
+//                    .course-plate {
+//                        background: $blue-4;
+
+//                        h2 {
+//                            a {
+//                                color: $text-color-dark;
+//                            }
+//                        }
+//                    }
+
+//                    &::-webkit-scrollbar {
+//                        background-color: $blue-1;
+//                    }
+
+//                    &::-webkit-scrollbar-thumb {
+//                        background-color: $blue-4;
+//                    }
+//                }
+//            }
+//        }
+
+//        footer {
+//            background-color: $blue-1;
+
+//            .links {
+//                a {
+//                    color: $text-color-dark;
+
+//                    &:hover {
+//                        background-color: $blue-2;
+//                    }
+//                }
+//            }
+
+//            .trademark {
+//                h2 {
+//                    color: $blue-4;
+//                }
+//            }
+//        }
+
+//        .title {
+//            .course {
+//                background-color: $blue-3;
+
+//                .info {
+//                    .tag {
+//                        background-color: $blue-4;
+
+//                        a {
+//                            color: $text-color-dark;
+//                        }
+//                    }
+//                }
+
+//                .join-button {
+//                    background-color: $blue-5;
+
+//                    &:hover {
+//                        background-color: #617281;
+//                    }
+//                }
+//            }
+
+//            .description {
+//                background-color: $blue-2;
+//            }
+//        }
+
+//        .content-title {
+//            background-color: $blue-4;
+//        }
+
+//        .module {
+//            .title {
+//                background-color: $blue-3;
+//            }
+
+//            .lessons-list {
+//                background-color: $blue-2;
+//            }
+//        }
+
+//        .auth-cover {
+//            .auth {
+//                background-color: $blue-2;
+
+//                .logo-control {
+//                    background-color: $blue-3;
+//                }
+
+//                .auth-form {
+//                    form {
+//                        .form-group {
+//                            input {
+//                                background-color: $blue-3;
+//                                color: $blue-5;
+
+//                                &::placeholder {
+//                                    color: $blue-5;
+//                                }
+
+//                                &:focus {
+//                                    color: $blue-5;
+//                                }
+
+//                                &:-webkit-autofill {
+//                                    background-color: $blue-3;
+//                                }
+//                            }
+
+//                            a {
+//                                color: $blue-5;
+//                            }
+//                        }
+
+//                        .auth-button {
+//                            button {
+//                                background-color: $blue-5;
+//                                color: $text-color-dark;
+
+//                                &:hover {
+//                                    background-color: $blue-4;
+//                                }
+//                            }
+//                        }
+//                    }
+
+//                    .auth-links {
+//                        a {
+//                            color: $blue-5;
+//                        }
+//                    }
+//                }
+//            }
+//        }
+
+//        .details-page {
+//            .navigation-panel {
+//                background-color: $blue-1;
+
+//                .name {
+//                    a {
+//                        color: $blue-6;
+//                    }
+
+//                    &:hover {
+//                        background-color: $blue-3;
+//                    }
+//                }
+//            }
+
+//            .page-content {
+//                .title {
+//                    color: $blue-6;
+//                }
+
+//                .lecture {
+//                    color: $blue-5;
+//                }
+
+//                .code {
+//                    background-color: $blue-3;
+
+//                    info {
+//                        h2 {
+//                            color: $blue-6;
+//                        }
+//                    }
+
+//                    form {
+//                        .code-buttons {
+//                            background-color: $blue-3;
+
+//                            button {
+//                                color: $blue-6;
+//                            }
+
+//                            .send {
+//                                background-color: $blue-4;
+
+//                                &:hover {
+//                                    background-color: #28343e;
+//                                }
+//                            }
+
+//                            .run {
+//                                background-color: $blue-1;
+
+//                                &:hover {
+//                                    background-color: $blue-2;
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+
+//                .buttons {
+//                    a {
+//                        background-color: $blue-5;
+//                        color: $text-color-dark;
+
+//                        &:hover {
+//                            background-color: $blue-4;
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
+//html.light {
+//    body {
+//        background-color: #FFFFFF;
+//        color: $text-color-dark;
+//        background-image: none;
+//    }
+
+//    header nav {
+//        background-color: $light-blue-3;
+
+//        .dropdown {
+//            .title {
+//                color: $text-color-dark;
+
+//                &:hover {
+//                    background-color: $light-blue-2;
+//                }
+//            }
+
+//            ul {
+//                background: #365775;
+
+//                li {
+//                    a {
+//                        color: $text-color-dark;
+
+//                        &:hover {
+//                            background-color: #2d4860;
+//                        }
+//                    }
+//                }
+//            }
+//        }
+
+//        .searchbar-cover {
+//            .searchbar {
+//                input {
+//                    background-color: $light-blue-2;
+//                    color: $light-blue-5;
+
+//                    &::placeholder {
+//                        color: $light-blue-5;
+//                    }
+//                }
+
+//                a {
+//                    background-color: $light-blue-2;
+//                }
+//            }
+//        }
+
+//        .theme {
+//            .theme-switcher {
+//                img {
+//                    content: url('../img/light-mode-switch.svg');
+//                }
+//            }
+//        }
+
+//        .login-button {
+//            a {
+//                color: $text-color-dark;
+//            }
+//        }
+//    }
+
+//    .content {
+//        background-color: $light-blue-1;
+
+//        .hero {
+//            background-color: $light-blue-4;
+//        }
+
+//        .course-carousel {
+//            background-color: $light-blue-3;
+
+//            .carousel-popular {
+//                background-color: $light-blue-2;
+
+//                .course-plate {
+//                    background: $light-blue-4;
+
+//                    h2 {
+//                        a {
+//                            color: $text-color-dark;
+//                        }
+//                    }
+//                }
+
+//                &::-webkit-scrollbar {
+//                    background-color: $light-blue-1;
+//                }
+
+//                &::-webkit-scrollbar-thumb {
+//                    background-color: $light-blue-4;
+//                }
+//            }
+//        }
+//    }
+
+//    footer {
+//        background-color: $light-blue-1;
+
+//        .links {
+//            a {
+//                color: $text-color-dark;
+
+//                &:hover {
+//                    background-color: $light-blue-2;
+//                }
+//            }
+//        }
+
+//        .trademark {
+//            h2 {
+//                color: $light-blue-4;
+//            }
+//        }
+//    }
+
+//    .title {
+//        .course {
+//            background-color: $light-blue-3;
+
+//            .info {
+//                .tag {
+//                    background-color: $light-blue-4;
+
+//                    a {
+//                        color: $text-color-dark;
+//                    }
+//                }
+//            }
+
+//            .join-button {
+//                background-color: $light-blue-5;
+
+//                &:hover {
+//                    background-color: #7ca2c6;
+//                }
+//            }
+//        }
+
+//        .description {
+//            background-color: $light-blue-2;
+//        }
+//    }
+
+//    .content-title {
+//        background-color: $light-blue-4;
+//    }
+
+//    .module {
+//        .title {
+//            background-color: $light-blue-3;
+//        }
+
+//        .lessons-list {
+//            background-color: $light-blue-2;
+//        }
+//    }
+
+//    .auth-cover {
+//        .auth {
+//            background-color: $light-blue-2;
+
+//            .logo-control {
+//                background-color: $light-blue-3;
+//            }
+
+//            .auth-form {
+//                form {
+//                    .form-group {
+//                        input {
+//                            background-color: $light-blue-3;
+//                            color: $light-blue-5;
+
+//                            &::placeholder {
+//                                color: $light-blue-5;
+//                            }
+
+//                            &:focus {
+//                                color: $light-blue-5;
+//                            }
+
+//                            &:-webkit-autofill {
+//                                background-color: $light-blue-3;
+//                            }
+//                        }
+
+//                        a {
+//                            color: $light-blue-5;
+//                        }
+//                    }
+
+//                    .auth-button {
+//                        button {
+//                            background-color: $light-blue-5;
+//                            color: $text-color-dark;
+
+//                            &:hover {
+//                                background-color: $light-blue-4;
+//                            }
+//                        }
+//                    }
+//                }
+
+//                .auth-links {
+//                    a {
+//                        color: $light-blue-5;
+//                    }
+//                }
+//            }
+//        }
+//    }
+
+//    .details-page {
+//        .navigation-panel {
+//            background-color: $light-blue-1;
+
+//            .name {
+//                a {
+//                    color: $light-blue-6;
+//                }
+
+//                &:hover {
+//                    background-color: $light-blue-3;
+//                }
+//            }
+//        }
+
+//        .page-content {
+//            .title {
+//                color: $light-blue-6;
+//            }
+
+//            .lecture {
+//                color: $light-blue-5;
+//            }
+
+//            .code {
+//                background-color: $light-blue-3;
+
+//                info {
+//                    h2 {
+//                        color: $light-blue-6;
+//                    }
+//                }
+
+//                form {
+//                    .code-buttons {
+//                        background-color: $light-blue-3;
+
+//                        button {
+//                            color: $light-blue-6;
+//                        }
+
+//                        .send {
+//                            background-color: $light-blue-4;
+
+//                            &:hover {
+//                                background-color: #6a8caa;
+//                            }
+//                        }
+
+//                        .run {
+//                            background-color: $light-blue-1;
+
+//                            &:hover {
+//                                background-color: $light-blue-2;
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+
+//            .buttons {
+//                a {
+//                    background-color: $light-blue-5;
+//                    color: $text-color-dark;
+
+//                    &:hover {
+//                        background-color: $light-blue-4;
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
+
+//header nav {
+//    height: 48px;
+//    display: flex;
+//    align-items: center;
+//    position: sticky;
+//    filter: drop-shadow(0.167rem 0px 0.167rem rgba(0, 0, 0, 0.25));
+
+//    .logo {
+//        height: 40px;
+
+//        img {
+//            height: 40px;
+//        }
+//    }
+
+//    .dropdown {
+//        .title {
+//            text-decoration: none;
+//            font-size: 20px;
+//            display: flex;
+//            padding: 0px 12px;
+//            align-items: center;
+//            margin: 0 0.5rem;
+//            height: 48px;
+
+//            img {
+//                margin: 0 0.3rem;
+//                content: url('../img/arrow-down.svg');
+//            }
+//        }
+
+//        ul {
+//            clear: both;
+//            overflow: hidden;
+//            transition: height .4s ease;
+//            display: none;
+//            position: absolute;
+//            list-style: none;
+//            padding: 8px;
+//            margin: 0 8px;
+
+//            li {
+//                padding: 8px 0;
+
+//                a {
+//                    text-decoration: none;
+//                    padding: 8px;
+//                }
+//            }
+//        }
+
+//        &:hover {
+//            ul {
+//                display: block;
+//            }
+//        }
+//    }
+
+//    .searchbar-cover {
+//        width: 100%;
+//        display: flex;
+//        justify-content: center;
+
+//        .searchbar {
+//            width: 30%;
+//            display: flex;
+
+//            input {
+//                border: none;
+//                width: 100%;
+//                border-radius: 26px 0 0 26px;
+//                height: 30px;
+//                padding-left: 15px;
+
+//                &:focus {
+//                    border: none;
+//                    outline: none;
+//                }
+//            }
+
+//            a {
+//                border-radius: 0 26px 26px 0;
+//                padding-right: 8px;
+//                display: flex;
+//                align-content: center;
+//                align-items: center;
+//            }
+//        }
+//    }
+
+//    .theme {
+//        display: flex;
+//        align-items: center;
+//        align-content: center;
+//        padding: 0 9px;
+
+//        .theme-switcher {
+//            padding: 0;
+//            border: none;
+//            background: none;
+//            cursor: pointer;
+//        }
+//    }
+
+//    .language {
+//        font-size: 16px;
+//        cursor: pointer;
+//    }
+
+//    .login-button {
+//        display: flex;
+//        padding: 0 10px;
+//        width: 160px;
+//        justify-content: center;
+
+//        a {
+//            text-decoration: none;
+//            font-size: 20px;
+//        }
+//    }
+
+//    .user-login {
+//        display: flex;
+//        padding: 0 10px;
+//        width: 160px;
+//        justify-content: center;
+
+//        a {
+//            text-decoration: none;
+//            font-size: 20px;
+//        }
+//    }
+//}
+
+//.content {
+//    margin: 0px 180px;
+//    min-height: calc(100% - 48px);
+//    margin-bottom: -169px;
+
+//    .hero {
+//        text-align: center;
+
+//        h1 {
+//            font-size: 64px;
+//            padding: 25px 0;
+//        }
+
+//        h2 {
+//            padding-bottom: 15px;
+//        }
+//    }
+
+//    .course-carousel {
+//        h2 {
+//            padding: 12px;
+//        }
+
+//        .carousel-popular {
+//            display: flex;
+//            padding: 10px;
+//            overflow-x: auto;
+//            gap: 10px;
+
+//            .course-plate {
+//                padding: 10px;
+//                border-radius: 4px;
+//                flex-grow: 0;
+
+//                h2 {
+//                    font-size: 20px;
+
+//                    a {
+//                        text-decoration: none;
+//                    }
+//                }
+
+//                .image-cover {
+//                    width: 274px;
+//                    height: 166px;
+//                    overflow: hidden;
+
+//                    img {
+//                        width: 100%;
+//                        height: 100%;
+//                        object-fit: cover;
+//                        border-radius: 4px;
+//                    }
+//                }
+//            }
+
+//            &::-webkit-scrollbar {
+//                margin: 0 10px;
+//                height: 10px;
+//            }
+
+//            &::-webkit-scrollbar-thumb {
+//                height: 10px;
+//                border-radius: 4px;
+//            }
+//        }
+//    }
+//}
+
+//.push {
+//    height: 169px;
+//}
+
+//footer {
+//    display: flex;
+//    flex-direction: column;
+//    bottom: 0;
+//    width: 100%;
+
+//    .icons {
+//        height: 80px;
+//        display: flex;
+//        justify-content: center;
+//        align-items: center;
+//        width: 100%;
+//        gap: 50px;
+
+//        img {
+//            &:hover {
+//                cursor: pointer;
+//                filter: brightness(1.5);
+//            }
+//        }
+//    }
+
+//    .links {
+//        height: 43px;
+//        display: flex;
+//        width: 100%;
+//        align-items: center;
+//        justify-content: center;
+//        gap: 20px;
+
+//        a {
+//            font-size: 20px;
+//            text-decoration: none;
+//            padding: 10px;
+//            border-radius: 10px;
+//        }
+//    }
+
+//    .trademark {
+//        height: 46px;
+//        display: flex;
+//        justify-content: center;
+//        align-items: center;
+
+//        h2 {
+//            font-size: 20px;
+//        }
+//    }
+//}
+
+//.title {
+//    display: flex;
+
+//    .course {
+//        flex: 0 0 36%;
+//        display: flex;
+//        flex-direction: column;
+//        padding: 13px;
+
+//        .info {
+//            display: flex;
+//            align-items: center;
+//            height: auto;
+//            justify-content: flex-start;
+//            margin-bottom: 10px;
+
+//            .tag {
+//                border-radius: 12px;
+//                padding: 3px 16px;
+
+//                a {
+//                    text-decoration: none;
+//                }
+//            }
+
+//            h2 {
+//                font-size: 20px;
+//                margin: 0 10px;
+//            }
+//        }
+
+//        .status {
+//            color: #96A3AF;
+//            margin: 10px 0;
+//        }
+
+//        form {
+//            display: flex;
+//            justify-content: center;
+
+//            .join-button {
+//                align-self: center;
+//                border-radius: 6px;
+//                color: #FFFFFF;
+//                padding: 3px 16px;
+//                font-size: 20px;
+//                margin: 0 91px;
+//                text-decoration: none;
+//                border: none;
+//                cursor: pointer;
+//            }
+//        }
+
+//        img {
+//            width: 100%;
+//        }
+
+//        h2 {
+//            font-size: 24px;
+//            margin: 20px 0;
+//        }
+//    }
+
+//    .description {
+//        width: 100%;
+
+//        h2 {
+//            padding: 40px 26px 26px 26px;
+//            font-size: 20px;
+//            text-align: justify;
+//        }
+//    }
+//}
+
+//.content-title {
+//    height: 48px;
+//    text-align: center;
+//    line-height: 48px;
+
+//    h2 {
+//        font-weight: bold;
+//    }
+//}
+
+//.module {
+//    display: flex;
+//    flex-direction: column;
+
+//    .title {
+//        line-height: 48px;
+//        padding: 0 13px;
+//        height: 48px;
+//    }
+
+//    .lessons-list {
+//        ul {
+//            list-style: none;
+
+//            li {
+//                display: flex;
+//                align-items: center;
+//                height: 69px;
+
+//                a {
+//                    padding: 0 13px;
+//                }
+//            }
+//        }
+//    }
+//}
+
+//.auth-cover {
+//    display: flex;
+//    justify-content: center;
+
+//    .auth {
+//        margin-top: 64px;
+//        width: 460px;
+
+//        .logo-control {
+//            display: flex;
+//            align-items: center;
+//            padding: 8px 12px;
+
+//            img {
+//                height: 26px;
+//            }
+
+//            h2 {
+//                font-size: 16px;
+//            }
+//        }
+
+//        .auth-form {
+//            padding: 12px 16px;
+
+//            .auth-title {
+//                text-align: center;
+
+//                h2 {
+//                    font-weight: bold;
+//                    font-size: 20px;
+//                }
+//            }
+
+//            form {
+
+//                .form-group {
+//                    display: flex;
+//                    flex-direction: column;
+//                    padding-top: 16px;
+
+//                    label {
+//                        font-size: 16px;
+//                        font-weight: bold;
+//                    }
+
+//                    input {
+//                        border: none;
+//                        border-radius: 26px;
+//                        height: 30px;
+//                        padding-left: 15px;
+//                        font-size: 16px;
+
+//                        &:focus {
+//                            outline: none;
+//                        }
+//                    }
+
+//                    span {
+//                        font-size: 14px;
+//                        color: crimson;
+//                        padding: 6px 0px 0px 15px;
+//                    }
+
+//                    a {
+//                        font-size: 14px;
+//                        padding: 6px 0px 0px 15px;
+//                        text-decoration: none;
+//                    }
+//                }
+
+//                .auth-button {
+//                    padding-top: 16px;
+//                    display: flex;
+//                    justify-content: center;
+
+//                    button {
+//                        width: 45%;
+//                        border: none;
+//                        font-size: 18px;
+//                        border-radius: 6px;
+//                        padding: 4px 8px;
+
+//                        &:hover {
+//                            cursor: pointer;
+//                        }
+//                    }
+//                }
+//            }
+
+//            .auth-links {
+//                text-align: center;
+
+//                a {
+//                    font-size: 14px;
+//                    text-decoration: none;
+//                }
+//            }
+//        }
+//    }
+//}
+
+//.details-page {
+//    .navigation-panel {
+//        display: flex;
+
+//        .name {
+//            display: flex;
+//            width: 15%;
+//            justify-content: center;
+//            align-items: center;
+
+//            a {
+//                font-size: 20px;
+//                font-weight: bold;
+//                text-align: center;
+//                text-decoration: none;
+//            }
+
+//            &:hover {
+//                cursor: pointer;
+//            }
+//        }
+
+//        ul {
+//            display: flex;
+//            align-items: center;
+//            list-style-type: none;
+//            margin: 0;
+//            padding: 0;
+//            overflow: hidden;
+//            padding: 6px 0;
+
+//            li {
+//                float: left;
+
+//                img {
+//                    display: block;
+//                }
+//            }
+//        }
+//    }
+
+//    .page-content {
+//        padding: 0 36px;
+
+//        .title {
+//            display: flex;
+//            justify-content: center;
+//            margin: 16px 0;
+
+//            h2 {
+//                font-weight: bold;
+//                font-size: 36px;
+//            }
+//        }
+
+//        .lecture {
+//            font-size: 20px;
+//            line-height: 30px;
+//            text-align: justify;
+//        }
+
+//        .code {
+//            margin: 16px 0;
+
+//            .info {
+//                padding: 8px 16px;
+
+//                h2 {
+//                    font-size: 16px;
+//                    padding: 3px 0;
+//                }
+//            }
+
+//            form {
+//                .code-buttons {
+//                    display: flex;
+//                    justify-content: space-between;
+//                    padding: 8px 16px;
+
+//                    button {
+//                        border: none;
+//                        border-radius: 6px;
+//                        padding: 8px 16px;
+//                        font-size: 20px;
+
+//                        &:hover {
+//                            cursor: pointer;
+//                        }
+//                    }
+//                }
+//            }
+//        }
+
+//        .buttons {
+//            display: flex;
+//            justify-content: flex-end;
+
+//            a {
+//                font-size: 20px;
+//                border-radius: 6px;
+//                border: none;
+//                padding: 6px 12px;
+//                margin: 16px 0;
+//                text-decoration: none;
+
+//                &:hover {
+//                    cursor: pointer;
+//                }
+//            }
+//        }
+//    }
+//}
