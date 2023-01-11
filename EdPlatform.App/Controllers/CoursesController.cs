@@ -166,7 +166,7 @@ namespace EdPlatform.App.Controllers
         public async Task<IActionResult> Edit([FromRoute]int courseId, [FromForm]CourseViewModel course)
         {
             course.AuthorId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
-
+           
             await _courseService.EditCourse(new()
             {
                 AuthorId = course.AuthorId,

@@ -1,14 +1,14 @@
 ﻿@using EdPlatform.Business.Models
 @model CourseUserModel
 
-@functions{
+@functions {
     public string GerSubscribersString(int usersJoined)
     {
         if (Enumerable.Range(11, 15).Contains(usersJoined))
         {
             return "підписників";
         }
-        else 
+        else
         {
             var temp = usersJoined % 10;
 
@@ -23,43 +23,64 @@
 }
 
 <div class="title">
-    <div class="course">
-        <img src="@("https://ed-platform.s3.amazonaws.com/"+ViewBag.Course.ImageName)" alt="test image" />
-        <h2>@ViewBag.Course.CourseName</h2>
+    <div class="info">
+        <div class="tag"><a href="#">@ViewBag.Course.Category.CategoryName</a></div>
+        <h2>@ViewBag.Course.UsersJoined @GerSubscribersString(ViewBag.Course.UsersJoined)</h2>
+    </div>
 
-        <div class="info">
-            <div class="tag"><a href="#">@ViewBag.Course.Category.CategoryName</a></div>
-            <h2>@ViewBag.Course.UsersJoined @GerSubscribersString(ViewBag.Course.UsersJoined)</h2>
+    <div class="course">
+        <div class="sector">
+            <h2>@ViewBag.Course.CourseName</h2>
+            <div class="short-description">
+                Курс вчить основам популярної на сьогодні мови Python. Він чудово підійде тим хто вже розпочинав вчити
+                мову Python, та тим хто вже має базові знання з цієї мови
+            </div>
+
+            @if (ViewBag.CourseUser == null)
+            {
+                <form asp-controller="Courses" asp-action="Details" method="post">
+                    <input asp-for="UserId" type="hidden" value="@ViewBag.UserId" />
+                    <input asp-for="CourseId" type="hidden" value="@ViewBag.Course.CourseId" />
+
+                    <button type="submit" class="join-button">Підписатися</button>
+                </form>
+            }
         </div>
 
-        <div class="status">створено 05.08.2020 </div>
-        <div class="status">оновлено 05.08.2022 </div>
+        <div class="sector">
+            <img src="@("https://ed-platform.s3.amazonaws.com/"+ViewBag.Course.ImageName)" alt="test image" />
 
-        @if (ViewBag.CourseUser == null)
-        {
-            <form asp-controller="Courses" asp-action="Details" method="post">
-                <input asp-for="UserId" type="hidden" value="@ViewBag.UserId" />
-                <input asp-for="CourseId" type="hidden" value="@ViewBag.Course.CourseId" />
+            <div class="status">створено 05.08.2020 </div>
+            <div class="status">оновлено 05.08.2022 </div>
+        </div>
+    </div>
 
-                <button type="submit" class="join-button">Підписатися</button>
-            </form>
-        }
+    <div class="description-cover">
+        <div class="description">
+            <h2>Про курс: </h2>
+
+            <h2>@Html.Raw(ViewBag.Course.Description)</h2>
+          
+            <h2>Зміст курсу:</h2>
+        </div>
+
+        <div class="comments-cover">
+            <div class="comment-info">
+                <a>0</a>
+                <h2>коментарів</h2>
+            </div>
+            <div class="comment"></div>
+        </div>
     </div>
-    <div class="description">
-        <h2>@Html.Raw(ViewBag.Course.Description)</h2>
-    </div>
+
+    
 </div>
 
-<div style="height: 48px;"></div>
-
-<div class="content-title">
-    <h2>Зміст курсу</h2>
-</div>
-
+<div class="table-of-contents">
 @foreach (var module in (ViewBag.Course as CourseModel).Modules.OrderBy(x => x.Order))
 {
     <div class="module">
-        <div class="title">
+        <div class="module-title">
             <h2>@module.Order. @module.ModuleName</h2>
         </div>
         <div class="lessons-list">
@@ -71,7 +92,8 @@
                 @for (int i = 0; i < lessons.Count(); i++)
                 {
                     <li>
-                        @if (ViewBag.CompletedLessons[i] != null && ViewBag.CompletedLessons[i].ModuleId == module.ModuleId && ViewBag.CompletedLessons[i].IsCompleted)
+                        @if (ViewBag.CompletedLessons[i] != null && ViewBag.CompletedLessons[i].ModuleId == module.ModuleId &&
+                       ViewBag.CompletedLessons[i].IsCompleted)
                         {
                             @if (i == 0)
                             {
@@ -102,65 +124,68 @@
                             }
                         }
 
-                        <a>@lessons.ElementAt(i).LessonName</a>
-                        <a asp-route-courseId="@ViewBag.Course.CourseId" asp-route-moduleId="@module.ModuleId" asp-route-lessonId="@lessons.ElementAt(i).LessonId" asp-action="Details" asp-controller="Lessons">Переглянути вміст уроку</a>
+                        <a asp-route-courseId="@ViewBag.Course.CourseId" asp-route-moduleId="@module.ModuleId"
+                    asp-route-lessonId="@lessons.ElementAt(i).LessonId" asp-action="Details"
+                    asp-controller="Lessons">@lessons.ElementAt(i).LessonName</a>
                     </li>
                 }
             </ul>
         </div>
     </div>
 }
+</div>
 
 @*<div class="card">
     <div class="card-header">
-        <h2>@ViewBag.Course.CourseName</h2>
-        @if (ViewBag.CourseUser == null)
-        {
-            <form asp-controller="Courses" asp-action="Details" method="post">
-                <input asp-for="UserId" type="hidden" value="@ViewBag.UserId" />
-                <input asp-for="CourseId" type="hidden" value="@ViewBag.Course.CourseId"/>
-                <button class="btn btn-primary" type="submit">Join</button>
-            </form>
-        }
-        else
-        {
-            <span>You already joined in</span>
-        }
+    <h2>@ViewBag.Course.CourseName</h2>
+    @if (ViewBag.CourseUser == null)
+    {
+    <form asp-controller="Courses" asp-action="Details" method="post">
+    <input asp-for="UserId" type="hidden" value="@ViewBag.UserId" />
+    <input asp-for="CourseId" type="hidden" value="@ViewBag.Course.CourseId"/>
+    <button class="btn btn-primary" type="submit">Join</button>
+    </form>
+    }
+    else
+    {
+    <span>You already joined in</span>
+    }
     </div>
     <div class="card-body">
-        <p class="card-text">@ViewBag.Course.Description</p>
+    <p class="card-text">@ViewBag.Course.Description</p>
 
-        @if (ViewBag.Course.Modules != null)
-        {
-            @foreach (var module in (ViewBag.Course as CourseModel).Modules.OrderBy(x => x.Order))
-            {
-            <label>Modules:</label>
-            <ul class="list-group">
-                <li class="list-group-item">@module.ModuleName</li>
+    @if (ViewBag.Course.Modules != null)
+    {
+    @foreach (var module in (ViewBag.Course as CourseModel).Modules.OrderBy(x => x.Order))
+    {
+    <label>Modules:</label>
+    <ul class="list-group">
+    <li class="list-group-item">@module.ModuleName</li>
 
-                @if (module.Lessons != null)
-                {
-                <li class="list-group-item">
-                    <ul class="list-group">
-                        @foreach (var lesson in module.Lessons.OrderBy(x => x.Order))
-                        {
-                            @if (ViewBag.CourseUser != null)
-                            {
-                                <li class="list-group-item">
-                                    @lesson.LessonName
-                                    <a asp-route-courseId="@ViewBag.Course.CourseId" asp-route-moduleId="@module.ModuleId" asp-route-lessonId="@lesson.LessonId" asp-action="Details" asp-controller="Lessons">Details</a>
-                                </li>
-                            }
-                            else
-                            {
-                                <li class="list-group-item">@lesson.LessonName</li>
-                            }
-                        }
-                    </ul>
-                </li>
-                }
-            </ul>
-            }
-        }
+    @if (module.Lessons != null)
+    {
+    <li class="list-group-item">
+    <ul class="list-group">
+    @foreach (var lesson in module.Lessons.OrderBy(x => x.Order))
+    {
+    @if (ViewBag.CourseUser != null)
+    {
+    <li class="list-group-item">
+    @lesson.LessonName
+    <a asp-route-courseId="@ViewBag.Course.CourseId" asp-route-moduleId="@module.ModuleId"
+    asp-route-lessonId="@lesson.LessonId" asp-action="Details" asp-controller="Lessons">Details</a>
+    </li>
+    }
+    else
+    {
+    <li class="list-group-item">@lesson.LessonName</li>
+    }
+    }
+    </ul>
+    </li>
+    }
+    </ul>
+    }
+    }
     </div>
-</div>*@
+    </div>*@

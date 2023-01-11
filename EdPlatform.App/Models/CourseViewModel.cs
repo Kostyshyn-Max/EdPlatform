@@ -13,7 +13,7 @@ namespace EdPlatform.Business.Models
         public string CourseName { get; set; }
         public string Description { get; set; }
         public int CategoryId { get; set; }
-        public CategoryModel? Category { get; set; }
+        //public CategoryModel? Category { get; set; }
         public int AuthorId { get; set; }
         public IEnumerable<ModuleModel>? Modules { get; set; }
         public int UsersJoined { get; set; }

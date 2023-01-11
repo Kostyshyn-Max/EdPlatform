@@ -8,11 +8,6 @@
 
 <div class="auth-cover">
     <div class="auth">
-        <div class="logo-control">
-            <img src="~/img/logo.svg" />
-            <h2>EdPlatform</h2>
-        </div>
-
         <div class="auth-form">
             <div class="auth-title">
                 <h2>Створіть аккаунт</h2>
@@ -43,11 +38,11 @@
                 <div class="auth-button">
                     <button type="submit">Зареєструватися</button>
                 </div>
-            </form>
 
-            <div class="auth-links">
-                <a asp-page="/Account/Login">Уже маєте аккаунт? Увійдіть в нього.</a>
-            </div>
+                <div class="auth-links">
+                    <a asp-page="/Account/Login">Уже маєте аккаунт? Увійдіть в нього.</a>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -57,3 +52,12 @@
         background:none!important;
     }
 </style>
+
+<body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            let footer = document.querySelector('footer');
+            footer.classList.add("pinned");
+        });
+    </script>
+</body>

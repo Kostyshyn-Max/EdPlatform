@@ -1,72 +1,71 @@
 ﻿@using EdPlatform.Business.Models
 @model LessonModel
 
-<form asp-controller="Lessons" asp-action="Edit" method="post">
-    <div class="form-group">
-        <label asp-for="LessonName"></label>
-        <input asp-for="LessonName" type="text" class="form-control" placeholder="Lesson name" value="@Model.LessonName" />
-        <span asp-validation-for="LessonName" class="text-danger"></span>
+<form class="create-form" asp-controller="Lessons" asp-action="Edit" method="post">
+    <div class="form-title">
+        <h2>Відредагуйте урок</h2>
+        <div class="line"></div>
     </div>
-    <div class="form-group">
-        <label asp-for="LessonContent"></label>
-        <textarea asp-for="LessonContent" id="lesson-content">@Model.LessonContent</textarea>
-        <span asp-validation-for="LessonContent" class="text-danger"></span>
+
+    <div class="form-body edit-form-body">
+        <div class="form-group">
+            <label asp-for="LessonName"></label>
+            <input asp-for="LessonName" type="text" class="form-control" placeholder="Lesson name"
+                value="@Model.LessonName" />
+            <span asp-validation-for="LessonName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="LessonContent"></label>
+            <textarea asp-for="LessonContent" id="lesson-content">@Model.LessonContent</textarea>
+            <span asp-validation-for="LessonContent" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="VideoUrl">(optional)</label>
+            <input asp-for="VideoUrl" type="url" class="form-control"
+                placeholder="Paste video url which will be embedded to the lesson" value="@Model.VideoUrl" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Order"></label>
+            <input style="width: 4%;" asp-for="Order" type="number" class="form-control" />
+            <span asp-validation-for="Order"></span>
+        </div>
+        <input type="hidden" value="@Model.ModuleId" />
+
+        <div class="form-footer">
+            <button class="btn btn-primary" type="submit">Зберегти зміни</button>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="VideoUrl">(optional)</label>
-        <input asp-for="VideoUrl" type="url" class="form-control" placeholder="Paste video url which will be embedded to the lesson" value="@Model.VideoUrl"/>
-    </div>
-    <div class="form-group">
-        <label asp-for="Order"></label>
-        <input asp-for="Order" type="number" class="form-control" />
-        <span asp-validation-for="Order"></span>
-    </div>
-    <input type="hidden" value="@Model.ModuleId" />
-    <button class="btn btn-primary" type="submit">Save changes</button>
 </form>
 
-<a asp-controller="Exercises" asp-action="CodeExerciseCreate" 
-    asp-route-courseId="@Model.Module.CourseId" 
-    asp-route-moduleId="@Model.ModuleId"
-    asp-route-lessonId="@Model.LessonId">Create code exercise</a>
+<div class="table-of-contents">
+    <div class="create-module-cover">
+        <a asp-controller="Exercises" asp-action="CodeExerciseCreate" asp-route-courseId="@Model.Module.CourseId"
+            asp-route-moduleId="@Model.ModuleId" asp-route-lessonId="@Model.LessonId">Добавте вправу з кодом</a>
 
-<a asp-controller="Exercises" asp-action="FillExerciseCreate" 
-    asp-route-courseId="@Model.Module.CourseId" 
-    asp-route-moduleId="@Model.ModuleId"
-    asp-route-lessonId="@Model.LessonId">Create fill exercise</a>
+        <a asp-controller="Exercises" asp-action="FillExerciseCreate" asp-route-courseId="@Model.Module.CourseId"
+            asp-route-moduleId="@Model.ModuleId" asp-route-lessonId="@Model.LessonId">Добавте вправу-заповнення</a>
 
-<a asp-controller="Exercises" asp-action="QuizCreate" 
-    asp-route-courseId="@Model.Module.CourseId" 
-    asp-route-moduleId="@Model.ModuleId"
-    asp-route-lessonId="@Model.LessonId">Create quiz exercise</a>
+        <a asp-controller="Exercises" asp-action="QuizCreate" asp-route-courseId="@Model.Module.CourseId"
+            asp-route-moduleId="@Model.ModuleId" asp-route-lessonId="@Model.LessonId">Добавити вправу - тест</a>
+    </div>
 
-@if (Model.Exercises != null)
-{
-<table class="table table-light">
-    <thead>
-        <tr>
-            <th scope="col">Exercise Name</th>
-            <th scope="col">Link</th>
-        </tr>
-    </thead>
-    <tbody>
-    @for (int i = 0; i < Model.Exercises.Count(); i++)
+    @if (Model.Exercises != null)
     {
-        <tr>
-            <td>@Model.Exercises.ElementAt(i).ExerciseName</td>
-            <td>
-                <a asp-controller="Exercises" asp-action="@ViewBag.RedirectExercises[i].Action" 
-                    asp-route-courseId="@ViewBag.RedirectExercises[i].CourseId" 
+        @for (int i = 0; i < Model.Exercises.Count(); i++)
+        {
+            <div class="module" style="margin: 16px auto;">
+                <div class="module-title">
+                    <h2>@Model.Exercises.ElementAt(i).ExerciseName</h2>
+                        <a class="edit-link" asp-controller="Exercises" asp-action="@ViewBag.RedirectExercises[i].Action"
+                    asp-route-courseId="@ViewBag.RedirectExercises[i].CourseId"
                     asp-route-moduleId="@ViewBag.RedirectExercises[i].ModuleId"
                     asp-route-lessonId="@ViewBag.RedirectExercises[i].LessonId"
-                    asp-route-exerciseId="@ViewBag.RedirectExercises[i].ExerciseId"
-                >Edit</a>
-            </td>
-        </tr>
+                    asp-route-exerciseId="@ViewBag.RedirectExercises[i].ExerciseId">Відредагуйте</a>
+                </div>
+            </div>
+        }
     }
-    </tbody>
-</table>
-}
+</div>
 
 <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 

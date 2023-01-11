@@ -1,25 +1,34 @@
 ﻿@using EdPlatform.Business.Models
 @model QuizModel
 
-<form asp-controller="Exercises" asp-action="QuizEdit" method="post">
-    <div>
-        <label asp-for="ExerciseName"></label>
-        <input asp-for="ExerciseName" type="text" placeholder="Exercise name" value="@Model.ExerciseName"/>
-        <span asp-validation-for="ExerciseName"></span>
+<form class="create-form" asp-controller="Exercises" asp-action="QuizEdit" method="post">
+    <div class="form-title">
+        <h2>Відредагуйте вправу - тест</h2>
+        <div class="line"></div>
     </div>
-    <div>
-        <label asp-for="Problem"></label>
-        <textarea asp-for="Problem" id="fill-exercise-content">@Model.Problem</textarea>
-        <span asp-validation-for="Problem"></span>
-    </div>
-    <div>
-        <label asp-for="Order"></label>
-        <input asp-for="Order" type="number" />
-        <span asp-validation-for="Order"></span>
-    </div>
-    <input asp-for="LessonId" type="hidden" value="@Model.LessonId" />
 
-    <button type="submit">Save changes</button>
+    <div class="form-body edit-form-body">
+        <div class="form-group">
+            <label asp-for="ExerciseName"></label>
+            <input asp-for="ExerciseName" type="text" placeholder="Exercise name" value="@Model.ExerciseName" />
+            <span asp-validation-for="ExerciseName"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Problem"></label>
+            <textarea asp-for="Problem" id="fill-exercise-content">@Model.Problem</textarea>
+            <span asp-validation-for="Problem"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Order"></label>
+            <input style="width: 4%;" asp-for="Order" type="number" />
+            <span asp-validation-for="Order"></span>
+        </div>
+        <input asp-for="LessonId" type="hidden" value="@Model.LessonId" />
+
+        <div class="form-footer">
+            <button type="submit">Save changes</button>
+        </div>
+    </div>
 </form>
 
 <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
@@ -40,18 +49,16 @@
         </tr>
     </thead>
     <tbody>
-    @foreach(var quizCase in Model.Cases)
-    {
-        <tr>
-            <td>@quizCase.CaseName</td>
-            <td><a asp-controller="Cases" 
-                asp-route-courseId="@Model.Lesson.Module.CourseId"
-                asp-route-moduleId="@Model.Lesson.ModuleId"
-                asp-route-lessonId="@Model.LessonId"
-                asp-route-exerciseId="@Model.ExerciseId"
-                asp-route-caseId="@quizCase.CaseId" asp-action="Edit" >Edit</a></td>
-            
-        </tr>
-    }
+        @foreach (var quizCase in Model.Cases)
+        {
+            <tr>
+                <td>@quizCase.CaseName</td>
+                <td><a asp-controller="Cases" asp-route-courseId="@Model.Lesson.Module.CourseId"
+                    asp-route-moduleId="@Model.Lesson.ModuleId" asp-route-lessonId="@Model.LessonId"
+                    asp-route-exerciseId="@Model.ExerciseId" asp-route-caseId="@quizCase.CaseId"
+                    asp-action="Edit">Edit</a></td>
+
+            </tr>
+        }
     </tbody>
 </table>

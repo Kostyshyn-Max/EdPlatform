@@ -10,7 +10,7 @@
 
         <div class="buttons">
             <a href="#" class="go">Перейти в каталог</a>
-            <a href="#" class="create">Створити власний курс</a>
+            <a asp-controller="Courses" asp-action="Create" class="create">Створити власний курс</a>
         </div>
     </div>
 
@@ -79,6 +79,15 @@
         </div>
     }
 </div>
+
+<body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            let body = document.querySelector('body');
+            body.classList.add("changed-background");
+        });
+    </script>
+</body>
 
 @*
     <div class="text-center">

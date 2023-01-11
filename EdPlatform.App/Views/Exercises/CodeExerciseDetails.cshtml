@@ -1,4 +1,5 @@
 ﻿@using EdPlatform.Business.Models
+@using System.Web;
 @model CodeModel
 
 <div class="details-page">
@@ -74,30 +75,42 @@
 
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="~/js/CodeEditor/ace.js"></script>
-<script type="text/javascript"> 
-    $('textarea[data-editor]').each(function() {
+<script type="text/javascript">
+    var decodeEntities = (function () {
+        var element = document.createElement('div');
+
+        function decodeHTMLEntities(str) {
+            if (str && typeof str === 'string') {
+                str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
+                str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
+                element.innerHTML = str;
+                str = element.textContent;
+                element.textContent = '';
+            }
+
+            return str;
+        }
+
+        return decodeHTMLEntities;
+    })();
+
+
+    $('textarea[data-editor]').each(function () {
         var htmlBlock = document.documentElement;
-
         var theme = "";
-
         if (htmlBlock.classList.contains("dark"))
             theme = "ace/theme/dracula";
         else if (htmlBlock.classList.contains("light"))
             theme = "ace/theme/solarized-light";
-
         console.log(theme)
-
         var textarea = $(this);
         var mode = textarea.data('editor');
-
         var div = $('<div>', {
             'width': '100%',
             'height': '600px',
             'class': textarea.attr('class'),
         }).insertBefore(textarea);
-
         textarea.hide();
-
         var editor = ace.edit(div[0], {
             value: textarea.val().replace("textarea", "ace!"),
             theme: 'ace/theme/dracula',
@@ -106,12 +119,14 @@
             tabSize: 4,
             useSoftTabs: true,
             wrap: true,
-        }); 
+        });
 
-        editor.setValue('@userAnswer');
+        //editor.setValue(HtmlEncode('@userAnswer'));
 
-        textarea[0].form.addEventListener("submit", function() {
+        editor.setValue(decodeEntities('@HttpUtility.HtmlDecode(userAnswer)'));
+        textarea[0].form.addEventListener("submit", function () {
             textarea.val(editor.getSession().getValue());
         });
     });
+
 </script>
