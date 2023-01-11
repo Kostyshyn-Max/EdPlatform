@@ -4,11 +4,38 @@
 }
 
 <div class="hero">
-    <h1>Ed Platform</h1>
-    <h2>Безкоштовна онлайн платформа для створення курсів</h2>
+    <div class="title">
+        <h1>Хочеш створювати курси та навчатися безкоштовно?</h1>
+        <h2><span>Ed</span>Platform - безкоштовна навчальна платформа для викладання та здобування знань</h2>
+
+        <div class="buttons">
+            <a href="#" class="go">Перейти в каталог</a>
+            <a asp-controller="Courses" asp-action="Create" class="create">Створити власний курс</a>
+        </div>
+    </div>
+
+    <img src="~/img/main-image.png">
 </div>
 <div class="course-carousel">
     <h2>Популярні курси: </h2>
+
+    <div class="course-sort">
+        <div class="cover">
+            <h3>Популярні курси: </h3>
+
+            <div>
+                <button>
+                    <img src="~/img/4Frames-Burger.svg">
+                </button>
+                <button>
+                    <img src="~/img/Burger.svg">
+                </button>
+            </div>
+        </div>
+
+        <hr class="line">
+    </div>
+
     @if (ViewBag.PopularCourses != null)
     {
         <div class="carousel-popular">
@@ -19,7 +46,8 @@
                         <img src="@("https://ed-platform.s3.amazonaws.com/"+course.ImageName)" />
                     </div>
                     <h2>
-                        <a asp-controller="Courses" asp-action="Details" asp-route-courseId="@course.CourseId">@course.CourseName</a>
+                        <a asp-controller="Courses" asp-action="Details"
+                    asp-route-courseId="@course.CourseId">@course.CourseName</a>
                     </h2>
                 </div>
             }
@@ -48,53 +76,43 @@
                 </div>
                 <h2>Базовий курс програмування мовою Python</h2>
             </div>
-            <div class="course-plate">
-                <div class="image-cover">
-                    <img src="~/img/picture.png" />
-                </div>
-                <h2>Базовий курс програмування мовою Python</h2>
-            </div>
-            <div class="course-plate">
-                <div class="image-cover">
-                    <img src="~/img/picture.png" />
-                </div>
-                <h2>Базовий курс програмування мовою Python</h2>
-            </div>
-            <div class="course-plate">
-                <div class="image-cover">
-                    <img src="~/img/picture.png" />
-                </div>
-                <h2>Базовий курс програмування мовою Python</h2>
-            </div>
-
         </div>
     }
 </div>
 
+<body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            let body = document.querySelector('body');
+            body.classList.add("changed-background");
+        });
+    </script>
+</body>
+
 @*
-<div class="text-center">
+    <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>View all <a asp-controller="Courses" asp-action="Index">courses</a></p>
-</div>
-
-<h2>Popular courses</h2>
-
-@if (ViewBag.PopularCourses != null)
-{
-<div class="container">
-    <div class="row">
-        @foreach (var course in ViewBag.PopularCourses)
-        {
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">@course.CourseName</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">@course.Category.CategoryName</h6>
-                    <p class="card-text">@course.Description</p>
-                    <p>@course.UsersJoined - Users joined to this course</p>
-                    <a asp-controller="Courses" asp-action="Details" asp-route-courseId="@course.CourseId">Details</a>
-                </div>
-            </div>
-        }
     </div>
-</div>
-}*@
+
+    <h2>Popular courses</h2>
+
+    @if (ViewBag.PopularCourses != null)
+    {
+    <div class="container">
+    <div class="row">
+    @foreach (var course in ViewBag.PopularCourses)
+    {
+    <div class="card" style="width: 18rem;">
+    <div class="card-body">
+    <h5 class="card-title">@course.CourseName</h5>
+    <h6 class="card-subtitle mb-2 text-muted">@course.Category.CategoryName</h6>
+    <p class="card-text">@course.Description</p>
+    <p>@course.UsersJoined - Users joined to this course</p>
+    <a asp-controller="Courses" asp-action="Details" asp-route-courseId="@course.CourseId">Details</a>
+    </div>
+    </div>
+    }
+    </div>
+    </div>
+    }*@

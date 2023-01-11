@@ -1,18 +1,34 @@
 ﻿@using EdPlatform.Business.Models
 @model CaseModel
 
-<form method="post" asp-action="Create">
-    <div>
-        <label asp-for="CaseName"></label>
-        <input asp-for="CaseName" type="text" placeholder="Введіть варіант відповіді"/>
-        <span asp-validation-for="CaseName"></span>
+<form class="create-form" method="post" asp-action="Create">
+    <div class="form-title">
+        <h2>Добавте варіант відповіді</h2>
+        <div class="line"></div>
     </div>
-    <div>
-        <label asp-for="IsCorrect"></label>
-        <input asp-for="IsCorrect" type="checkbox"/>
-        <span asp-validation-for="IsCorrect"></span>
-    </div>
-    <input type="hidden" asp-for="QuizExerciseId" value="@ViewBag.ExerciseId"/>
 
-    <button type="submit">Створити</button>
+    <div class="form-body">
+        <div class="form-group">
+            <label asp-for="CaseName"></label>
+            <input asp-for="CaseName" type="text" placeholder="Введіть варіант відповіді" />
+            <span asp-validation-for="CaseName"></span>
+        </div>
+        <div class="checkbox">
+            <label asp-for="IsCorrect"></label>
+            <input asp-for="IsCorrect" type="checkbox" />
+            <span asp-validation-for="IsCorrect"></span>
+        </div>
+        <input type="hidden" asp-for="QuizExerciseId" value="@ViewBag.ExerciseId" />
+
+        <div class="form-footer">
+            <button type="submit">Створити</button>
+        </div>
+    </div>
 </form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let footer = document.querySelector('footer');
+        footer.classList.add("pinned");
+    });
+</script>

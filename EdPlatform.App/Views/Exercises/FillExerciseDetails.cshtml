@@ -22,9 +22,16 @@
 
         <div class="code">
             <form asp-controller="Exercises" asp-action="FillExerciseDetails" method="post">
+                @{
+                    var userAnswer = "";
+                    if (ViewBag.Attempt != null)
+                        userAnswer = ViewBag.Attempt.UserAnswer;
+                }
+
                 <div>
-                    <input asp-for="UserAnswer" data-editor="python" id="editor" value="@ViewBag.Attempt.UserAnswer" />
+                    <input asp-for="UserAnswer" data-editor="python" id="editor" value="@userAnswer" />
                 </div>
+
                 <input type="hidden" asp-for="Answer" value="@ViewBag.Exercise.Answer" />
                 <input type="hidden" asp-for="ExerciseId" value="@ViewBag.Exercise.ExerciseId" />
                 <input type="hidden" asp-for="UserId" value="@Convert.ToInt32(User.FindFirst("UserId").Value)" />

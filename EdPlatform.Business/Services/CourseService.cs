@@ -89,7 +89,7 @@ namespace EdPlatform.Business.Services
             });
             var mapper = config.CreateMapper();
 
-            Category? category = (await _unitOfWork.CategoryRepository.Get(course.Category.CategoryId));
+            Category? category = (await _unitOfWork.CategoryRepository.Get(course.CategoryId));
             if (category == null)
                 return false;
 

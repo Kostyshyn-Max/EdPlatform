@@ -1,36 +1,49 @@
 ﻿@using EdPlatform.Business.Models
 @model ModuleModel
 
-<form asp-controller="Modules" asp-action="Edit" method="post">
-    <div class="form-group">
-        <label asp-for="ModuleName"></label>
-        <input asp-for="ModuleName" type="text" class="form-control" placeholder="Module name" />
-        <span asp-validation-for="ModuleName" class="text-danger"></span>
+<form class="create-form" asp-controller="Modules" asp-action="Edit" method="post">
+    <div class="form-title">
+        <h2>Відредагуйте модуль</h2>
+        <div class="line"></div>
     </div>
-    <div class="form-group">
-        <label asp-for="Order"></label>
-        <input asp-for="Order" type="number" class="form-control" />
-        <span asp-validation-for="Order"></span>
+
+    <div class="form-body edit-form-body">
+        <div class="form-group">
+            <label asp-for="ModuleName"></label>
+            <input asp-for="ModuleName" type="text" class="form-control" placeholder="Module name" />
+            <span asp-validation-for="ModuleName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Order"></label>
+            <input style="width: 4%;" asp-for="Order" type="number" class="form-control" />
+            <span asp-validation-for="Order"></span>
+        </div>
+        <input asp-for="ModuleId" type="hidden" value="@Model.ModuleId" />
+        <input asp-for="CourseId" type="hidden" value="@Model.CourseId" />
+
+        <div class="form-footer">
+            <button class="btn btn-primary" type="submit">Зберегти зміни</button>
+        </div>
     </div>
-    <input asp-for="ModuleId" type="hidden" value="@Model.ModuleId" />
-    <input asp-for="CourseId" type="hidden" value="@Model.CourseId" />
-    <button class="btn btn-primary" type="submit">Save changes</button>
 </form>
 
-<a asp-controller="Lessons" asp-action="Create" asp-route-courseId="@Model.CourseId" asp-route-moduleId="@Model.ModuleId">Create</a>
+<div class="table-of-contents">
+    <div class="create-module-cover">
+        <a asp-controller="Lessons" asp-action="Create" asp-route-courseId="@Model.CourseId"
+            asp-route-moduleId="@Model.ModuleId">Добавити урок</a>
+    </div>
 
-@if(Model.Lessons != null)
-{
-    @foreach(var lesson in Model.Lessons.OrderBy(x => x.Order))
+    @if (Model.Lessons != null)
     {
-        <div class="card">
-            <div class="card-header">
-                @lesson.LessonName
+        @foreach (var lesson in Model.Lessons.OrderBy(x => x.Order))
+        {
+            <div class="module" style="margin: 16px auto;">
+                <div class="module-title">
+                    <h2>@lesson.LessonName</h2>
+                    <a class="edit-link" asp-route-courseId="@Model.CourseId" asp-route-moduleId="@Model.ModuleId"
+                asp-route-lessonId="@lesson.LessonId" asp-controller="Lessons" asp-action="Edit">Відредагувати</a>
+                </div>
             </div>
-            <div class="card-body">
-                <div class="card-text">@Html.Raw(lesson.LessonContent)</div>
-                <a asp-route-courseId="@Model.CourseId" asp-route-moduleId="@Model.ModuleId" asp-route-lessonId="@lesson.LessonId" asp-controller="Lessons" asp-action="Edit">Edit</a>
-            </div>
-        </div>
+        }
     }
-}
+</div>

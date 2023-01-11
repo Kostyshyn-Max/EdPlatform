@@ -1,5 +1,6 @@
 ﻿using EdPlatform.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,8 +30,8 @@ namespace EdPlatform.Data.EF
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=MSI-GF65-THIN;Initial Catalog=EdPlatform;Integrated Security=True");
-            //optionsBuilder.UseNpgsql("Server = mouse.db.elephantsql.com; Database = cegffjdt; Persist Security Info = True; User ID = vumzfetu; Password = 7crej_TeDIB3ZiumU59yks4ULhC7UR_M;");
+            //optionsBuilder.UseSqlServer("Data Source=MSI-GF65-THIN;Initial Catalog=EdPlatform;Integrated Security=True");
+            optionsBuilder.UseNpgsql("Server = snuffleupagus.db.elephantsql.com; Database = kjzpbnca; Persist Security Info = True; User ID = kjzpbnca; Password = LM2BGDp42J9j8AuGBAZohi0b8vymw-so;");
             optionsBuilder.EnableSensitiveDataLogging();
         }
 
