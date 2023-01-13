@@ -1,6 +1,7 @@
 ﻿using EdPlatform.Business.Models;
 using EdPlatform.Data;
 using EdPlatform.Data.Entities;
+using EdPlatform.Data.Interfaces;
 using EdPlatform.Data.Repositories;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System;
@@ -14,10 +15,10 @@ namespace EdPlatform.Business.Services
 {
     public class UserService : IUserService
     {
-        private readonly UnitOfWork _unitOfWork;
-        public UserService()
+        private readonly IUnitOfWork _unitOfWork;
+        public UserService(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = new();
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<UserModel?> Login(UserLoginModel user)
@@ -76,35 +77,26 @@ namespace EdPlatform.Business.Services
         {
             User dbUser;
 
-            await using (UnitOfWork u = new())
+            dbUser = await _unitOfWork.UserRepository.Get(user.UserId);
+            _unitOfWork.UserRepository.Update(new User()
             {
-                dbUser = await u.UserRepository.Get(user.UserId);
-            }
-            await using (UnitOfWork u = new())
-            {
-                u.UserRepository.Update(new User()
-                {
-                    UserId = user.UserId,
-                    Login = user.Login,
-                    Email = user.Email,
-                    HashPassword = dbUser.HashPassword,
-                    PasswordSalt = dbUser.PasswordSalt
-                });
+                UserId = user.UserId,
+                Login = user.Login,
+                Email = user.Email,
+                HashPassword = dbUser.HashPassword,
+                PasswordSalt = dbUser.PasswordSalt
+            });
 
-                await u.Save();
-            }
+            await _unitOfWork.Save();
         }
 
         public async Task<IEnumerable<UserModel>> GetAllByLogin(string login)
         {
             List<UserModel> results = new();
 
-            await using (UnitOfWork u = new())
+            foreach (var user in (await _unitOfWork.UserRepository.Find(x => x.Login == login)))
             {
-                foreach (var user in (await u.UserRepository.Find(x => x.Login == login)))
-                {
-                    results.Add(new UserModel() { Login = user.Login, Email = user.Email, UserId = user.UserId });
-                }
+                results.Add(new UserModel() { Login = user.Login, Email = user.Email, UserId = user.UserId });
             }
 
             return results;

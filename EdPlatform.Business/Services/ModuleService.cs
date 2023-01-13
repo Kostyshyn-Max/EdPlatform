@@ -2,6 +2,7 @@
 using EdPlatform.Business.Models;
 using EdPlatform.Data;
 using EdPlatform.Data.Entities;
+using EdPlatform.Data.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,10 @@ namespace EdPlatform.Business.Services
 {
     public class ModuleService : IModuleService
     {
-        private readonly UnitOfWork _unitOfWork;
-        public ModuleService()
+        private readonly IUnitOfWork _unitOfWork;
+        public ModuleService(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = new();
+            _unitOfWork = unitOfWork;
         }
 
         public async Task CreateModule(ModuleModel module)

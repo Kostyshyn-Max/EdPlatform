@@ -2,6 +2,7 @@
 using EdPlatform.Business.Models;
 using EdPlatform.Data;
 using EdPlatform.Data.Entities;
+using EdPlatform.Data.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,10 @@ namespace EdPlatform.Business.Services
 {
     public class FillExerciseService : IFillExerciseService
     {
-        private readonly UnitOfWork _unitOfWork;
-        public FillExerciseService()
+        private readonly IUnitOfWork _unitOfWork;
+        public FillExerciseService(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = new UnitOfWork();
+            _unitOfWork = unitOfWork;
         }
 
         public async Task Create(FillExerciseModel fillExercise)

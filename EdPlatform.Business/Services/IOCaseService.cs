@@ -2,6 +2,7 @@
 using EdPlatform.Business.Models;
 using EdPlatform.Data;
 using EdPlatform.Data.Entities;
+using EdPlatform.Data.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,10 @@ namespace EdPlatform.Business.Services
 {
     public class IOCaseService : IIOCaseService
     {
-        private readonly UnitOfWork _unitOfWork;
-        public IOCaseService()
+        private readonly IUnitOfWork _unitOfWork;
+        public IOCaseService(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = new UnitOfWork();
+            _unitOfWork = unitOfWork;
         }
 
         public async Task Create(IOCaseModel iOCase)

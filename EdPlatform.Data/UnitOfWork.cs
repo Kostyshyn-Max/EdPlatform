@@ -13,9 +13,9 @@ namespace EdPlatform.Data
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _context;
-        public UnitOfWork()
+        public UnitOfWork(ApplicationDbContext context)
         {
-            _context = new();
+            _context = context;
             AttemptRepository = new AttemptRepository(_context);
             CaseRepository = new CaseRepository(_context);
             CodeExerciseRepository = new CodeExerciseRepository(_context);
