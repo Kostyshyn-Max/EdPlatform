@@ -2,6 +2,7 @@
 using EdPlatform.Business.Models;
 using EdPlatform.Data;
 using EdPlatform.Data.Entities;
+using EdPlatform.Data.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,12 +14,11 @@ namespace EdPlatform.Business.Services
 {
     public class CodeExerciseService : ICodeExerciseService
     {
-        private readonly UnitOfWork _unitOfWork;
-        public CodeExerciseService()
+        private readonly IUnitOfWork _unitOfWork;
+        public CodeExerciseService(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = new UnitOfWork();
+            _unitOfWork = unitOfWork;
         }
-
         public async Task Create(CodeExerciseModel codeExercise)
         {
             IMapper mapper = CreateCodeExerciseModelToCodeExerciseMapper();

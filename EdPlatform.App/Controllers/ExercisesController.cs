@@ -132,13 +132,13 @@ namespace EdPlatform.App.Controllers
 
                 List<bool> outputs = new List<bool>();
 
-                if (attempt != null)
-                {
-                    if (!attempt.UserAnswer.Equals(codeModel.Code))
-                    {
-                        outputs = await _codeExecutingService.ExecuteCode(codeModel);
-                    }
-                }
+
+                if (attempt != null && !attempt.UserAnswer.Equals(codeModel.Code))
+                    outputs = await _codeExecutingService.ExecuteCode(codeModel);
+                
+                if (attempt == null)
+                    outputs = await _codeExecutingService.ExecuteCode(codeModel);
+
 
                 var newAttempt = new AttemptModel
                 {

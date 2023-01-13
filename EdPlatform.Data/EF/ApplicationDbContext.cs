@@ -28,12 +28,7 @@ namespace EdPlatform.Data.EF
 
         public DbSet<Exercise> Exercise { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            //optionsBuilder.UseSqlServer("Data Source=MSI-GF65-THIN;Initial Catalog=EdPlatform;Integrated Security=True");
-            optionsBuilder.UseNpgsql("Server = snuffleupagus.db.elephantsql.com; Database = kjzpbnca; Persist Security Info = True; User ID = kjzpbnca; Password = LM2BGDp42J9j8AuGBAZohi0b8vymw-so;");
-            optionsBuilder.EnableSensitiveDataLogging();
-        }
+        public ApplicationDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

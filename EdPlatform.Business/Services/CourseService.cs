@@ -2,6 +2,7 @@
 using EdPlatform.Business.Models;
 using EdPlatform.Data;
 using EdPlatform.Data.Entities;
+using EdPlatform.Data.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +13,11 @@ namespace EdPlatform.Business.Services
 {
     public class CourseService : ICourseService
     {
-        private readonly UnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IImageService _imageService;
-        public CourseService(IImageService imageService)
+        public CourseService(IUnitOfWork unitOfWork, IImageService imageService)
         {
-            _unitOfWork = new();
+            _unitOfWork = unitOfWork;
             _imageService = imageService;
         }
 

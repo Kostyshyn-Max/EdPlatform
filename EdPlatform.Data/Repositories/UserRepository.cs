@@ -26,7 +26,7 @@ namespace EdPlatform.Data.Repositories
 
         public async Task<User?> Get(int id)
         {
-            return await _context.Users.FindAsync(id);
+            return await _context.Users.AsNoTracking().FirstOrDefaultAsync(u=>u.UserId==id);
         }
 
         public async Task<IEnumerable<User>> GetAll()

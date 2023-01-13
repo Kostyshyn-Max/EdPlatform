@@ -37,7 +37,7 @@ namespace EdPlatform.Data.Repositories
 
         public async Task<IEnumerable<Attempt>> Find(Expression<Func<Attempt, bool>> expression)
         {
-            return await _context.Attempts.Where(expression).ToListAsync();
+            return await _context.Attempts.AsNoTracking().Where(expression).ToListAsync();
         }
 
         public void Update(Attempt entity)

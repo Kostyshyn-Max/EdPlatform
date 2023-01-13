@@ -1,10 +1,15 @@
 using EdPlatform.App.AuthorizationPolicy;
 using EdPlatform.App.Services;
 using EdPlatform.Business.Services;
+using EdPlatform.Data;
+using EdPlatform.Data.EF;
+using EdPlatform.Data.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddNpgsql<ApplicationDbContext>(builder.Configuration.GetConnectionString("DefaultConnection"), null, o => o.EnableSensitiveDataLogging());
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -23,6 +28,8 @@ builder.Services.AddAuthorization(options =>
         policy.Requirements.Add(new EditCourseRequirement()
     ));
 });
+
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddSingleton<IAuthorizationHandler, CourseAuthorizationHandler>();
 builder.Services.AddTransient<IUserService, UserService>();

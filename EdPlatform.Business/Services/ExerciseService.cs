@@ -2,6 +2,7 @@
 using EdPlatform.Business.Models;
 using EdPlatform.Data;
 using EdPlatform.Data.Entities;
+using EdPlatform.Data.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,10 @@ namespace EdPlatform.Business.Services
 {
     public class ExerciseService : IExerciseService
     {
-        private readonly UnitOfWork _unitOfWork;
-        public ExerciseService()
+        private readonly IUnitOfWork _unitOfWork;
+        public ExerciseService(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = new UnitOfWork();
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<ExerciseModel> Get(int id)
@@ -24,6 +25,8 @@ namespace EdPlatform.Business.Services
             {
                 cfg.CreateMap<Exercise, ExerciseModel>();
                 cfg.CreateMap<Lesson, LessonModel>();
+                cfg.CreateMap<Module, ModuleModel>();
+                cfg.CreateMap<Course, CourseModel>();   
             });
             var mapper = config.CreateMapper();
 
