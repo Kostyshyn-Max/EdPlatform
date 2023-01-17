@@ -14,7 +14,10 @@
                 <img src="~/img/logo.svg" alt="logo" />
             </a>
             <div class="dropdown">
-                <a class="title" href="#">Каталог <img /></a>
+                <a class="title" href="#">
+                    Каталог 
+                    <img src="~/img/arrow-down.svg" />
+                </a>
 
                 <ul>
                     @if (ViewData["Categories"] != null)
@@ -71,6 +74,7 @@
     </footer>
 
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/footer.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

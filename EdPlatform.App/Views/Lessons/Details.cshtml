@@ -2,10 +2,16 @@
 @model LessonModel
 
 <div class="details-page">
-    <div class="navigation-panel">
+    <nav class="navigation-panel">
         <div class="name">
             <a asp-controller="Courses" asp-action="Details" asp-route-courseId="@Model.Module.CourseId">@Model.Module.Course.CourseName</a>
         </div>
+        
+        <div class="module-name">
+            <img src="~/img/timelines/selected-timeline.svg" />
+            <a href="#">@Model.Module.ModuleName</a>
+        </div>
+
         <ul class="timeline-list">
             @{
                 List<LessonModel> lessons = Model.Module.Lessons.OrderBy(x => x.Order).ToList();
@@ -22,76 +28,36 @@
                         {
                             @if (lessons[i].LessonId == Model.LessonId)
                             {
-                                @if (i == 0)
-                                {
-                                    <img src="~/img/timelines/horizontal-start-completed-selected-timeline.svg" />
-                                }
-                                else if (i == lessons.Count() - 1)
-                                {
-                                    <img src="~/img/timelines/horizontal-end-completed-selected-timeline.svg" />
-                                }
-                                else
-                                {
-                                    <img src="~/img/timelines/horizontal-middle-completed-selected-timeline.svg" />
-                                }
+                                <img src="~/img/timelines/selected-timeline.svg" />
+                                @lessons[i].LessonName
                             }
                             else
                             {
-                                @if (i == 0)
-                                {
-                                    <img src="~/img/timelines/horizontal-start-completed-timeline.svg" />
-                                }
-                                else if (i == lessons.Count() - 1)
-                                {
-                                    <img src="~/img/timelines/horizontal-end-completed-timeline.svg" />
-                                }
-                                else
-                                {
-                                    <img src="~/img/timelines/horizontal-middle-completed-timeline.svg" />
-                                }
+                                <img src="~/img/timelines/completed-timeline.svg" />
+                                @lessons[i].LessonName
                             }
                         }
                         else
                         {
                             @if (lessons[i].LessonId == Model.LessonId)
                             {
-                                @if (i == 0)
-                                {
-                                    <img src="~/img/timelines/horizontal-start-selected-timeline.svg" />
-                                }
-                                else if (i == lessons.Count() - 1)
-                                {
-                                    <img src="~/img/timelines/horizontal-end-selected-timeline.svg" />
-                                }
-                                else
-                                {
-                                    <img src="~/img/timelines/horizontal-middle-selected-timeline.svg" />
-                                }
+                                <img src="~/img/timelines/selected-timeline.svg" />
+                                @lessons[i].LessonName
                             }
                             else
                             {
-                                @if (i == 0)
-                                {
-                                    <img src="~/img/timelines/horizontal-start-timeline.svg" />
-                                }
-                                else if (i == lessons.Count() - 1)
-                                {
-                                    <img src="~/img/timelines/horizontal-end-timeline.svg" />
-                                }
-                                else
-                                {
-                                    <img src="~/img/timelines/horizontal-middle-timeline.svg" />
-                                }
+                                <img src="~/img/timelines/timeline.svg" />
+                                @lessons[i].LessonName
                             }
                         }
                     </a>
                 </li>
             }
         </ul>
-    </div>
+    </nav>
 
     <div class="page-content">
-        <div class="title">
+        <div class="lecture-title">
             <h2>@Model.Order. @Model.LessonName</h2>
         </div>
         <div class="lecture">
@@ -114,11 +80,11 @@
 </div>
 
 <style>
-    html.dark .content {
-        background-color: #232F3A;
+    footer{
+        display: none;
     }
 
-    html.light .content {
-        background-color: #3f668a;
+    .navigation-panel{
+        height: calc(100% - 48px) !important;
     }
 </style>

@@ -25,7 +25,6 @@ namespace EdPlatform.Business.Services
             attempt.IsCompleted = results.Where(x => x.Equals(true)).Count().Equals(results.Count());
 
             Attempt existingAttempt;
-
             existingAttempt = (await _unitOfWork.AttemptRepository.Find(x => x.UserId == attempt.UserId && x.ExerciseId == attempt.ExerciseId)).SingleOrDefault();
 
             if (existingAttempt != null)
@@ -54,8 +53,8 @@ namespace EdPlatform.Business.Services
             IMapper mapper = CreateAttemptToAttemptModelMapper();
             Attempt? attempt;
                 attempt = (await _unitOfWork.AttemptRepository.Find(x => x.UserId == userId && x.ExerciseId == exerciseId)).SingleOrDefault();
-
-            return mapper.Map<Attempt, AttemptModel>(attempt);
+            
+            return mapper.Map<Attempt, AttemptModel>(attempt ?? null);
         }
 
         public async Task<int> GetNotSolvedExerciseId(IEnumerable<ExerciseModel> exercises, int userId)

@@ -9,68 +9,20 @@
            asp-route-exerciseId="@ViewBag.RedirectExercises[i].ExerciseId">
                 @if (ViewBag.RedirectExercises[i].ExerciseId == ViewBag.Exercise.ExerciseId)
                 {
-                    @if (ViewBag.Attempts[i] != null && ViewBag.Attempts[i].IsCompleted && ViewBag.Attempts[i].ExerciseId == ViewBag.RedirectExercises[i].ExerciseId)
-                    {
-                        if (i == 0)
-                        {
-                            <img src="~/img/timelines/horizontal-start-completed-selected-timeline.svg" />
-                        }
-                        else if (i == ViewBag.RedirectExercises.Count - 1)
-                        {
-                            <img src="~/img/timelines/horizontal-end-completed-selected-timeline.svg" />
-                        }
-                        else
-                        {
-                            <img src="~/img/timelines/horizontal-middle-completed-selected-timeline.svg" />
-                        }
-                    }
-                    else
-                    {
-                        if (i == 0)
-                        {
-                            <img src="~/img/timelines/horizontal-start-selected-timeline.svg" />
-                        }
-                        else if (i == ViewBag.RedirectExercises.Count - 1)
-                        {
-                            <img src="~/img/timelines/horizontal-end-selected-timeline.svg" />
-                        }
-                        else
-                        {
-                            <img src="~/img/timelines/horizontal-middle-selected-timeline.svg" />
-                        }
-                    }
+                    <img src="~/img/timelines/selected-timeline.svg" />
+                    @ViewBag.RedirectExercises[i].ExerciseName;
                 }
                 else
                 {
                     @if (ViewBag.Attempts[i] != null && ViewBag.Attempts[i].IsCompleted && ViewBag.Attempts[i].ExerciseId == ViewBag.RedirectExercises[i].ExerciseId)
                     {
-                        if (i == 0)
-                        {
-                            <img src="~/img/timelines/horizontal-start-completed-timeline.svg" />
-                        }
-                        else if (i == ViewBag.RedirectExercises.Count - 1)
-                        {
-                            <img src="~/img/timelines/horizontal-end-completed-timeline.svg" />
-                        }
-                        else
-                        {
-                            <img src="~/img/timelines/horizontal-middle-completed-timeline.svg" />
-                        }
+                        <img src="~/img/timelines/completed-timeline.svg" />
+                        @ViewBag.RedirectExercises[i].ExerciseName;
                     }
                     else
                     {
-                        if (i == 0)
-                        {
-                            <img src="~/img/timelines/horizontal-start-timeline.svg" />
-                        }
-                        else if (i == ViewBag.RedirectExercises.Count - 1)
-                        {
-                            <img src="~/img/timelines/horizontal-end-timeline.svg" />
-                        }
-                        else
-                        {
-                            <img src="~/img/timelines/horizontal-middle-timeline.svg" />
-                        }
+                        <img src="~/img/timelines/timeline.svg" />
+                        @ViewBag.RedirectExercises[i].ExerciseName;
                     }
                 }
             </a>
