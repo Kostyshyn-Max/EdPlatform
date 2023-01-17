@@ -11,10 +11,23 @@ using Newtonsoft.Json.Linq;
 
 namespace EdPlatform.Business.Services
 {
+    public class SendLanguageData
+    {
+        public string Language { get; set; }
+        public string VersionIndex { get; set; }
+    }
+
     public class CodeExecutingService : ICodeExecutingService
     {
         private readonly HttpClient _httpClient;
         private readonly ILogger<CodeExecutingService> _logger;
+        private readonly Dictionary<string, SendLanguageData> _languagesData = new Dictionary<string, SendLanguageData>()
+        {
+            { "java", new SendLanguageData() { Language = "java", VersionIndex = "4"} },
+            { "python", new SendLanguageData() { Language = "python3", VersionIndex = "4" } },
+            { "c_cpp", new SendLanguageData() { Language = "g++ 17 GCC 9.1.0", VersionIndex = "0" } },
+            { "csharp", new SendLanguageData() { Language = "csharp", VersionIndex = "4" } }
+        };
         public CodeExecutingService(HttpClient httpClient, ILogger<CodeExecutingService> logger)
         {
             _httpClient = httpClient;
@@ -27,7 +40,7 @@ namespace EdPlatform.Business.Services
 
             foreach (var input in codeModel.InputDatas)
             {
-                string responseString = await SendRequest(codeModel.Code, "python3", "4", input);
+                string responseString = await SendRequest(codeModel.Code, codeModel.Language, input);
 
                 responses.Add(responseString);
             }
@@ -45,16 +58,16 @@ namespace EdPlatform.Business.Services
             return results;
         }
 
-        private async Task<string> SendRequest(string code, string language, string versionIndex, string input)
+        private async Task<string> SendRequest(string code, string language, string input)
         {
             var values = new
             {
                 clientId = "a650e82082a88c3f8f777c6fe27f3bbb",
                 clientSecret = "51f0ca0f197a896ee7af15f898cf388f36bc744ae095c82d1fc6f0a2873637af",
                 script = code,
-                language = language,
-                versionIndex = versionIndex,
-                stdin = input
+                language = _languagesData[language].Language,
+                versionIndex = _languagesData[language].VersionIndex,
+                stdin = (input != null) ? input : "",
             };
             var content = new StringContent(JsonConvert.SerializeObject(values));
             content.Headers.ContentType.MediaType = "application/json";

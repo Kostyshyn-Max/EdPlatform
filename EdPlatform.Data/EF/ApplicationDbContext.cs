@@ -3,8 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EdPlatform.Data.EF
@@ -25,7 +23,6 @@ namespace EdPlatform.Data.EF
         public DbSet<Attempt> Attempts { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Category> Categories { get; set; }
-
         public DbSet<Exercise> Exercise { get; set; }
 
         public ApplicationDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions) { }

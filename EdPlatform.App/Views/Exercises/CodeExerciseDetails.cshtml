@@ -14,7 +14,7 @@
     </div>
 
     <div class="page-content">
-        <div class="title">
+        <div class="lecture-title">
             <h2>@ViewBag.Exercise.ExerciseName</h2>
         </div>
         <div class="lecture">
@@ -26,14 +26,21 @@
                 <h2>Time limit: 15 sec</h2>
                 <h2>Memory limit: 128 MB</h2>
             </div>
+           
             <form asp-controller="Exercises" asp-action="CodeExerciseDetails" method="post">
+                <select asp-for="Language" onchange="changeMode(this)">
+                    <option value="java">Java</option>
+                    <option value="python">Python</option>
+                    <option value="csharp">C#</option>
+                    <option value="c_cpp">C++</option>
+                </select>
+
                 <div>
                     <textarea asp-for="Code" data-editor="python" id="editor"></textarea>
                 </div>
 
-                <div class="code-buttons">
+                <div class="buttons">
                     <button type="submit" class="send">Надіслати на перевірку</button>
-                    <button class="run">Запустити код</button>
                 </div>
             </form>
         </div>
@@ -58,16 +65,6 @@
         </div>
     </div>
 </div>
-
-<style>
-    html.dark .content{
-        background-color: #232F3A;
-    }
-
-    html.light .content{
-        background-color: #3f668a;
-    }
-</style>
 
 @{
     var userAnswer = (ViewBag.Attempt != null) ? ViewBag.Attempt.UserAnswer : "";
@@ -97,31 +94,28 @@
 
     $('textarea[data-editor]').each(function () {
         var htmlBlock = document.documentElement;
-        var theme = "";
-        if (htmlBlock.classList.contains("dark"))
-            theme = "ace/theme/dracula";
-        else if (htmlBlock.classList.contains("light"))
-            theme = "ace/theme/solarized-light";
-        console.log(theme)
+        var theme = "ace/theme/dracula";
+
         var textarea = $(this);
         var mode = textarea.data('editor');
         var div = $('<div>', {
             'width': '100%',
             'height': '600px',
             'class': textarea.attr('class'),
+            'id': 'editor'
         }).insertBefore(textarea);
         textarea.hide();
         var editor = ace.edit(div[0], {
             value: textarea.val().replace("textarea", "ace!"),
             theme: 'ace/theme/dracula',
-            mode: 'ace/mode/python',
+            mode: 'ace/mode/java',
             newLineMode: 'unix',
             tabSize: 4,
             useSoftTabs: true,
             wrap: true,
         });
 
-        //editor.setValue(HtmlEncode('@userAnswer'));
+        console.log(textarea[0]);
 
         editor.setValue(decodeEntities('@HttpUtility.HtmlDecode(userAnswer)'));
         textarea[0].form.addEventListener("submit", function () {
@@ -129,4 +123,23 @@
         });
     });
 
+    function changeMode(selectedMode) {
+        let editor = ace.edit('editor');
+        editor.session.setMode('ace/mode/' + selectedMode.value);
+    }
 </script>
+
+
+<style>
+    footer {
+        display: none;
+    }
+
+    .navigation-panel{
+        height: 99% !important;
+    }
+
+    .page-content{
+        padding-bottom: 0 !important;
+    }
+</style>

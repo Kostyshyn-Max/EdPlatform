@@ -54,6 +54,14 @@
     });
 </script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        let footer = document.querySelector('footer');
+        console.log(footer);
+        footer.classList.remove('pinned');
+    })
+</script>
+
 @* <script>
     document.addEventListener('DOMContentLoaded', function () {
     let footer = document.querySelector('footer');

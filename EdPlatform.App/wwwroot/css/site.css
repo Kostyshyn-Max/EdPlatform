@@ -43,7 +43,6 @@ header nav .dropdown .title {
 }
 header nav .dropdown .title img {
   margin: 0 0.3rem;
-  content: url("../img/arrow-down.svg");
 }
 header nav .dropdown ul {
   clear: both;
@@ -543,6 +542,89 @@ header nav .login-button a {
   font-size: 24px;
   padding: 8px 16px;
   width: 250px;
+  cursor: pointer;
+}
+.content .navigation-panel {
+  height: 100%;
+  width: 280px;
+  position: absolute;
+  top: 48px;
+  left: 0;
+  overflow-x: hidden;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 7px 0px 4px rgba(255, 255, 255, 0.25);
+  border-radius: 0px 12px 12px 0px;
+}
+.content .navigation-panel .name {
+  margin: 32px 0;
+  text-align: center;
+}
+.content .navigation-panel .name a {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 26px;
+}
+.content .navigation-panel .module-name {
+  background: rgba(255, 255, 255, 0.12);
+  padding: 6px;
+  padding-left: 16px;
+}
+.content .navigation-panel .module-name a {
+  color: white;
+  text-decoration: none;
+}
+.content .navigation-panel ul {
+  list-style: none;
+  margin: 8px;
+}
+.content .navigation-panel ul li a {
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+}
+.content .page-content {
+  margin-left: 280px;
+  padding: 32px;
+}
+.content .page-content .lecture-title {
+  text-align: center;
+}
+.content .page-content .lecture-title h2 {
+  font-size: 36px;
+  color: #FFFFFF;
+}
+.content .page-content .lecture {
+  font-size: 20px;
+  color: white;
+}
+.content .page-content .code .info {
+  margin: 16px 0;
+}
+.content .page-content .code .info h2 {
+  font-size: 16px;
+  margin: 0;
+  color: white;
+  font-weight: 500;
+}
+.content .page-content .buttons {
+  justify-content: center;
+  display: flex;
+  margin: 16px 0;
+}
+.content .page-content .buttons a {
+  background: linear-gradient(90deg, rgba(183, 102, 152, 0.8) 44.39%, rgba(110, 35, 218, 0) 100%);
+  color: white;
+  text-decoration: none;
+  padding: 8px 16px;
+  font-size: 24px;
+}
+.content .page-content .buttons button {
+  background: linear-gradient(90deg, rgba(183, 102, 152, 0.8) 44.39%, rgba(110, 35, 218, 0) 100%);
+  color: white;
+  text-decoration: none;
+  padding: 8px 16px;
+  font-size: 24px;
+  border: none;
   cursor: pointer;
 }
 

@@ -263,6 +263,7 @@ namespace EdPlatform.App.Controllers
             {
                 redirectExercises.Add(new ExerciseRedirectViewModel()
                 {
+                    ExerciseName = exercise.ExerciseName,
                     Action = exercise.Discriminator + action,
                     CourseId = courseId,
                     ModuleId = moduleId,
