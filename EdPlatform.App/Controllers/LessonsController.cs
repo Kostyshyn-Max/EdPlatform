@@ -66,21 +66,7 @@ namespace EdPlatform.App.Controllers
 
             if (await _customAuthorizattionViewService.Authorize(User, lesson.Module.Course))
             {
-                var redirectExercises = new List<ExerciseRedirectViewModel>();
-
-                foreach (var exercise in lesson.Exercises)
-                {
-                    redirectExercises.Add(new ExerciseRedirectViewModel()
-                    {
-                        Action = exercise.Discriminator + "Edit",
-                        CourseId = courseId,
-                        ModuleId = moduleId,
-                        LessonId = lessonId,
-                        ExerciseId = exercise.ExerciseId
-                    });
-                }
-
-                ViewBag.RedirectExercises = redirectExercises;
+                GetRedirectExercises(courseId, moduleId, lessonId, lesson);
 
                 return View(lesson);
             }
@@ -92,6 +78,8 @@ namespace EdPlatform.App.Controllers
         public async Task<IActionResult> Edit(int courseId, int moduleId, int lessonId, LessonModel lesson)
         {
             await _lessonService.EditLesson(lesson);
+
+            GetRedirectExercises(courseId, moduleId, lessonId, (await _lessonService.Get(lessonId)));
 
             return View(await _lessonService.Get(lessonId));
         }
@@ -130,6 +118,25 @@ namespace EdPlatform.App.Controllers
             }
 
             return RedirectToAction(nameof(CoursesController.Details), nameof(CoursesController).Replace("Controller", ""), new { courseId = courseId });
+        }
+
+        private void GetRedirectExercises(int courseId, int moduleId, int lessonId, LessonModel lesson)
+        {
+            var redirectExercises = new List<ExerciseRedirectViewModel>();
+
+            foreach (var exercise in lesson.Exercises)
+            {
+                redirectExercises.Add(new ExerciseRedirectViewModel()
+                {
+                    Action = exercise.Discriminator + "Edit",
+                    CourseId = courseId,
+                    ModuleId = moduleId,
+                    LessonId = lessonId,
+                    ExerciseId = exercise.ExerciseId
+                });
+            }
+
+            ViewBag.RedirectExercises = redirectExercises;
         }
     }
 }

@@ -23,8 +23,7 @@
         <div class="form-group file">
             <div>Виберіть зображення курсу (jpg):</div>
             <label asp-for="Image"></label>
-            <input asp-for="Image" class="form-control" accept="image/jpeg" placeholder="Course main image"
-                value="@Model.Image" />
+            <input asp-for="Image" class="form-control" accept="image/jpeg" placeholder="Course main image" value="@Model.Image" />
             <span asp-validation-for="Image" class="text-danger"></span>
         </div>
 
@@ -34,8 +33,7 @@
         </div>
         <div class="form-group">
             <label asp-for="Description"></label>
-            <textarea asp-for="Description" type="text" class="form-control" id="course-description"
-                placeholder="Course description">@Model.Description</textarea>
+            <textarea asp-for="Description" type="text" class="form-control" id="text-editor" placeholder="Course description">@Model.Description</textarea>
             <span asp-validation-for="Description" class="text-danger"></span>
         </div>
 
@@ -45,15 +43,6 @@
     </div>
 </form>
 
-<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-
-<script>
-    tinymce.init({
-        selector: '#course-description',
-        height: "480"
-    });
-</script>
-
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         let footer = document.querySelector('footer');
@@ -62,9 +51,8 @@
     })
 </script>
 
-@* <script>
-    document.addEventListener('DOMContentLoaded', function () {
-    let footer = document.querySelector('footer');
-    footer.classList.add("pinned");
-    });
-    </script> *@
+<style>
+    .pinned{
+        position: inherit;
+    }
+</style>

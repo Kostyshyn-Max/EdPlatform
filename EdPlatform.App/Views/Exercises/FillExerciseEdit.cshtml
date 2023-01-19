@@ -9,7 +9,7 @@
     </div>
     <div>
         <label asp-for="Problem"></label>
-        <textarea asp-for="Problem" id="fill-exercise-content">@Model.Problem</textarea>
+        <textarea asp-for="Problem" id="text-editor">@Model.Problem</textarea>
         <span asp-validation-for="Problem"></span>
     </div>
     <div>
@@ -27,11 +27,8 @@
     <button type="submit">Save changes</button>
 </form>
 
-<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-
-<script>
-    tinymce.init({
-        selector: '#fill-exercise-content',
-        height: "480"
-    });
-</script>
+<style>
+    .pinned {
+        position: inherit;
+    }
+</style>

@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - EdPlatform.App</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/highlight/styles/github-dark-dimmed.min.css">
+    <link rel="stylesheet" href="~/lib/highlight/styles/atelir"/>
 </head>
 <body>
     <header>
@@ -60,9 +62,15 @@
 
     <footer id="footer">
         <div class="icons">
-            <img src="~/img/telegram-icon.svg" />
-            <img src="~/img/github-icon.svg" />
-            <img src="~/img/linkedin-icon.svg" />
+            <a href="https://t.me/kostyshyn_m">
+                <img src="~/img/telegram-icon.svg" />
+            </a>
+            <a href="https://github.com/Kostyshyn-Max">
+                <img src="~/img/github-icon.svg" />
+            </a>
+            <a href="https://www.upwork.com/freelancers/~010c3b0906b8a7d7f6?viewMode=1">
+                <img src="~/img/upwork-icon.svg" />
+            </a>
         </div>
         <div class="links">
             <a href="#">Terms of use</a>
@@ -75,6 +83,34 @@
 
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/footer.js" asp-append-version="true"></script>
+    <script src="~/lib/highlight/highlight.min.js"></script>
+    <script>
+        hljs.configure({ useBR: true });
+
+        document.querySelectorAll('code').forEach((block) => {
+            hljs.highlightBlock(block);
+        });
+    </script>
+
+    <script src="https://cdn.tiny.cloud/1/0ofhxie2mhyw7xa22fixv6ni35byyz7lqts7rhbxa6379il5/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#text-editor',
+            height: "480",
+            style_formats: [
+                { title: 'Code languages', items: [
+                    { title: 'python-lang', block: 'code', classes: 'language-python'},
+                    { title: 'csharp-lang', block: 'code', classes: 'language-csharp'},
+                    { title: 'cpp-lang', block: 'code', classes: 'language-cpp'},
+                    { title: 'java-lang', block: 'code', classes: 'language-java'}
+                ]},
+            ],
+            visualblocks_default_state: true,
+            end_container_on_empty_block: true,
+            style_formats_merge: true
+        });
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
