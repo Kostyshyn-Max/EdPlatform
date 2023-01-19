@@ -106,10 +106,19 @@ namespace EdPlatform.Data.Migrations
                     b.Property<int>("CourseId")
                         .HasColumnType("integer");
 
+                    b.Property<int>("RateStarsCount")
+                        .HasColumnType("integer");
+
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("CommentId");
+
+                    b.HasIndex("CourseId");
 
                     b.ToTable("Comments");
                 });
@@ -169,6 +178,8 @@ namespace EdPlatform.Data.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("CourseUserId");
+
+                    b.HasIndex("CourseId");
 
                     b.ToTable("CourseUsers");
                 });
@@ -369,6 +380,17 @@ namespace EdPlatform.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("EdPlatform.Data.Entities.Comment", b =>
+                {
+                    b.HasOne("EdPlatform.Data.Entities.Course", "Course")
+                        .WithMany("Comments")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+                });
+
             modelBuilder.Entity("EdPlatform.Data.Entities.Course", b =>
                 {
                     b.HasOne("EdPlatform.Data.Entities.Category", "Category")
@@ -378,6 +400,17 @@ namespace EdPlatform.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("EdPlatform.Data.Entities.CourseUser", b =>
+                {
+                    b.HasOne("EdPlatform.Data.Entities.Course", "Course")
+                        .WithMany("CourseUsers")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("EdPlatform.Data.Entities.Exercise", b =>
@@ -424,6 +457,10 @@ namespace EdPlatform.Data.Migrations
 
             modelBuilder.Entity("EdPlatform.Data.Entities.Course", b =>
                 {
+                    b.Navigation("Comments");
+
+                    b.Navigation("CourseUsers");
+
                     b.Navigation("Modules");
                 });
 

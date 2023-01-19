@@ -7,21 +7,36 @@
     Layout = "_Layout";
 }
 
-<form method="post">
-    <div>
-        <label asp-for="Input.Login"></label>
-        <input asp-for="Input.Login" type="text" value="@((ViewData["UserData"] as UserModel).Login)" />
-        <span asp-validation-for="Input.Login"></span>
+<form class="create-form" method="post">
+    <div class="form-title">
+        <h2>Інформація про ваш профіль</h2>
+        <div class="line"></div>
     </div>
-    <div>
-        <label asp-for="Input.Email"></label>
-        <input type="text" disabled value="@((ViewData["UserData"] as UserModel).Email)" />
-    </div>
-    <input asp-for="Input.UserId" type="hidden" value="@((ViewData["UserData"] as UserModel).UserId)" />
-    <input asp-for="Input.Email" type="hidden" value="@((ViewData["UserData"] as UserModel).Email)"/>
 
-    <button type="submit">Save changes</button>
+    <div class="form-body edit-form-body">
+        <div class="form-group">
+            <label asp-for="Input.Login"></label>
+            <input class="input" asp-for="Input.Login" type="text" value="@((ViewData["UserData"] as UserModel).Login)" />
+            <span asp-validation-for="Input.Login"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.Email"></label>
+            <input class="input" type="text" disabled value="@((ViewData["UserData"] as UserModel).Email)" />
+        </div>
+        <input class="input" asp-for="Input.UserId" type="hidden" value="@((ViewData["UserData"] as UserModel).UserId)" />
+        <input class="input" asp-for="Input.Email" type="hidden" value="@((ViewData["UserData"] as UserModel).Email)" />
+
+        <div class="form-footer">
+            <button type="submit">Зберегти зміни</button>
+        </div>
+    </div>
+
 </form>
 
-<a asp-controller="Courses" asp-action="JoinedCourses">Моє навчання</a>
-<a asp-controller="Courses" asp-action="MyCourses">Мої курси</a>
+<div class="table-of-contents">
+    <div class="create-module-cover">
+        <a asp-controller="Courses" asp-action="JoinedCourses">Моє навчання</a>
+        <a asp-controller="Courses" asp-action="MyCourses">Мої курси</a>
+        <a asp-controller="Comments" asp-action="All">Мої коментарі</a>
+    </div>
+</div>

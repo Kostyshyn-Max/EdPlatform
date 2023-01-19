@@ -4,7 +4,7 @@
 <form asp-action="Create" asp-controller="Categories" method="post">
     <div class="form-group">
         <label asp-for="CategoryName"></label>
-        <input asp-for="CategoryName" type="text" class="form-control" placeholder="Category name" />
+        <input class="input" asp-for="CategoryName" type="text" class="form-control" placeholder="Category name" />
         <span asp-validation-for="CategoryName" class="text-danger"></span>
     </div>
     <input type="submit" class="btn btn-primary" value="Create" />

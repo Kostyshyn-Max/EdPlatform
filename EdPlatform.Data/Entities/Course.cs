@@ -22,5 +22,8 @@ namespace EdPlatform.Data.Entities
         public int AuthorId { get; set; }
         public int UsersJoined { get; set; }
         public string ImageName { get; set; }
+
+        public List<Comment> Comments { get; set; }
+        public List<CourseUser> CourseUsers { get; set; }
     }
 }

@@ -12,5 +12,6 @@ namespace EdPlatform.Data.Entities
         public int CourseUserId { get; set; }
         public int UserId { get; set; }
         public int CourseId { get; set; }
+        public Course Course { get; set; }
     }
 }

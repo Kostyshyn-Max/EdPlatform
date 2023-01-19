@@ -401,6 +401,7 @@ header nav {
 
         .course {
             display: flex;
+            justify-content: space-between;
             background: rgba(255, 255, 255, 0.06);
             box-shadow: 11px 8px 20px 1px rgb(255 255 255 / 14%);
             color: white;
@@ -458,32 +459,59 @@ header nav {
                     font-weight: 500;
                 }
             }
+        }
+    }
 
-            .comments-cover {
-                background: rgba(255, 255, 255, 0.06);
-                box-shadow: 11px 8px 20px 1px rgb(255 255 255 / 14%);
-                width: 35%;
-                height: 75%;
+    .comments-cover {
+        background: rgba(255, 255, 255, 0.06);
+        box-shadow: 11px 8px 20px 1px rgb(255 255 255 / 14%);
+        width: 35%;
+        height: 75%;
 
-                .comment-info {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    margin: 8px 0;
+        .comment-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 8px 0;
 
-                    a {
-                        background: linear-gradient(90deg, #6e23da 0%, rgba(218, 206, 234, 0) 113.21%);
-                        color: white;
-                        padding: 4px 16px;
-                    }
+            a {
+                background: linear-gradient(90deg, #6e23da 0%, rgba(218, 206, 234, 0) 113.21%);
+                color: white;
+                padding: 4px 16px;
+            }
 
-                    h2 {
-                        color: white;
-                        font-size: 20px;
-                        font-weight: 500;
-                        margin: 0 16px;
-                    }
+            h2 {
+                color: white;
+                font-size: 20px;
+                font-weight: 500;
+                margin: 0 16px;
+            }
+        }
+
+        .comment {
+            margin: 8px auto;
+            width: 90%;
+
+            .rate-stars {
+                background: #332952;
+                border-radius: 5px 5px 0px 0px;
+                padding: 2px 4px;
+                display: flex;
+                justify-content: space-between;
+
+
+                h2 {
+                    color: #758899;
+                    font-size: 16px;
+                    margin: 0;
                 }
+            }
+
+            .comment-text {
+                background: #4C426A;
+                font-size: 14px;
+                color: white;
+                padding: 4px 8px;
             }
         }
     }
@@ -611,7 +639,7 @@ header nav {
                     width: 40%;
                 }
 
-                input {
+                .input {
                     display: none;
                 }
             }
@@ -635,7 +663,7 @@ header nav {
                     padding: 8px 0;
                 }
 
-                input {
+                .input {
                     outline: none;
                     border: none;
                     border-left: 5px solid #c65098;
@@ -669,7 +697,7 @@ header nav {
                     font-size: 14px;
                     padding: 8px 16px;
                     height: 60px;
-                    border-left: 5px solid #c65098 !important;
+                    border-left: 5px solid #c65098;
 
                     &::placeholder {
                         color: #758899;

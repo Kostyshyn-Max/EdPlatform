@@ -317,6 +317,7 @@ header nav .login-button a {
 }
 .content .title .course {
   display: flex;
+  justify-content: space-between;
   background: rgba(255, 255, 255, 0.06);
   box-shadow: 11px 8px 20px 1px rgba(255, 255, 255, 0.14);
   color: white;
@@ -365,28 +366,50 @@ header nav .login-button a {
   color: white;
   font-weight: 500;
 }
-.content .title .description-cover .comments-cover {
+.content .comments-cover {
   background: rgba(255, 255, 255, 0.06);
   box-shadow: 11px 8px 20px 1px rgba(255, 255, 255, 0.14);
   width: 35%;
   height: 75%;
 }
-.content .title .description-cover .comments-cover .comment-info {
+.content .comments-cover .comment-info {
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 8px 0;
 }
-.content .title .description-cover .comments-cover .comment-info a {
+.content .comments-cover .comment-info a {
   background: linear-gradient(90deg, #6e23da 0%, rgba(218, 206, 234, 0) 113.21%);
   color: white;
   padding: 4px 16px;
 }
-.content .title .description-cover .comments-cover .comment-info h2 {
+.content .comments-cover .comment-info h2 {
   color: white;
   font-size: 20px;
   font-weight: 500;
   margin: 0 16px;
+}
+.content .comments-cover .comment {
+  margin: 8px auto;
+  width: 90%;
+}
+.content .comments-cover .comment .rate-stars {
+  background: #332952;
+  border-radius: 5px 5px 0px 0px;
+  padding: 2px 4px;
+  display: flex;
+  justify-content: space-between;
+}
+.content .comments-cover .comment .rate-stars h2 {
+  color: #758899;
+  font-size: 16px;
+  margin: 0;
+}
+.content .comments-cover .comment .comment-text {
+  background: #4C426A;
+  font-size: 14px;
+  color: white;
+  padding: 4px 8px;
 }
 .content .table-of-contents {
   margin-bottom: 5%;
@@ -493,7 +516,7 @@ header nav .login-button a {
   line-height: 15px !important;
   width: 40%;
 }
-.content .create-form .form-body .file input {
+.content .create-form .form-body .file .input {
   display: none;
 }
 .content .create-form .form-body .checkbox label {
@@ -511,14 +534,14 @@ header nav .login-button a {
   color: white;
   padding: 8px 0;
 }
-.content .create-form .form-body .form-group input {
+.content .create-form .form-body .form-group .input {
   outline: none;
   border: none;
   border-left: 5px solid #c65098;
   padding: 8px 16px;
   width: 40%;
 }
-.content .create-form .form-body .form-group input::placeholder {
+.content .create-form .form-body .form-group .input::placeholder {
   color: rgba(1, 6, 11, 0.34);
 }
 .content .create-form .form-body .form-group select {
@@ -541,7 +564,7 @@ header nav .login-button a {
   font-size: 14px;
   padding: 8px 16px;
   height: 60px;
-  border-left: 5px solid #c65098 !important;
+  border-left: 5px solid #c65098;
 }
 .content .create-form .form-body .form-group textarea::placeholder {
   color: #758899;

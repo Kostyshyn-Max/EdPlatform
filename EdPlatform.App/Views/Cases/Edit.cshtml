@@ -4,18 +4,18 @@
 <form method="post" asp-controller="Cases" asp-action="Edit">
     <div>
         <label asp-for="CaseName"></label>
-        <input asp-for="CaseName" type="text" value="@Model.CaseName"/>
+        <input class="input" asp-for="CaseName" type="text" value="@Model.CaseName" />
         <span asp-validation-for="CaseName"></span>
     </div>
 
     <div>
         <label asp-for="IsCorrect"></label>
-        <input asp-for="IsCorrect" type="checkbox" value="IsCorrect"/>
+        <input class ="input" asp-for="IsCorrect" type="checkbox" value="IsCorrect" />
         <span asp-validation-for="IsCorrect"></span>
     </div>
 
-    <input asp-for="CaseId"  value="@Model.CaseId" type="hidden">
-    <input asp-for="QuizExerciseId"  value="@Model.QuizExerciseId" type="hidden">
+    <input class="input" asp-for="CaseId" value="@Model.CaseId" type="hidden">
+    <input class="input" asp-for="QuizExerciseId" value="@Model.QuizExerciseId" type="hidden">
 
     <button type="submit">Save changes</button>
 </form>

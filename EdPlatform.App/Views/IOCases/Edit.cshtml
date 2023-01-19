@@ -4,16 +4,16 @@
 <form asp-controller="IOCases" asp-action="Edit" method="post">
     <div>
         <label asp-for="InputData"></label>
-        <input asp-for="InputData" type="text" placeholder="Input data" value="@Model.InputData" />
+        <input class="input" asp-for="InputData" type="text" placeholder="Input data" value="@Model.InputData" />
         <span asp-validation-for="InputData"></span>
     </div>
     <div>
         <label asp-for="OutputData"></label>
-        <input asp-for="OutputData" type="text" placeholder="Output data" value="@Model.OutputData"/>
+        <input class ="input" asp-for="OutputData" type="text" placeholder="Output data" value="@Model.OutputData" />
         <span asp-validation-for="OutputData"></span>
     </div>
-    <input asp-for="IOCaseId" type="hidden" value="@Model.IOCaseId"/>
-    <input asp-for="CodeExerciseExerciseId" type="hidden" value="@Model.CodeExerciseExerciseId" />
+    <input class="input" asp-for="IOCaseId" type="hidden" value="@Model.IOCaseId" />
+    <input class="input" asp-for="CodeExerciseExerciseId" type="hidden" value="@Model.CodeExerciseExerciseId" />
 
     <button type="submit">Save changes</button>
 </form>

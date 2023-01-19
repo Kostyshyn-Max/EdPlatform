@@ -10,16 +10,16 @@
     <div class="form-body edit-form-body">
         <div class="form-group">
             <label asp-for="ModuleName"></label>
-            <input asp-for="ModuleName" type="text" class="form-control" placeholder="Module name" />
+            <input class="input" asp-for="ModuleName" type="text" class="form-control" placeholder="Module name" />
             <span asp-validation-for="ModuleName" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="Order"></label>
-            <input style="width: 4%;" asp-for="Order" type="number" class="form-control" />
+            <input class="input" style="width: 4%;" asp-for="Order" type="number" class="form-control" />
             <span asp-validation-for="Order"></span>
         </div>
-        <input asp-for="ModuleId" type="hidden" value="@Model.ModuleId" />
-        <input asp-for="CourseId" type="hidden" value="@Model.CourseId" />
+        <input class="input" asp-for="ModuleId" type="hidden" value="@Model.ModuleId" />
+        <input class="input" asp-for="CourseId" type="hidden" value="@Model.CourseId" />
 
         <div class="form-footer">
             <button class="btn btn-primary" type="submit">Зберегти зміни</button>

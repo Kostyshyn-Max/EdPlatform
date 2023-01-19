@@ -10,7 +10,7 @@
     <div class="form-body">
         <div class="form-group">
             <label asp-for="ExerciseName"></label>
-            <input asp-for="ExerciseName" type="text" placeholder="Exercise name" />
+            <input class="input" asp-for="ExerciseName" type="text" placeholder="Exercise name" />
             <span asp-validation-for="ExerciseName"></span>
         </div>
         <div class="form-group">
@@ -20,15 +20,15 @@
         </div>
         <div class="form-group">
             <label asp-for="Answer"></label>
-            <input asp-for="Answer" type="text" placeholder="Enter the answer" />
+            <input class="input" asp-for="Answer" type="text" placeholder="Enter the answer" />
             <span asp-validation-for="Answer"></span>
         </div>
         <div class="form-group">
             <label asp-for="Order"></label>
-            <input style="width: 4%;" asp-for="Order" type="number" />
+            <input class="input" style="width: 4%;" asp-for="Order" type="number" />
             <span asp-validation-for="Order"></span>
         </div>
-        <input asp-for="LessonId" type="hidden" value="@ViewBag.LessonId" />
+        <input class="input" asp-for="LessonId" type="hidden" value="@ViewBag.LessonId" />
 
         <div class="form-footer">
             <button type="submit">Create</button>

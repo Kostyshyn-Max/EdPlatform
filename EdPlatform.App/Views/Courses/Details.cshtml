@@ -65,14 +65,32 @@
 
         <div class="comments-cover">
             <div class="comment-info">
-                <a>0</a>
+                <a>@ViewBag.Comments.Count</a>
+
                 <h2>коментарів</h2>
             </div>
-            <div class="comment"></div>
+
+            @foreach (var comment in ViewBag.Comments)
+            {
+                <div class="comment">
+                    <div class="rate-stars">
+                        <h2>
+                            @comment.UserName
+                        </h2>
+                        <div>
+                            @for (int i = 0; i < comment.RateStarsCount; i++)
+                            {
+                                <img src="~/img/star.svg" />
+                            }
+                        </div>
+                    </div>
+                    <div class="comment-text">
+                        @comment.CommentText
+                    </div>
+                </div>
+            }
         </div>
     </div>
-
-    
 </div>
 
 <div class="table-of-contents">

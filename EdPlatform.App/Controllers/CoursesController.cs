@@ -24,6 +24,7 @@ namespace EdPlatform.App.Controllers
         private readonly IImageService _imageService;
         private readonly ICustomAuthorizationViewService _customAuthorizationViewService;
         private readonly ICompletedLessonsViewService _completedLessonsViewService;
+        private readonly ICommentService _commentService;
 
         public CoursesController(
             ILogger<CoursesController> logger, 
@@ -32,7 +33,8 @@ namespace EdPlatform.App.Controllers
             IModuleService moduleService,
             ICourseUserService courseUserService,
             ICustomAuthorizationViewService customAuthorizationViewService,
-            ICompletedLessonsViewService completedLessonsViewService)
+            ICompletedLessonsViewService completedLessonsViewService,
+            ICommentService commentService)
         {
             _logger = logger;
             _courseService = courseService;
@@ -41,6 +43,7 @@ namespace EdPlatform.App.Controllers
             _courseUserService = courseUserService;
             _customAuthorizationViewService = customAuthorizationViewService;
             _completedLessonsViewService = completedLessonsViewService;
+            _commentService = commentService;
         }
 
         public async Task<IActionResult> Index()
@@ -58,6 +61,7 @@ namespace EdPlatform.App.Controllers
         public async Task<IActionResult> Details([FromRoute] int courseId)
         {
             int userId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
+            var comments = await _commentService.GetAllByCourseId(courseId);
 
             var courseUser = await _courseUserService.Get(new() { UserId = userId, CourseId = courseId});
             var course = await _courseService.GetById(courseId);
@@ -66,6 +70,7 @@ namespace EdPlatform.App.Controllers
             ViewBag.UserId = userId;
             ViewBag.CourseUser = courseUser; 
             ViewBag.CompletedLessons = await _completedLessonsViewService.CreateListOfCompletedLessons(course.Modules.SelectMany(x => x.Lessons).ToList(), int.Parse(User.FindFirst("UserId").Value));
+            ViewBag.Comments = comments;
 
             return View(new CourseUserModel());
         }
@@ -76,11 +81,14 @@ namespace EdPlatform.App.Controllers
             if ((await _courseUserService.Get(courseUser)) == null)
                 await _courseUserService.CreateCourseUser(courseUser);
 
+            var comments = await _commentService.GetAllByCourseId(courseId);
+
             var course = await _courseService.GetById(courseId);
             ViewBag.Course = course;
             ViewBag.UserId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
             ViewBag.CourseUser = courseUser;
             ViewBag.CompletedLessons = await _completedLessonsViewService.CreateListOfCompletedLessons(course.Modules.SelectMany(x => x.Lessons).OrderBy(x => x.Order).ToList(), int.Parse(User.FindFirst("UserId").Value));
+            ViewBag.Comments = comments;
 
             return View(courseUser);
         }
