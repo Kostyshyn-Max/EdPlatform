@@ -80,5 +80,11 @@ namespace EdPlatform.Business.Services
             var mapper = config.CreateMapper();
             return mapper;
         }
+
+        public async Task Delete(int id)
+        {
+            _unitOfWork.ModuleRepository.Remove(id);
+            await _unitOfWork.Save();
+        }
     }
 }

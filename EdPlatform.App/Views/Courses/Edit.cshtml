@@ -58,8 +58,13 @@
             <div class="module" style="margin: 16px auto;">
                 <div class="module-title">
                     <h2>@module.ModuleName</h2>
-                    <a class="edit-link" asp-controller="Modules" asp-action="Edit" asp-route-courseId="@Model.CourseId"
-                asp-route-moduleId="@module.ModuleId">Відредагувати</a>
+                    <div>
+                        <a class="edit-link" asp-controller="Modules" asp-action="Edit" asp-route-courseId="@Model.CourseId"
+                    asp-route-moduleId="@module.ModuleId">Відредагувати</a>
+
+                        <a class="delete-link" asp-controller="Modules" asp-action="Delete" asp-route-courseId="@Model.CourseId"
+                   asp-route-moduleId="@module.ModuleId">Видалити</a>
+                    </div>
                 </div>
             </div>
         }
@@ -72,3 +77,9 @@
         height: "480"
     });
 </script>
+
+<style>
+    .pinned{
+        position: inherit;
+    }
+</style>

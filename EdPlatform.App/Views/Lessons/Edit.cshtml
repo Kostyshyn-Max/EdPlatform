@@ -56,11 +56,19 @@
             <div class="module" style="margin: 16px auto;">
                 <div class="module-title">
                     <h2>@Model.Exercises.ElementAt(i).ExerciseName</h2>
+                    <div>
                         <a class="edit-link" asp-controller="Exercises" asp-action="@ViewBag.RedirectExercises[i].Action"
-                    asp-route-courseId="@ViewBag.RedirectExercises[i].CourseId"
-                    asp-route-moduleId="@ViewBag.RedirectExercises[i].ModuleId"
-                    asp-route-lessonId="@ViewBag.RedirectExercises[i].LessonId"
-                    asp-route-exerciseId="@ViewBag.RedirectExercises[i].ExerciseId">Відредагуйте</a>
+                            asp-route-courseId="@ViewBag.RedirectExercises[i].CourseId"
+                            asp-route-moduleId="@ViewBag.RedirectExercises[i].ModuleId"
+                            asp-route-lessonId="@ViewBag.RedirectExercises[i].LessonId"
+                            asp-route-exerciseId="@ViewBag.RedirectExercises[i].ExerciseId">Відредагуйте</a>
+
+                        <a class="delete-link" asp-controller="Exercises" asp-action="Delete"
+                            asp-route-courseId="@ViewBag.RedirectExercises[i].CourseId"
+                            asp-route-moduleId="@ViewBag.RedirectExercises[i].ModuleId"
+                            asp-route-lessonId="@ViewBag.RedirectExercises[i].LessonId"
+                            asp-route-exerciseId="@ViewBag.RedirectExercises[i].ExerciseId">Видалити</a>
+                    </div>
                 </div>
             </div>
         }

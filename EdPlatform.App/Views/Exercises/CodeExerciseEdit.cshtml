@@ -44,12 +44,23 @@
                 <tr>
                     <td>@iOCase.InputData | @iOCase.OutputData</td>
                     <td>
-                        <a asp-controller="IOCases" asp-action="Edit"
-                            asp-route-courseId="@Model.Lesson.Module.CourseId"
-                            asp-route-moduleId="@Model.Lesson.ModuleId"
-                            asp-route-lessonId="@Model.LessonId"
-                            asp-route-codeExerciseId="@Model.ExerciseId"
-                            asp-route-iOCaseId="@iOCase.IOCaseId">Edit</a>
+                        <div>
+                            <a asp-controller="IOCases" asp-action="Edit"
+                                asp-route-courseId="@Model.Lesson.Module.CourseId"
+                                asp-route-moduleId="@Model.Lesson.ModuleId"
+                                asp-route-lessonId="@Model.LessonId"
+                                asp-route-codeExerciseId="@Model.ExerciseId"
+                                asp-route-iOCaseId="@iOCase.IOCaseId">Edit</a>
+
+                            <a class="delete-link" asp-controller="IOCases" asp-action="Delete"
+                                asp-route-courseId="@Model.Lesson.Module.CourseId"
+                                asp-route-moduleId="@Model.Lesson.ModuleId"
+                                asp-route-lessonId="@Model.LessonId"
+                                asp-route-exerciseId="@Model.ExerciseId"
+                                asp-route-iOCaseId="@iOCase.IOCaseId">
+                                Delete
+                            </a>
+                        </div>
                     </td>
                 </tr>
             }

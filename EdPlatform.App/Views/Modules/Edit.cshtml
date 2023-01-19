@@ -40,8 +40,13 @@
             <div class="module" style="margin: 16px auto;">
                 <div class="module-title">
                     <h2>@lesson.LessonName</h2>
-                    <a class="edit-link" asp-route-courseId="@Model.CourseId" asp-route-moduleId="@Model.ModuleId"
-                asp-route-lessonId="@lesson.LessonId" asp-controller="Lessons" asp-action="Edit">Відредагувати</a>
+                    <div>
+                        <a class="edit-link" asp-route-courseId="@Model.CourseId" asp-route-moduleId="@Model.ModuleId"
+                   asp-route-lessonId="@lesson.LessonId" asp-controller="Lessons" asp-action="Edit">Відредагувати</a>
+
+                        <a class="delete-link" asp-route-courseId="@Model.CourseId" asp-route-moduleId="@Model.ModuleId"
+                   asp-route-lessonId="@lesson.LessonId" asp-controller="Lessons" asp-action="Delete">Видалити</a>
+                    </div>
                 </div>
             </div>
         }

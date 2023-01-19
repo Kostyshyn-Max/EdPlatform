@@ -58,5 +58,26 @@ namespace EdPlatform.App.Controllers
 
             return View(updatedCase);
         }
+
+        [HttpGet("Courses/{courseId}/Module/{moduleId}/Lessons{lessonId}/Exercises/Quiz/{exerciseId}/Cases/{caseId}/Edit")]
+        public async Task<IActionResult> Delete(int courseId, int moduleId, int lessonId, int exerciseId, int caseId)
+        {
+            if (await _customAuthorizationViewService.Authorize(User, courseId))
+            {
+                await _caseService.Delete(caseId);
+
+                return RedirectToAction(nameof(ExercisesController.QuizEdit), nameof(ExercisesController).Replace("Controller", ""),
+                    new
+                    {
+                        courseId = courseId,
+                        moduleId = moduleId,
+                        lessonId = lessonId,
+                        exerciseId = exerciseId,
+                    }
+                );
+            }
+
+            return RedirectToAction(nameof(HomeController.AccessDenied), nameof(HomeController).Replace("Controller", ""));
+        }
     }
 }

@@ -19,6 +19,12 @@ namespace EdPlatform.Business.Services
             _unitOfWork = unitOfWork;
         }
 
+        public async Task Delete(int id)
+        {
+            _unitOfWork.ExerciseRepository.Remove(id);
+            await _unitOfWork.Save();
+        }
+
         public async Task<ExerciseModel> Get(int id)
         {
             var config = new MapperConfiguration(cfg =>

@@ -38,7 +38,7 @@
            asp-route-courseId="@Model.Lesson.Module.CourseId"
            asp-route-moduleId="@Model.Lesson.ModuleId"
            asp-route-lessonId="@Model.LessonId"
-           asp-route-codeExerciseId="@Model.ExerciseId">Create Case</a>
+           asp-route-exerciseId="@Model.ExerciseId">Create Case</a>
     </div>
 </div>
 
@@ -54,11 +54,21 @@
         {
             <tr>
                 <td>@quizCase.CaseName</td>
-                <td><a asp-controller="Cases" asp-route-courseId="@Model.Lesson.Module.CourseId"
-                    asp-route-moduleId="@Model.Lesson.ModuleId" asp-route-lessonId="@Model.LessonId"
-                    asp-route-exerciseId="@Model.ExerciseId" asp-route-caseId="@quizCase.CaseId"
-                    asp-action="Edit">Edit</a></td>
+                <td>
+                    <div>
+                        <a asp-controller="Cases" asp-route-courseId="@Model.Lesson.Module.CourseId"
+                       asp-route-moduleId="@Model.Lesson.ModuleId" asp-route-lessonId="@Model.LessonId"
+                       asp-route-exerciseId="@Model.ExerciseId" asp-route-caseId="@quizCase.CaseId"
+                       asp-action="Edit">Edit</a>
 
+                        <a class="delete-link" asp-controller="Cases" asp-route-courseId="@Model.Lesson.Module.CourseId"
+                       asp-route-moduleId="@Model.Lesson.ModuleId" asp-route-lessonId="@Model.LessonId"
+                       asp-route-exerciseId="@Model.ExerciseId" asp-route-caseId="@quizCase.CaseId"
+                       asp-action="Delete">
+                           Delete
+                       </a>
+                    </div>
+                </td>
             </tr>
         }
     </tbody>

@@ -56,5 +56,11 @@ namespace EdPlatform.Business.Services
             var mapper = config.CreateMapper();
             return mapper;
         }
+
+        public async Task Delete(int id)
+        {
+            _unitOfWork.LessonRepository.Remove(id);
+            await _unitOfWork.Save();
+        }
     }
 }

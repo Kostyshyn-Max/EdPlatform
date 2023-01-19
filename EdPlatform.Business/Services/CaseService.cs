@@ -45,6 +45,13 @@ namespace EdPlatform.Business.Services
 
             return mapper.Map<Case, CaseModel>(await _unitOfWork.CaseRepository.Get(id));
         }
+
+        public async Task Delete(int id)
+        {
+            _unitOfWork.CaseRepository.Remove(id);
+            await _unitOfWork.Save();
+        }
+
         private static IMapper CreateCaseModelToCaseMapper()
         {
             var config = new MapperConfiguration(cfg =>

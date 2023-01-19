@@ -264,6 +264,7 @@ header nav {
                 background: white;
                 display: flex;
                 border-left: 11px solid #c65098;
+                justify-content: space-between;
                 align-items: center;
                 margin: 32px 0;
                 box-shadow: 11px 8px 13px 1px rgb(255 255 255 / 25%);
@@ -508,14 +509,6 @@ header nav {
                     font-size: 24px;
                     padding: 8px 16px;
                 }
-
-                .edit-link {
-                    font-weight: 500;
-                    font-size: 24px;
-                    text-decoration: none;
-                    color: #6e23da;
-                    margin: 0 16px;
-                }
             }
 
             .lessons-list {
@@ -539,6 +532,22 @@ header nav {
                 }
             }
         }
+    }
+
+    .edit-link {
+        font-weight: 500;
+        font-size: 24px;
+        text-decoration: none;
+        color: #6e23da;
+        margin: 0 16px;
+    }
+
+    .delete-link {
+        font-weight: 500;
+        font-size: 24px;
+        text-decoration: none;
+        color: #ef0c2c;
+        margin: 0 16px;
     }
 
     .create-form {
@@ -754,11 +763,11 @@ header nav {
             color: white;
         }
 
-        .code{
-            .info{
+        .code {
+            .info {
                 margin: 16px 0;
 
-                h2{
+                h2 {
                     font-size: 16px;
                     margin: 0;
                     color: white;

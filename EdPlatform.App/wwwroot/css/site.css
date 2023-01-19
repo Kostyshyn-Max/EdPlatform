@@ -207,6 +207,7 @@ header nav .login-button a {
   background: white;
   display: flex;
   border-left: 11px solid #c65098;
+  justify-content: space-between;
   align-items: center;
   margin: 32px 0;
   box-shadow: 11px 8px 13px 1px rgba(255, 255, 255, 0.25);
@@ -406,13 +407,6 @@ header nav .login-button a {
   font-size: 24px;
   padding: 8px 16px;
 }
-.content .table-of-contents .module .module-title .edit-link {
-  font-weight: 500;
-  font-size: 24px;
-  text-decoration: none;
-  color: #6e23da;
-  margin: 0 16px;
-}
 .content .table-of-contents .module .lessons-list {
   background: rgba(255, 255, 255, 0.04);
 }
@@ -428,6 +422,20 @@ header nav .login-button a {
   text-decoration: none;
   font-size: 20px;
   color: white;
+  margin: 0 16px;
+}
+.content .edit-link {
+  font-weight: 500;
+  font-size: 24px;
+  text-decoration: none;
+  color: #6e23da;
+  margin: 0 16px;
+}
+.content .delete-link {
+  font-weight: 500;
+  font-size: 24px;
+  text-decoration: none;
+  color: #ef0c2c;
   margin: 0 16px;
 }
 .content .create-form {

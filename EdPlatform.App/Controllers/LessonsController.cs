@@ -15,7 +15,7 @@ namespace EdPlatform.App.Controllers
         private readonly IAttemptService _attemptService;
         private readonly ICodeExerciseService _codeExerciseService;
         private readonly IExerciseService _exerciseService;
-        private readonly ICustomAuthorizationViewService _customAuthorizattionViewService;
+        private readonly ICustomAuthorizationViewService _customAuthorizationViewService;
         private readonly ICompletedLessonsViewService _completedLessonsViewService;
         private readonly ILogger<LessonsController> _logger;
         public LessonsController(
@@ -33,7 +33,7 @@ namespace EdPlatform.App.Controllers
             _attemptService = attemptService;
             _codeExerciseService = codeExerciseService;
             _exerciseService = exerciseService;
-            _customAuthorizattionViewService = customAuthorizattionViewService;
+            _customAuthorizationViewService = customAuthorizattionViewService;
             _logger = ilogger;
             _completedLessonsViewService = completedLessonsViewService;
         }
@@ -41,7 +41,7 @@ namespace EdPlatform.App.Controllers
         [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/Create")]
         public async Task<IActionResult> Create(int courseId, int moduleId)
         {
-            if (await _customAuthorizattionViewService.Authorize(User, courseId))
+            if (await _customAuthorizationViewService.Authorize(User, courseId))
             {
                 ViewBag.ModuleId = moduleId;
 
@@ -64,7 +64,7 @@ namespace EdPlatform.App.Controllers
         {
             var lesson = await _lessonService.Get(lessonId);
 
-            if (await _customAuthorizattionViewService.Authorize(User, lesson.Module.Course))
+            if (await _customAuthorizationViewService.Authorize(User, lesson.Module.Course))
             {
                 GetRedirectExercises(courseId, moduleId, lessonId, lesson);
 
@@ -137,6 +137,25 @@ namespace EdPlatform.App.Controllers
             }
 
             ViewBag.RedirectExercises = redirectExercises;
+        }
+
+        [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Delete")]
+        public async Task<IActionResult> Delete(int courseId, int moduleId, int lessonId)
+        {
+            if (await _customAuthorizationViewService.Authorize(User, courseId))
+            {
+                await _lessonService.Delete(lessonId);
+
+                return RedirectToAction(nameof(ModulesController.Edit), nameof(ModulesController).Replace("Controller", ""),
+                    new
+                    {
+                        courseId = courseId,
+                        moduleId = moduleId,
+                    }
+                );
+            }
+
+            return RedirectToAction(nameof(HomeController.AccessDenied), nameof(HomeController).Replace("Controller", ""));
         }
     }
 }

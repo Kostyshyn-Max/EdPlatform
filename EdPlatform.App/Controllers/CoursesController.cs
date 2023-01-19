@@ -3,6 +3,7 @@ using EdPlatform.App.Models;
 using EdPlatform.App.Services;
 using EdPlatform.Business.Models;
 using EdPlatform.Business.Services;
+using EdPlatform.Data.Entities;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -138,7 +139,7 @@ namespace EdPlatform.App.Controllers
         }
 
         [HttpGet("Courses/{courseId}/Edit")]
-        public async Task<IActionResult> Edit([FromRoute]int courseId)
+        public async Task<IActionResult> Edit(int courseId)
         {
             var course = await _courseService.GetById(courseId);
 
@@ -239,6 +240,19 @@ namespace EdPlatform.App.Controllers
             ViewBag.Courses = courses;  
 
             return View();
+        }
+
+        [HttpGet("Courses/{courseId}/Delete")]
+        public async Task<IActionResult> Delete(int courseId)
+        {
+            if (await _customAuthorizationViewService.Authorize(User, courseId))
+            {
+                await _courseService.Delete(courseId);
+
+                return RedirectToAction(nameof(MyCourses));
+            }
+
+            return RedirectToAction(nameof(HomeController.AccessDenied), nameof(HomeController).Replace("Controller", ""));
         }
     }
 }

@@ -10,5 +10,6 @@ namespace EdPlatform.Business.Services
     public interface IExerciseService
     {
         Task<ExerciseModel> Get(int id);
+        Task Delete(int id);
     }
 }

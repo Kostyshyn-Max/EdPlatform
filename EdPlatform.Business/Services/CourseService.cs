@@ -151,5 +151,11 @@ namespace EdPlatform.Business.Services
             });
             return config.CreateMapper();
         }
+
+        public async Task Delete(int id)
+        {
+            _unitOfWork.CourseRepository.Remove(id);
+            await _unitOfWork.Save();
+        }
     }
 }
