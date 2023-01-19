@@ -259,15 +259,18 @@ header nav {
             }
         }
 
-        .carousel-popular {
-            .course-plate {
-                background: white;
+        .course-plate {
+            background: white;
+            display: flex;
+            border-left: 11px solid #c65098;
+            justify-content: space-between;
+            align-items: center;
+            margin: 32px 0;
+            box-shadow: 11px 8px 13px 1px rgb(255 255 255 / 25%);
+
+            .course-plate-title {
                 display: flex;
-                border-left: 11px solid #c65098;
-                justify-content: space-between;
                 align-items: center;
-                margin: 32px 0;
-                box-shadow: 11px 8px 13px 1px rgb(255 255 255 / 25%);
 
                 .image-cover {
                     width: fit-content;
@@ -422,6 +425,16 @@ header nav {
 
                 .status {
                     color: #96a3af;
+                }
+
+                .join-button {
+                    background: linear-gradient(90deg, rgba(183, 102, 152, 0.8) 44.39%, rgba(110, 35, 218, 0) 100%);
+                    outline: none;
+                    border: none;
+                    font-size: 24px;
+                    color: white;
+                    padding: 6px 32px;
+                    font-weight: 500;
                 }
             }
         }
@@ -649,6 +662,19 @@ header nav {
                     border-left: 5px solid #c65098;
                     height: 300px !important;
                 }
+
+                textarea {
+                    outline: none;
+                    border: none;
+                    font-size: 14px;
+                    padding: 8px 16px;
+                    height: 60px;
+                    border-left: 5px solid #c65098 !important;
+
+                    &::placeholder {
+                        color: #758899;
+                    }
+                }
             }
         }
 
@@ -677,6 +703,10 @@ header nav {
 
             .tox {
                 border-left: 5px solid #6e23da !important;
+            }
+
+            textarea {
+                border-left: 5px solid rgb(110, 35, 218) !important;
             }
         }
 
@@ -857,8 +887,4 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
-}
-
-div.code {
-    white-space: pre;
 }

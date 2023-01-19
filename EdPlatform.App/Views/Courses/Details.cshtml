@@ -32,8 +32,7 @@
         <div class="sector">
             <h2>@ViewBag.Course.CourseName</h2>
             <div class="short-description">
-                Курс вчить основам популярної на сьогодні мови Python. Він чудово підійде тим хто вже розпочинав вчити
-                мову Python, та тим хто вже має базові знання з цієї мови
+                @ViewBag.Course.ShortDescription
             </div>
 
             @if (ViewBag.CourseUser == null)

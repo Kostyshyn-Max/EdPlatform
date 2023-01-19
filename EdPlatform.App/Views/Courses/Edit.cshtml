@@ -1,11 +1,6 @@
 ﻿@using EdPlatform.Business.Models
 @model CourseViewModel
 
-@* <div class="text-center">
-    <h1 class="display-4">@Model.CourseName</h1>
-    <p>In this page you can edit your course, don't forget to save changes</p>
-    </div> *@
-
 <form class="create-form" asp-controller="Courses" asp-action="Edit" method="post" enctype="multipart/form-data">
     <div class="form-title">
         <h2>Відредагуйте курс</h2>
@@ -21,6 +16,11 @@
         <div class="form-group">
             <label asp-for="CategoryId"></label>
             <select asp-for="CategoryId" class="form-control" asp-items="@ViewBag.SelectCategories"></select>
+        </div>
+        <div class="form-group">
+            <label asp-for="ShortDescription"></label>
+            <textarea asp-for="ShortDescription">@Model.ShortDescription</textarea>
+            <span asp-validation-for="ShortDescription" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="Description"></label>

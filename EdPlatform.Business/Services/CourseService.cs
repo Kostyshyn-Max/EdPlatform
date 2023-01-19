@@ -40,7 +40,8 @@ namespace EdPlatform.Business.Services
                 Description = course.Description,
                 Category = category,
                 CategoryId = course.CategoryId,
-                ImageName = fileName
+                ImageName = fileName,
+                ShortDescription = course.ShortDescription
             }
             );
             await _unitOfWork.Save();

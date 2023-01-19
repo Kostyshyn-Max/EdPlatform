@@ -203,7 +203,7 @@ header nav .login-button a {
   border: 2px solid rgba(56, 121, 182, 0.28);
   margin: 0;
 }
-.content .course-carousel .carousel-popular .course-plate {
+.content .course-carousel .course-plate {
   background: white;
   display: flex;
   border-left: 11px solid #c65098;
@@ -212,20 +212,24 @@ header nav .login-button a {
   margin: 32px 0;
   box-shadow: 11px 8px 13px 1px rgba(255, 255, 255, 0.25);
 }
-.content .course-carousel .carousel-popular .course-plate .image-cover {
+.content .course-carousel .course-plate .course-plate-title {
+  display: flex;
+  align-items: center;
+}
+.content .course-carousel .course-plate .course-plate-title .image-cover {
   width: fit-content;
 }
-.content .course-carousel .carousel-popular .course-plate .image-cover img {
+.content .course-carousel .course-plate .course-plate-title .image-cover img {
   width: 200px;
   padding: 16px;
 }
-.content .course-carousel .carousel-popular .course-plate h2 {
+.content .course-carousel .course-plate .course-plate-title h2 {
   width: auto;
   font-size: 24px;
   color: black;
   font-weight: 500;
 }
-.content .course-carousel .carousel-popular .course-plate h2 a {
+.content .course-carousel .course-plate .course-plate-title h2 a {
   text-decoration: none;
   color: black;
 }
@@ -334,6 +338,15 @@ header nav .login-button a {
 }
 .content .title .course .sector .status {
   color: #96a3af;
+}
+.content .title .course .sector .join-button {
+  background: linear-gradient(90deg, rgba(183, 102, 152, 0.8) 44.39%, rgba(110, 35, 218, 0) 100%);
+  outline: none;
+  border: none;
+  font-size: 24px;
+  color: white;
+  padding: 6px 32px;
+  font-weight: 500;
 }
 .content .title .description-cover {
   display: flex;
@@ -522,6 +535,17 @@ header nav .login-button a {
   border-left: 5px solid #c65098;
   height: 300px !important;
 }
+.content .create-form .form-body .form-group textarea {
+  outline: none;
+  border: none;
+  font-size: 14px;
+  padding: 8px 16px;
+  height: 60px;
+  border-left: 5px solid #c65098 !important;
+}
+.content .create-form .form-body .form-group textarea::placeholder {
+  color: #758899;
+}
 .content .create-form .edit-form-body .file label {
   border-left: 5px solid #6e23da !important;
 }
@@ -536,6 +560,9 @@ header nav .login-button a {
 }
 .content .create-form .edit-form-body .tox {
   border-left: 5px solid #6e23da !important;
+}
+.content .create-form .edit-form-body textarea {
+  border-left: 5px solid rgb(110, 35, 218) !important;
 }
 .content .create-form .form-footer {
   display: flex;
@@ -682,8 +709,4 @@ footer .trademark h2 {
   position: fixed;
   bottom: 0;
   width: 100%;
-}
-
-div.code {
-  white-space: pre;
 }

@@ -12,9 +12,7 @@ namespace EdPlatform.Data.Entities
 #pragma warning disable CS8618
         public int CommentId { get; set; }
         public int UserId { get; set; }
-        public int LessonId { get; set; }
-        [Required]
+        public int CourseId { get; set; }
         public string CommentText { get; set; }
-        public DateTime PublishedDate { get; set; }
     }
 }

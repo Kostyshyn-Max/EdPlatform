@@ -126,7 +126,8 @@ namespace EdPlatform.App.Controllers
                 Image = await GetBytes(course.Image),
                 ImageName = course.ImageName,
                 Modules = course.Modules,
-                UsersJoined = course.UsersJoined
+                UsersJoined = course.UsersJoined,
+                ShortDescription = course.ShortDescription
             });
 
             return RedirectToAction(nameof(Index));
