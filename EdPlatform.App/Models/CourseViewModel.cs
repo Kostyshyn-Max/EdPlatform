@@ -11,6 +11,7 @@ namespace EdPlatform.Business.Models
     {
         public int CourseId { get; set; } 
         public string CourseName { get; set; }
+        public string ShortDescription { get; set; }
         public string Description { get; set; }
         public int CategoryId { get; set; }
         //public CategoryModel? Category { get; set; }

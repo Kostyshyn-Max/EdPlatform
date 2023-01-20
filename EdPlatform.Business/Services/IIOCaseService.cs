@@ -14,5 +14,6 @@ namespace EdPlatform.Business.Services
         Task<IOCaseModel> GetById(int id);
         Task<IEnumerable<IOCaseModel>> GetFromExercise(int exerciseId);
         Task Edit (IOCaseModel iOCase);
+        Task Delete(int iOCaseId);
     }
 }

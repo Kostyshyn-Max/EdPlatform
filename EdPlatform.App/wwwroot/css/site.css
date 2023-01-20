@@ -203,28 +203,33 @@ header nav .login-button a {
   border: 2px solid rgba(56, 121, 182, 0.28);
   margin: 0;
 }
-.content .course-carousel .carousel-popular .course-plate {
+.content .course-carousel .course-plate {
   background: white;
   display: flex;
   border-left: 11px solid #c65098;
+  justify-content: space-between;
   align-items: center;
   margin: 32px 0;
   box-shadow: 11px 8px 13px 1px rgba(255, 255, 255, 0.25);
 }
-.content .course-carousel .carousel-popular .course-plate .image-cover {
+.content .course-carousel .course-plate .course-plate-title {
+  display: flex;
+  align-items: center;
+}
+.content .course-carousel .course-plate .course-plate-title .image-cover {
   width: fit-content;
 }
-.content .course-carousel .carousel-popular .course-plate .image-cover img {
+.content .course-carousel .course-plate .course-plate-title .image-cover img {
   width: 200px;
   padding: 16px;
 }
-.content .course-carousel .carousel-popular .course-plate h2 {
+.content .course-carousel .course-plate .course-plate-title h2 {
   width: auto;
   font-size: 24px;
   color: black;
   font-weight: 500;
 }
-.content .course-carousel .carousel-popular .course-plate h2 a {
+.content .course-carousel .course-plate .course-plate-title h2 a {
   text-decoration: none;
   color: black;
 }
@@ -312,6 +317,7 @@ header nav .login-button a {
 }
 .content .title .course {
   display: flex;
+  justify-content: space-between;
   background: rgba(255, 255, 255, 0.06);
   box-shadow: 11px 8px 20px 1px rgba(255, 255, 255, 0.14);
   color: white;
@@ -334,6 +340,15 @@ header nav .login-button a {
 .content .title .course .sector .status {
   color: #96a3af;
 }
+.content .title .course .sector .join-button {
+  background: linear-gradient(90deg, rgba(183, 102, 152, 0.8) 44.39%, rgba(110, 35, 218, 0) 100%);
+  outline: none;
+  border: none;
+  font-size: 24px;
+  color: white;
+  padding: 6px 32px;
+  font-weight: 500;
+}
 .content .title .description-cover {
   display: flex;
   margin: 32px 0;
@@ -351,28 +366,50 @@ header nav .login-button a {
   color: white;
   font-weight: 500;
 }
-.content .title .description-cover .comments-cover {
+.content .comments-cover {
   background: rgba(255, 255, 255, 0.06);
   box-shadow: 11px 8px 20px 1px rgba(255, 255, 255, 0.14);
   width: 35%;
   height: 75%;
 }
-.content .title .description-cover .comments-cover .comment-info {
+.content .comments-cover .comment-info {
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 8px 0;
 }
-.content .title .description-cover .comments-cover .comment-info a {
+.content .comments-cover .comment-info a {
   background: linear-gradient(90deg, #6e23da 0%, rgba(218, 206, 234, 0) 113.21%);
   color: white;
   padding: 4px 16px;
 }
-.content .title .description-cover .comments-cover .comment-info h2 {
+.content .comments-cover .comment-info h2 {
   color: white;
   font-size: 20px;
   font-weight: 500;
   margin: 0 16px;
+}
+.content .comments-cover .comment {
+  margin: 8px auto;
+  width: 90%;
+}
+.content .comments-cover .comment .rate-stars {
+  background: #332952;
+  border-radius: 5px 5px 0px 0px;
+  padding: 2px 4px;
+  display: flex;
+  justify-content: space-between;
+}
+.content .comments-cover .comment .rate-stars h2 {
+  color: #758899;
+  font-size: 16px;
+  margin: 0;
+}
+.content .comments-cover .comment .comment-text {
+  background: #4C426A;
+  font-size: 14px;
+  color: white;
+  padding: 4px 8px;
 }
 .content .table-of-contents {
   margin-bottom: 5%;
@@ -406,13 +443,6 @@ header nav .login-button a {
   font-size: 24px;
   padding: 8px 16px;
 }
-.content .table-of-contents .module .module-title .edit-link {
-  font-weight: 500;
-  font-size: 24px;
-  text-decoration: none;
-  color: #6e23da;
-  margin: 0 16px;
-}
 .content .table-of-contents .module .lessons-list {
   background: rgba(255, 255, 255, 0.04);
 }
@@ -428,6 +458,20 @@ header nav .login-button a {
   text-decoration: none;
   font-size: 20px;
   color: white;
+  margin: 0 16px;
+}
+.content .edit-link {
+  font-weight: 500;
+  font-size: 24px;
+  text-decoration: none;
+  color: #6e23da;
+  margin: 0 16px;
+}
+.content .delete-link {
+  font-weight: 500;
+  font-size: 24px;
+  text-decoration: none;
+  color: #ef0c2c;
   margin: 0 16px;
 }
 .content .create-form {
@@ -472,7 +516,7 @@ header nav .login-button a {
   line-height: 15px !important;
   width: 40%;
 }
-.content .create-form .form-body .file input {
+.content .create-form .form-body .file .input {
   display: none;
 }
 .content .create-form .form-body .checkbox label {
@@ -490,14 +534,14 @@ header nav .login-button a {
   color: white;
   padding: 8px 0;
 }
-.content .create-form .form-body .form-group input {
+.content .create-form .form-body .form-group .input {
   outline: none;
   border: none;
   border-left: 5px solid #c65098;
   padding: 8px 16px;
   width: 40%;
 }
-.content .create-form .form-body .form-group input::placeholder {
+.content .create-form .form-body .form-group .input::placeholder {
   color: rgba(1, 6, 11, 0.34);
 }
 .content .create-form .form-body .form-group select {
@@ -514,6 +558,17 @@ header nav .login-button a {
   border-left: 5px solid #c65098;
   height: 300px !important;
 }
+.content .create-form .form-body .form-group textarea {
+  outline: none;
+  border: none;
+  font-size: 14px;
+  padding: 8px 16px;
+  height: 60px;
+  border-left: 5px solid #c65098;
+}
+.content .create-form .form-body .form-group textarea::placeholder {
+  color: #758899;
+}
 .content .create-form .edit-form-body .file label {
   border-left: 5px solid #6e23da !important;
 }
@@ -528,6 +583,9 @@ header nav .login-button a {
 }
 .content .create-form .edit-form-body .tox {
   border-left: 5px solid #6e23da !important;
+}
+.content .create-form .edit-form-body textarea {
+  border-left: 5px solid rgb(110, 35, 218) !important;
 }
 .content .create-form .form-footer {
   display: flex;

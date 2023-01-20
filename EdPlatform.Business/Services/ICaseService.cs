@@ -12,5 +12,6 @@ namespace EdPlatform.Business.Services
         Task Create(CaseModel quizCase);
         Task<CaseModel> Get(int id);
         Task Edit(CaseModel quizCase);
+        Task Delete(int id);
     }
 }

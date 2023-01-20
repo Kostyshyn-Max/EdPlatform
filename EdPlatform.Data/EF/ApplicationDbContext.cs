@@ -30,7 +30,7 @@ namespace EdPlatform.Data.EF
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasIndex(x => x.Login).IsUnique(true);
-
+            
             base.OnModelCreating(modelBuilder);
         }
     }

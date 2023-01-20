@@ -6,12 +6,18 @@
             @foreach (var course in ViewBag.Courses)
             {
                 <div class="course-plate">
-                    <div class="image-cover">
-                        <img src="@("https://ed-platform.s3.amazonaws.com/"+course.ImageName)" />
+                    <div class="course-plate-title">
+                        <div class="image-cover">
+                            <img src="@("https://ed-platform.s3.amazonaws.com/"+course.ImageName)" />
+                        </div>
+                        <h2>
+                            <a asp-controller="Courses" asp-action="Details" asp-route-courseId="@course.CourseId">@course.CourseName</a>
+                        </h2>
                     </div>
-                    <h2>
-                        <a asp-controller="Courses" asp-action="Details" asp-route-courseId="@course.CourseId">@course.CourseName</a>
-                    </h2>
+
+                    <div>
+                        <a class="edit-link" asp-controller="Comments" asp-action="Post" asp-route-courseId="@course.CourseId">Коментувати</a>
+                    </div>
                 </div>
             }
         </div>

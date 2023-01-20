@@ -1,20 +1,22 @@
 ﻿@using EdPlatform.Business.Models
-@if (ViewBag.Courses != null)
-{
-<div class="container">
-    <div class="row">
-        @foreach (CourseModel course in ViewBag.Courses)
-        {
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">@course.CourseName</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">@course.Category.CategoryName</h6>
-                    <img src="@("https://ed-platform.s3.amazonaws.com/"+course.ImageName)"/>
-                    <p class="card-text">@course.Description</p>
-                    <a asp-controller="Courses" asp-action="Details" asp-route-courseId="@course.CourseId">Details</a>
+
+<div class="course-carousel">
+    <h2>Доступні курси: </h2>
+    @if (ViewBag.Courses != null)
+    {
+        <div class="carousel-popular">
+            @foreach (CourseModel course in ViewBag.Courses)
+            {
+                <div class="course-plate">
+                    <div class="course-plate-title">
+                        <div class="image-cover">
+                            <img src="@("https://ed-platform.s3.amazonaws.com/"+course.ImageName)" />
+                        </div>
+
+                        <h2><a asp-controller="Courses" asp-action="Details" asp-route-courseId="@course.CourseId">@course.CourseName</a></h2>
+                    </div>
                 </div>
-            </div>
-        }
-    </div>
+            }
+        </div>
+    }
 </div>
-}

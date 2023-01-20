@@ -40,7 +40,8 @@ namespace EdPlatform.Business.Services
                 Description = course.Description,
                 Category = category,
                 CategoryId = course.CategoryId,
-                ImageName = fileName
+                ImageName = fileName,
+                ShortDescription = course.ShortDescription
             }
             );
             await _unitOfWork.Save();
@@ -150,6 +151,12 @@ namespace EdPlatform.Business.Services
                 cfg.CreateMap<Exercise, ExerciseModel>();
             });
             return config.CreateMapper();
+        }
+
+        public async Task Delete(int id)
+        {
+            _unitOfWork.CourseRepository.Remove(id);
+            await _unitOfWork.Save();
         }
     }
 }

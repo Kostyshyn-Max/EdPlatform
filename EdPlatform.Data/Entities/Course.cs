@@ -14,6 +14,7 @@ namespace EdPlatform.Data.Entities
         public int CourseId { get; set; }
         [Required]
         public string CourseName { get; set; }
+        public string ShortDescription { get; set; }
         public string Description { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
@@ -21,5 +22,8 @@ namespace EdPlatform.Data.Entities
         public int AuthorId { get; set; }
         public int UsersJoined { get; set; }
         public string ImageName { get; set; }
+
+        public List<Comment> Comments { get; set; }
+        public List<CourseUser> CourseUsers { get; set; }
     }
 }

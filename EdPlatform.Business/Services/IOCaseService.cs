@@ -51,6 +51,12 @@ namespace EdPlatform.Business.Services
             return results.Select(x => mapper.Map<IOCase, IOCaseModel>(x));
         }
 
+        public async Task Delete(int iOCaseId)
+        {
+            _unitOfWork.IOCaseRepository.Remove(iOCaseId);
+            await _unitOfWork.Save();
+        }
+
         private static IMapper CreateIOCaseToIOCaseModelMapper()
         {
             var config = new MapperConfiguration(cfg =>

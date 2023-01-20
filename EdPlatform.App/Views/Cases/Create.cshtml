@@ -10,15 +10,15 @@
     <div class="form-body">
         <div class="form-group">
             <label asp-for="CaseName"></label>
-            <input asp-for="CaseName" type="text" placeholder="Введіть варіант відповіді" />
+            <input class="input" asp-for="CaseName" type="text" placeholder="Введіть варіант відповіді" />
             <span asp-validation-for="CaseName"></span>
         </div>
         <div class="checkbox">
             <label asp-for="IsCorrect"></label>
-            <input asp-for="IsCorrect" type="checkbox" />
+            <input class="input" asp-for="IsCorrect" type="checkbox" />
             <span asp-validation-for="IsCorrect"></span>
         </div>
-        <input type="hidden" asp-for="QuizExerciseId" value="@ViewBag.ExerciseId" />
+        <input class="input" type="hidden" asp-for="QuizExerciseId" value="@ViewBag.ExerciseId" />
 
         <div class="form-footer">
             <button type="submit">Створити</button>

@@ -40,7 +40,9 @@ namespace EdPlatform.Data.Repositories
 
         public void Remove(int id)
         {
-            throw new NotImplementedException();
+            var entity = _context.Exercise.Find(id);
+            if (entity != null)
+                _context.Exercise.Remove(entity);
         }
 
         public void Update(Exercise entity)

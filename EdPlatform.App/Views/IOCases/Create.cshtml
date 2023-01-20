@@ -10,15 +10,15 @@
     <div class="form-body">
         <div class="form-group">
             <label asp-for="InputData"></label>
-            <input asp-for="InputData" type="text" placeholder="Input data" />
+            <input class="input" asp-for="InputData" type="text" placeholder="Input data" />
             <span asp-validation-for="InputData"></span>
         </div>
         <div class="form-group">
             <label asp-for="OutputData"></label>
-            <input asp-for="OutputData" type="text" placeholder="Output data" />
+            <input class="input" asp-for="OutputData" type="text" placeholder="Output data" />
             <span asp-validation-for="OutputData"></span>
         </div>
-        <input asp-for="CodeExerciseExerciseId" type="hidden" value="@ViewBag.ExerciseId" />
+        <input class="input" asp-for="CodeExerciseExerciseId" type="hidden" value="@ViewBag.ExerciseId" />
 
         <div class="form-footer">
             <button type="submit">Create</button>

@@ -3,6 +3,7 @@ using EdPlatform.App.Models;
 using EdPlatform.App.Services;
 using EdPlatform.Business.Models;
 using EdPlatform.Business.Services;
+using EdPlatform.Data.Entities;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,7 @@ namespace EdPlatform.App.Controllers
         private readonly IImageService _imageService;
         private readonly ICustomAuthorizationViewService _customAuthorizationViewService;
         private readonly ICompletedLessonsViewService _completedLessonsViewService;
+        private readonly ICommentService _commentService;
 
         public CoursesController(
             ILogger<CoursesController> logger, 
@@ -31,7 +33,8 @@ namespace EdPlatform.App.Controllers
             IModuleService moduleService,
             ICourseUserService courseUserService,
             ICustomAuthorizationViewService customAuthorizationViewService,
-            ICompletedLessonsViewService completedLessonsViewService)
+            ICompletedLessonsViewService completedLessonsViewService,
+            ICommentService commentService)
         {
             _logger = logger;
             _courseService = courseService;
@@ -40,6 +43,7 @@ namespace EdPlatform.App.Controllers
             _courseUserService = courseUserService;
             _customAuthorizationViewService = customAuthorizationViewService;
             _completedLessonsViewService = completedLessonsViewService;
+            _commentService = commentService;
         }
 
         public async Task<IActionResult> Index()
@@ -57,6 +61,7 @@ namespace EdPlatform.App.Controllers
         public async Task<IActionResult> Details([FromRoute] int courseId)
         {
             int userId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
+            var comments = await _commentService.GetAllByCourseId(courseId);
 
             var courseUser = await _courseUserService.Get(new() { UserId = userId, CourseId = courseId});
             var course = await _courseService.GetById(courseId);
@@ -65,6 +70,7 @@ namespace EdPlatform.App.Controllers
             ViewBag.UserId = userId;
             ViewBag.CourseUser = courseUser; 
             ViewBag.CompletedLessons = await _completedLessonsViewService.CreateListOfCompletedLessons(course.Modules.SelectMany(x => x.Lessons).ToList(), int.Parse(User.FindFirst("UserId").Value));
+            ViewBag.Comments = comments;
 
             return View(new CourseUserModel());
         }
@@ -75,11 +81,14 @@ namespace EdPlatform.App.Controllers
             if ((await _courseUserService.Get(courseUser)) == null)
                 await _courseUserService.CreateCourseUser(courseUser);
 
+            var comments = await _commentService.GetAllByCourseId(courseId);
+
             var course = await _courseService.GetById(courseId);
             ViewBag.Course = course;
             ViewBag.UserId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
             ViewBag.CourseUser = courseUser;
             ViewBag.CompletedLessons = await _completedLessonsViewService.CreateListOfCompletedLessons(course.Modules.SelectMany(x => x.Lessons).OrderBy(x => x.Order).ToList(), int.Parse(User.FindFirst("UserId").Value));
+            ViewBag.Comments = comments;
 
             return View(courseUser);
         }
@@ -125,7 +134,8 @@ namespace EdPlatform.App.Controllers
                 Image = await GetBytes(course.Image),
                 ImageName = course.ImageName,
                 Modules = course.Modules,
-                UsersJoined = course.UsersJoined
+                UsersJoined = course.UsersJoined,
+                ShortDescription = course.ShortDescription
             });
 
             return RedirectToAction(nameof(Index));
@@ -138,7 +148,7 @@ namespace EdPlatform.App.Controllers
         }
 
         [HttpGet("Courses/{courseId}/Edit")]
-        public async Task<IActionResult> Edit([FromRoute]int courseId)
+        public async Task<IActionResult> Edit(int courseId)
         {
             var course = await _courseService.GetById(courseId);
 
@@ -239,6 +249,19 @@ namespace EdPlatform.App.Controllers
             ViewBag.Courses = courses;  
 
             return View();
+        }
+
+        [HttpGet("Courses/{courseId}/Delete")]
+        public async Task<IActionResult> Delete(int courseId)
+        {
+            if (await _customAuthorizationViewService.Authorize(User, courseId))
+            {
+                await _courseService.Delete(courseId);
+
+                return RedirectToAction(nameof(MyCourses));
+            }
+
+            return RedirectToAction(nameof(HomeController.AccessDenied), nameof(HomeController).Replace("Controller", ""));
         }
     }
 }

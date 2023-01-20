@@ -3,6 +3,7 @@ using EdPlatform.App.Models;
 using EdPlatform.App.Services;
 using EdPlatform.Business.Models;
 using EdPlatform.Business.Services;
+using EdPlatform.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.RegularExpressions;
@@ -22,6 +23,7 @@ namespace EdPlatform.App.Controllers
         private readonly ICourseUserService _courseUserService;
         private readonly IQuizService _quizService;
         private readonly ICheckQuizAnswerService _checkQuizAnswerService;
+        private readonly IExerciseService _exerciseService;
         public ExercisesController(
             ICodeExerciseService codeExerciseService,
             ILogger<ExercisesController> logger,
@@ -33,7 +35,8 @@ namespace EdPlatform.App.Controllers
             ICustomAuthorizationViewService customAuthorizationViewService,
             ICourseUserService courseUserService,
             IQuizService quizService,
-            ICheckQuizAnswerService checkQuizAnswerService)
+            ICheckQuizAnswerService checkQuizAnswerService,
+            IExerciseService exerciseService)
         {
             _codeExerciseService = codeExerciseService;
             _logger = logger;
@@ -46,6 +49,7 @@ namespace EdPlatform.App.Controllers
             _courseUserService = courseUserService;
             _quizService = quizService;
             _checkQuizAnswerService = checkQuizAnswerService;
+            _exerciseService = exerciseService;
         }
 
         [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Create/Code")]
@@ -372,6 +376,24 @@ namespace EdPlatform.App.Controllers
             ViewBag.Attempts = await _attemptService.GetAllAttemptsFromExercises(exercise.Lesson.Exercises, int.Parse(User.FindFirst("UserId").Value));
 
             return View(new CaseViewModel());
+        }
+
+        [HttpGet("Courses/{courseId}/Modules/{moduleId}/Lessons/{lessonId}/Exercises/Delete/{exerciseId}")]
+        public async Task<IActionResult> Delete(int courseId, int moduleId, int lessonId, int exerciseId)
+        {
+            if (await _customAuthorizationViewService.Authorize(User, courseId))
+            {
+                await _exerciseService.Delete(exerciseId);
+
+                return RedirectToAction(nameof(LessonsController.Edit), nameof(LessonsController).Replace("Controller", ""), new
+                {
+                    courseId = courseId,
+                    moduleId = moduleId,
+                    lessonId = lessonId,
+                });
+            }
+
+            return RedirectToAction(nameof(HomeController.AccessDenied), nameof(HomeController).Replace("Controller", ""));
         }
     }
 }

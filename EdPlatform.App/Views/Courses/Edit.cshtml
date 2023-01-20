@@ -1,11 +1,6 @@
 ﻿@using EdPlatform.Business.Models
 @model CourseViewModel
 
-@* <div class="text-center">
-    <h1 class="display-4">@Model.CourseName</h1>
-    <p>In this page you can edit your course, don't forget to save changes</p>
-    </div> *@
-
 <form class="create-form" asp-controller="Courses" asp-action="Edit" method="post" enctype="multipart/form-data">
     <div class="form-title">
         <h2>Відредагуйте курс</h2>
@@ -15,7 +10,7 @@
     <div class="form-body edit-form-body">
         <div class="form-group">
             <label asp-for="CourseName"></label>
-            <input asp-for="CourseName" type="text" class="form-control" value="@Model.CourseName" />
+            <input class="input" asp-for="CourseName" type="text" class="form-control" value="@Model.CourseName" />
             <span asp-validation-for="CourseName" class="text-danger"></span>
         </div>
         <div class="form-group">
@@ -23,20 +18,25 @@
             <select asp-for="CategoryId" class="form-control" asp-items="@ViewBag.SelectCategories"></select>
         </div>
         <div class="form-group">
+            <label asp-for="ShortDescription"></label>
+            <textarea name="ShortDescription">@Model.ShortDescription</textarea>
+            <span asp-validation-for="ShortDescription" class="text-danger"></span>
+        </div>
+        <div class="form-group">
             <label asp-for="Description"></label>
-            <textarea asp-for="Description" class="form-control" id="course-description">@Model.Description</textarea>
+            <textarea asp-for="Description" class="form-control" id="text-editor">@Model.Description</textarea>
             <span asp-validation-for="Description" class="text-danger"></span>
         </div>
         <div class="form-group file">
             <div>Виберіть зображення курсу (jpg):</div>
             <label asp-for="Image"> (Jpeg only)</label>
-            <input asp-for="Image" class="form-control" accept="image/jpeg" value="@Model.Image" />
+            <input class="input" asp-for="Image" class="form-control" accept="image/jpeg" value="@Model.Image" />
             <span asp-validation-for="Image" class="text-danger"></span>
         </div>
-        <input type="hidden" asp-for="ImageName" value="@Model.ImageName" />
-        <input type="hidden" asp-for="CourseId" value="@Model.CourseId" />
-        <input type="hidden" asp-for="UsersJoined" value="@Model.UsersJoined" />
-        <input type="hidden" asp-for="ImageName" value="@Model.ImageName" />
+        <input class="input" type="hidden" asp-for="ImageName" value="@Model.ImageName" />
+        <input class="input" type="hidden" asp-for="CourseId" value="@Model.CourseId" />
+        <input class="input" type="hidden" asp-for="UsersJoined" value="@Model.UsersJoined" />
+        <input class="input" type="hidden" asp-for="ImageName" value="@Model.ImageName" />
 
         <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -58,15 +58,18 @@
             <div class="module" style="margin: 16px auto;">
                 <div class="module-title">
                     <h2>@module.ModuleName</h2>
-                    <a class="edit-link" asp-controller="Modules" asp-action="Edit" asp-route-courseId="@Model.CourseId"
-                asp-route-moduleId="@module.ModuleId">Відредагувати</a>
+                    <div>
+                        <a class="edit-link" asp-controller="Modules" asp-action="Edit" asp-route-courseId="@Model.CourseId"
+                    asp-route-moduleId="@module.ModuleId">Відредагувати</a>
+
+                        <a class="delete-link" asp-controller="Modules" asp-action="Delete" asp-route-courseId="@Model.CourseId"
+                   asp-route-moduleId="@module.ModuleId">Видалити</a>
+                    </div>
                 </div>
             </div>
         }
     }
 </div>
-
-<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 <script>
     tinymce.init({
@@ -74,3 +77,9 @@
         height: "480"
     });
 </script>
+
+<style>
+    .pinned{
+        position: inherit;
+    }
+</style>

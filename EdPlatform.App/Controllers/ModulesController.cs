@@ -56,5 +56,23 @@ namespace EdPlatform.App.Controllers
 
             return View(await _moduleService.GetById(moduleId));
         }
+
+        [HttpGet("Courses/{courseId}/Modules/{moduleId}/Delete")]
+        public async Task<IActionResult> Delete(int courseId, int moduleId)
+        {
+            if (await _customAuthorizationViewService.Authorize(User, courseId))
+            {
+                await _moduleService.Delete(moduleId);
+
+                return RedirectToAction(nameof(CoursesController.Edit), nameof(CoursesController).Replace("Controller", ""),
+                    new
+                    {
+                        courseId = courseId,
+                    }
+                );
+            }
+
+            return RedirectToAction(nameof(HomeController.AccessDenied), nameof(HomeController).Replace("Controller", ""));
+        }
     }
 }
